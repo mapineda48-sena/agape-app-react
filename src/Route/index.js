@@ -41,35 +41,31 @@ export default function InitRoute(BaseUrl) {
     });
 
     useEffect(() => {
+      const onMatchElement = (chunk, Element) => {
+        if (currentChunk === chunk) {
+          return;
+        }
+
+        setState({
+          path: chunk,
+          Component: setContext(baseUrl, Element.Component),
+        });
+      };
+
       const onChangePathName = ({ location }) => {
         const chunk = removeBaseUrl(baseUrl, location.pathname);
 
         const Element = Elements.find(({ path }) => path === chunk);
 
         if (Element) {
-          if (currentChunk === chunk) {
-            return;
-          }
-
-          console.log({ chunk, currentChunk, baseUrl, location, Elements, SubRoutes });
-
-          setState({
-            path: chunk,
-            Component: setContext(baseUrl, Element.Component),
-          });
+          onMatchElement(chunk, Element);
           return;
         }
 
         const Nested = SubRoutes.find(({ path }) => chunk.startsWith(path));
 
         if (!Nested) {
-          if (currentChunk === chunk) {
-            return;
-          }
-
-          console.log({ chunk, currentChunk, baseUrl, location, Elements, SubRoutes });
-
-          setState({ path: chunk, Component: NotFound });
+          onMatchElement(chunk, NotFound);
           return;
         }
 
@@ -77,7 +73,14 @@ export default function InitRoute(BaseUrl) {
           return;
         }
 
-        console.log({ chunk, currentChunk, baseUrl, location, Elements, SubRoutes });
+        console.log({
+          chunk,
+          currentChunk,
+          baseUrl,
+          location,
+          Elements,
+          SubRoutes,
+        });
 
         setState({
           path: Nested.path,
