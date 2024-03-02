@@ -1,11 +1,68 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+//import App from './App';
+import reportWebVitals from "./reportWebVitals";
+import Router, { useBaseUrl } from "./Route";
+
+const Bar = Router((props) => (
+  <div>
+    menu<div>{props.children}</div>
+  </div>
+));
+
+Bar.use("/", () => {
+  const changeTo = useBaseUrl();
+
+  return (
+    <div
+      onClick={(e) => {
+        e.stopPropagation();
+        changeTo("/foo");
+      }}
+    >
+      Go to foo
+    </div>
+  );
+});
+
+Bar.use("/foo", () => {
+  const changeTo = useBaseUrl();
+
+  return (
+    <div
+      onClick={(e) => {
+        e.stopPropagation();
+        changeTo("/");
+      }}
+    >
+      foo
+    </div>
+  );
+});
+
+const App = Router((props) => (
+  <div>
+    menu<div>{props.children}</div>
+  </div>
+));
+
+App.use("/", () => {
+  const changeTo = useBaseUrl();
+
+  return <div onClick={() => changeTo("/foo")}>Go to foo</div>;
+});
+
+App.use("/foo", () => {
+  const changeTo = useBaseUrl();
+
+  return <div onClick={() => changeTo("/")}>foo</div>;
+});
+
+App.use("/bar", Bar);
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
