@@ -4,6 +4,7 @@ import "./index.css";
 //import App from './App';
 import reportWebVitals from "./reportWebVitals";
 import Router, { useBaseUrl } from "./Route";
+import Rcp from "./Rcp";
 
 const Bar = Router((props) => (
   <div>
@@ -66,7 +67,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <Rcp />
   </React.StrictMode>
 );
 

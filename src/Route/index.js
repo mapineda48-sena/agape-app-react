@@ -7,6 +7,7 @@ const route = Symbol();
 const BaseUrlContext = createContext("");
 
 export default function InitRoute(BaseUrl) {
+  const Lazys = [];
   const Elements = [];
   const SubRoutes = [];
 
@@ -73,15 +74,6 @@ export default function InitRoute(BaseUrl) {
           return;
         }
 
-        console.log({
-          chunk,
-          currentChunk,
-          baseUrl,
-          location,
-          Elements,
-          SubRoutes,
-        });
-
         setState({
           path: Nested.path,
           Component: setContext(baseUrl + Nested.path, Nested.Component),
@@ -127,8 +119,6 @@ function removeBaseUrl(pattern, pathname) {
   if (!pattern) {
     return pathname;
   }
-
-  const regexp = pathToRegexp(pattern);
 
   return pathname.replace(pattern, "");
 }
