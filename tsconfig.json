@@ -21,7 +21,7 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src"
+    "src", "lib", "rcp"
   ],
   "ts-node": {
     "compilerOptions": {

@@ -2,9 +2,8 @@ interface Inventory {
   Add(name: string): Promise<bool>;
 }
 
-
 interface Api {
-  sayHello(name: string): Promise<string>;
+  sayHello(name: string, file:any): Promise<string>;
   login(user, passsword): Promise<bool>;
   inventory: Inventory;
 }

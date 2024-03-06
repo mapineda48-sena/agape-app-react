@@ -1,6 +1,5 @@
 import { useState } from "react";
-import toFormData from "./rcp/formData";
-import axios from "axios";
+import { rcp } from "./rcp";
 
 export default function Rcp() {
   const [file, set] = useState<File | null | undefined>(null);
@@ -11,12 +10,7 @@ export default function Rcp() {
         e.stopPropagation();
         e.preventDefault();
 
-        const formData = toFormData(["Miguel Pineda", file]);
-
-        axios
-          .post("http://localhost:5000/rcp/sayHello", formData)
-          .then(console.log)
-          .catch(console.error);
+        rcp.sayHello("Miguel Pineda", file).then(console.log).catch(console.error);
       }}
     >
       <input

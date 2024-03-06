@@ -4,7 +4,7 @@ import "./index.css";
 //import App from './App';
 import reportWebVitals from "./reportWebVitals";
 import Router, { useBaseUrl } from "./Route";
-import Rcp from "./Rcp";
+import Rcp from "./Dev";
 
 const Bar = Router((props) => (
   <div>
