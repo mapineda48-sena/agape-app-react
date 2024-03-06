@@ -4,8 +4,10 @@ const initRcp = require("./initRpc").default;
 exports.rpc = (async () => {
   const { data: endpoint } = await axios().get("/rpc");
 
-  Object.entries(initRcp(endpoint, axios())).forEach(
-    ([key, fn]) => (exports[key] = fn)
-  );
+  const rpc = initRcp(endpoint, axios());
+
+  Object.entries(rpc).forEach(([key, fn]) => (exports[key] = fn));
+
+  console.log(rpc);
 })().catch(console.error);
 

@@ -10,7 +10,7 @@ export default function Rcp() {
         e.stopPropagation();
         e.preventDefault();
 
-        sayHello("Miguel Pineda").then(console.log).catch(console.error);
+        sayHello("Miguel Pineda", file as any).then(console.log).catch(console.error);
       }}
     >
       <input

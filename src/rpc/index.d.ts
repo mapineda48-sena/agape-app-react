@@ -1,2 +1,3 @@
 export const rpc: Promise<void>;
-export function sayHello(name: string): Promise<string>;
+
+export function sayHello(name: string, file: File): Promise<string>;

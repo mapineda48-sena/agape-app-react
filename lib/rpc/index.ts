@@ -4,15 +4,15 @@ import _ from "lodash";
 import parseFormData from "./formData";
 
 const paths = glob
-  .sync("rcp/**/*.ts")
+  .sync("rpc/**/*.ts")
   .map((path) => path.replace(".ts", ""))
   .map((path) => path.replace(/[/\\]/g, "/"));
 
-const rcp = {};
+const rpc = {};
 
 paths
   .map((path) => [toKeyMap(path), "/" + path])
-  .forEach(([key, value]) => _.set(rcp, key, value));
+  .forEach(([key, value]) => _.set(rpc, key, value));
 
 /**
  * Express Route
@@ -20,9 +20,9 @@ paths
 
 const router = express.Router();
 
-router.get("/rcp", (req, res) => res.json(rcp));
+router.get("/rpc", (req, res) => res.json(rpc));
 
-loadRcp(router)
+loadRpc(router)
 
 export default router;
 
@@ -31,10 +31,10 @@ export default router;
  *
  */
 function toKeyMap(path: string) {
-  return path.replace(/^rcp[/\\]/, "").replace(/[/\\]/g, ".");
+  return path.replace(/^rpc[/\\]/, "").replace(/[/\\]/g, ".");
 }
 
-function loadRcp(router: express.Router) {
+function loadRpc(router: express.Router) {
   const imports = paths.map((path) => ["../../" + path, "/" + path]);
 
   const tasks = imports.map(async ([path, pattern]) => {
