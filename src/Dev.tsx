@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { rcp } from "./rcp";
+import { sayHello } from "./rpc";
 
 export default function Rcp() {
   const [file, set] = useState<File | null | undefined>(null);
@@ -10,7 +10,7 @@ export default function Rcp() {
         e.stopPropagation();
         e.preventDefault();
 
-        rcp.sayHello("Miguel Pineda", file).then(console.log).catch(console.error);
+        sayHello("Miguel Pineda").then(console.log).catch(console.error);
       }}
     >
       <input

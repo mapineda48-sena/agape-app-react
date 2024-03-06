@@ -14,8 +14,7 @@ app.use(cors({ origin }));
 
 app.use(logger("dev"));
 
-app.get("/", (req, res) => res.send("hello world"));
 app.use(rcp);
-app.use(express.static("public"));
+app.use(express.static("build"));
 
 app.listen(5000, () => console.log("server at port 5000"));
