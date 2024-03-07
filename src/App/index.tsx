@@ -3,8 +3,13 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 //import App from './App';
 import reportWebVitals from "./reportWebVitals";
-import Router, { useBaseUrl } from "./Route";
-import Rcp from "./Dev";
+import Router, { useBaseUrl } from "../Route";
+//import Rcp from "./Dev";
+import { sayHello } from "../rpc";
+import { sayHello as dooFoo } from "../rpc/inventory";
+
+console.log(sayHello);
+console.log(dooFoo);
 
 const Bar = Router((props) => (
   <div>
@@ -67,7 +72,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <Rcp />
+    <div>Hellow World</div>
   </React.StrictMode>
 );
 

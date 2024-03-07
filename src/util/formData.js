@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { fieldNameArgs } from "./common";
+import { fieldNameArgs } from "../config";
 
 export default function toFormData(args) {
   const files = toEntrieFormFile(args);

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { sayHello } from "./rpc";
+import { sayHello } from "../rpc";
 
 export default function Rcp() {
   const [file, set] = useState<File | null | undefined>(null);
