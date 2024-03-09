@@ -3,10 +3,10 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 //import App from './App';
 import reportWebVitals from "./reportWebVitals";
-import Router, { useBaseUrl } from "../Route";
+import Router, { useBaseUrl } from "./Route";
 //import Rcp from "./Dev";
-import { sayHello } from "../rpc";
-import { sayHello as dooFoo } from "../rpc/inventory";
+import { sayHello } from "rpc";
+import { sayHello as dooFoo } from "rpc/inventory";
 
 console.log(sayHello);
 console.log(dooFoo);

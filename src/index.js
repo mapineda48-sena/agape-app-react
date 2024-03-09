@@ -1,4 +1,4 @@
-const rpc = require("./util/axios").default;
+const rpc = require("util/axios").default;
 
 (async () => {
   const modules = await rpc();
