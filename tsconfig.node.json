@@ -7,5 +7,5 @@
     "noEmit": false,
     "importHelpers": true
   },
-  "include": ["bin"]
+  "include": ["bin", "rpc"]
 }
