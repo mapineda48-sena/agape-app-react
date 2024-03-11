@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import Form, { useOnActionSuccess } from "./Form";
+import Form, { useOnActionSuccess, useOnEvent } from "./Form";
 import Input from "./Form/Input";
 import { sayHello } from "backend/rpc";
 
@@ -17,6 +17,10 @@ function App() {
 
 function Success() {
   const message = useOnActionSuccess<string>();
+
+  useOnEvent("foo", (payload: any) => {
+    console.log(payload);
+  });
 
   if (!message) {
     return null;

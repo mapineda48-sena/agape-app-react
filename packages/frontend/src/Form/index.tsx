@@ -25,7 +25,9 @@ export default function Form(props: Props) {
   useEffect(() => {
     const { emitter } = ref.current;
 
-    return () => emitter.all.clear();
+    return () => {
+      emitter.all.clear();
+    };
   }, []);
 
   const { emitter } = ref.current;
@@ -116,6 +118,15 @@ export function useEmitter() {
     },
     [ref]
   );
+}
+
+export function useOnEvent(event: string, cb: any, deps: any = []) {
+  const ref = useContext(Context);
+
+  useEffect(() => {
+    return ref.current.emitter.on(event, cb);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [event, ref, ...deps]);
 }
 
 /**
