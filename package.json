@@ -7,7 +7,9 @@
     "pnpm": ">=8.15.4"
   },
   "scripts": {
-    "build": "cd packages/backend && npm run dist"
+    "build": "cd packages/backend && npm run dist",
+    "backend": "cd packages/backend && npm run start",
+    "frontend": "cd packages/frontend && npm run start"
   },
   "keywords": [],
   "author": "",

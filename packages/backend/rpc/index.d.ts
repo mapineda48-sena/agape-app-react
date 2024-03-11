@@ -1,1 +1,1 @@
-export function sayHello(name: string): Promise<string>;
+export function sayHello(person: { fullName: string }): Promise<string>;

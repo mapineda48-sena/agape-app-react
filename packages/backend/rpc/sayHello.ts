@@ -1,3 +1,3 @@
-export default function sayHello(name: string) {
-  return `Hello ${name}`;
+export default function sayHello(person: { fullName: string }) {
+  return `Hello ${person.fullName}`;
 }
