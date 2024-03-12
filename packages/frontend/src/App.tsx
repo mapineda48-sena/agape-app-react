@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
-import Form, { useOnActionSuccess, useOnEvent } from "./Form";
+import Form, { useOnActionSuccess, useEmitter } from "./Form";
 import Input from "./Form/Input";
 import { sayHello } from "backend/rpc";
 
@@ -17,13 +17,18 @@ function App() {
 
 function Success() {
   const message = useOnActionSuccess<string>();
+  const [state, setState] = useState("");
+  const emitter = useEmitter();
 
-  useOnEvent("foo", (payload: any) => {
-    console.log(payload);
-  });
+  useEffect(() => emitter.on("sayFoo", setState), [emitter]);
 
   if (!message) {
-    return null;
+    return (
+      <div>
+        <span onClick={() => emitter.sayFoo("foo")}>Emitter</span>
+        <span>{state}</span>
+      </div>
+    );
   }
 
   return <span>{message}</span>;

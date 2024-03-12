@@ -25,9 +25,7 @@ export default function Form(props: Props) {
   useEffect(() => {
     const { emitter } = ref.current;
 
-    return () => {
-      emitter.all.clear();
-    };
+    return () => emitter.all.clear();
   }, []);
 
   const { emitter } = ref.current;
@@ -45,10 +43,10 @@ export default function Form(props: Props) {
           } = ref;
 
           action(payload)
-            .then((res: any) => {
+            .then((res: unknown) => {
               emitter.emit(EVENT_ACTION_SUCCESS, res);
             })
-            .catch((error: any) => {
+            .catch((error: unknown) => {
               emitter.emit(EVENT_ACTION_ERROR, error);
             });
         }}
@@ -109,24 +107,22 @@ export function useOnActionError<T = unknown>() {
   return state as undefined | T;
 }
 
-export function useEmitter() {
+export function useEmitter(): EmitterProxy {
   const ref = useContext(Context);
 
-  return useCallback(
-    (event: string, payload: unknown) => {
-      ref.current.emitter.emit(event, payload);
-    },
-    [ref]
-  );
-}
+  return useMemo(() => {
+    const { emitter } = ref.current;
 
-export function useOnEvent(event: string, cb: any, deps: any = []) {
-  const ref = useContext(Context);
+    return new Proxy(emitter, {
+      get(emitter: Emitter, event) {
+        if (event !== "on") {
+          return (payload: unknown) => emitter.emit(event, payload);
+        }
 
-  useEffect(() => {
-    return ref.current.emitter.on(event, cb);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [event, ref, ...deps]);
+        return (event: string, cb: () => void) => emitter.on(event, cb);
+      },
+    });
+  }, [ref]);
 }
 
 /**
@@ -139,3 +135,10 @@ interface Props extends Core {
 }
 
 type Core = Omit<JSX.IntrinsicElements["form"], "action">;
+
+type EmitterProxy = {
+  [K: string]: (...args: unknown[]) => void;
+  //on: (event: string, cb: <T>(payload: T) => void) => () => void;
+};
+
+type Emitter = ReturnType<typeof mitt>;
