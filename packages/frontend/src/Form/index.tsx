@@ -12,6 +12,7 @@ import {
 
 const EVENT_ACTION_SUCCESS = Symbol("FORM_EVENT_ACTION_SUCCESS");
 const EVENT_ACTION_ERROR = Symbol("FORM_EVENT_ACTION_ERROR");
+const EVENT_MERGE_STATE = Symbol("FORM_EVENT_MERGE_STATE");
 const EVENT_SET_STATE = Symbol("FORM_EVENT_SET_STATE");
 
 const Context = createContext<any>({});
@@ -63,8 +64,16 @@ export function useInput<T>(key: string, initValue: T) {
   );
 
   useEffect(() => {
-    return ref.current.emitter.on(EVENT_SET_STATE, (e: {}) => {
-      setState(_.get(e, key) ?? initValue);
+    return ref.current.emitter.on(EVENT_SET_STATE, () => {
+      setState(_.get(ref.current.state, key) ?? initValue);
+    });
+  }, [initValue, key, ref]);
+
+  useEffect(() => {
+    return ref.current.emitter.on(EVENT_MERGE_STATE, (src: any) => {
+      if (!_.has(src, key)) return;
+
+      setState(_.get(src, key));
     });
   }, [initValue, key, ref]);
 
@@ -113,13 +122,23 @@ export function useEmitter(): EmitterProxy {
   return useMemo(() => {
     const { emitter } = ref.current;
 
+    const on = (event: string, cb: () => void) => emitter.on(event, cb);
+
+    const merge = (src: {}) => {
+      _.merge(ref.current.state, src);
+      emitter.emit(EVENT_MERGE_STATE, src);
+    };
+
     return new Proxy(emitter, {
       get(emitter: Emitter, event) {
-        if (event !== "on") {
-          return (payload: unknown) => emitter.emit(event, payload);
+        switch (event) {
+          case "on":
+            return on;
+          case "merge":
+            return merge;
+          default:
+            return (payload: unknown) => emitter.emit(event, payload);
         }
-
-        return (event: string, cb: () => void) => emitter.on(event, cb);
       },
     });
   }, [ref]);
