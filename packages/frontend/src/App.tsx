@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import Form, { useOnActionSuccess, useEmitter } from "./Form";
 import Input from "./Form/Input";
-import { sayHello } from "backend/service";
+import { create } from "backend/service/inventory/category";
 
 function App() {
   return (
-    <Form action={sayHello}>
+    <Form action={create}>
       <Input.Text name="fullName" />
-      <Input.Text name="foo.fullName" />
+      <Input.Text name="isEnabled" />
       <Success />
       <input type="submit" value="Enviar" />
     </Form>
