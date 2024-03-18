@@ -1,6 +1,6 @@
 import { Sequelize, Model, DataTypes, ModelStatic } from "sequelize";
-import * as Integration from "../../rpc/inventory/categroy";
-import { toModelName } from "../util";
+import * as Integration from "../../../service/inventory/category";
+import { toModelName } from "../../util/models";
 
 export const ModelName = toModelName(__filename);
 

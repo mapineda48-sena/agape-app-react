@@ -1,6 +1,7 @@
 import _ from "lodash";
 import _axios from "axios";
 import toFormData from "./connect-client-form";
+import { rpc as service } from "./connect-config";
 
 export const axios = _axios.create({
   baseURL:
@@ -8,7 +9,7 @@ export const axios = _axios.create({
 });
 
 export default async function syncRpc() {
-  const { data: endpoint } = await axios.get("/rpc");
+  const { data: endpoint } = await axios.get(service);
 
   const rpc = initRpc(endpoint);
 

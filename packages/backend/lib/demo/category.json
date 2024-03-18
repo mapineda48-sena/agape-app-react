@@ -1,0 +1,53 @@
+{
+  "Útiles Escolares": [
+    "Lápices y bolígrafos",
+    "Cuadernos y libretas",
+    "Sacapuntas y gomas de borrar",
+    "Reglas y compases",
+    "Colores",
+    "Correctores y cintas correctoras",
+    "Pegamentos y adhesivos"
+  ],
+  "Artículos de Oficina": [
+    "Papelería",
+    "Carpetas y archivadores",
+    "Clips y sujetapapeles",
+    "Resaltadores",
+    "Etiquetas y rotuladores",
+    "Calculadoras",
+    "Artículos de organización"
+  ],
+  "Materiales de Arte": [
+    "Pinceles y brochas",
+    "Pinturas",
+    "Tela y lienzos",
+    "Paletas y espátulas",
+    "Papel especializado"
+  ],
+  "Tecnología y Accesorios": [
+    "Memorias USB",
+    "Cartuchos y tóners para impresoras",
+    "Cables y adaptadores",
+    "Protectores y fundas para dispositivos",
+    "Audífonos y bocinas"
+  ],
+  "Regalos y Papelería Fina": [
+    "Tarjetas de felicitación",
+    "Papel de regalo",
+    "Moños y cintas",
+    "Agendas y planners",
+    "Bolígrafos de lujo"
+  ],
+  "Productos de Empaque": [
+    "Sobres de diferentes tamaños",
+    "Cajas",
+    "Cintas adhesivas",
+    "Material de relleno"
+  ],
+  "Libros y Revistas": [
+    "Novedades",
+    "Literatura general",
+    "Material educativo",
+    "Revistas especializadas"
+  ]
+}

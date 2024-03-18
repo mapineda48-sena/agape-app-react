@@ -2,10 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import { client as rpc } from "backend/rpc/connect-client";
+import { service } from "backend";
 
 (async () => {
-  await rpc;
+  await service;
   const { default: App } = await import("./App");
 
   const root = ReactDOM.createRoot(

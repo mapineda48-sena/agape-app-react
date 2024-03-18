@@ -1,0 +1,77 @@
+[
+  {
+    "fullName": "Cédula de Ciudadanía",
+    "code": "CC",
+    "isEnabled": true
+  },
+  {
+    "fullName": "Número de identificación tributaria",
+    "code": "NIT",
+    "isEnabled": true
+  },
+  {
+    "fullName": "Registro Civil",
+    "code": "RC",
+    "isEnabled": true
+  },
+  {
+    "fullName": "Pasaporte",
+    "code": "PA",
+    "isEnabled": true
+  },
+  {
+    "fullName": "Tarjeta de Identidad",
+    "code": "TI",
+    "isEnabled": true
+  },
+  {
+    "fullName": "Menor sin identificación",
+    "code": "MS",
+    "isEnabled": true
+  },
+  {
+    "fullName": "Adulto sin identificacion",
+    "code": "AS",
+    "isEnabled": true
+  },
+  {
+    "fullName": "Número Identificación Personal",
+    "code": "NIP",
+    "isEnabled": true
+  },
+  {
+    "fullName": "Cédula de extranjeria",
+    "code": "CE",
+    "isEnabled": true
+  },
+  {
+    "fullName": "Certificado Nacido Vivo",
+    "code": "CN",
+    "isEnabled": true
+  },
+  {
+    "fullName": "Carné Diplomático",
+    "code": "CD",
+    "isEnabled": true
+  },
+  {
+    "fullName": "Salvo Conducto",
+    "code": "SC",
+    "isEnabled": true
+  },
+  {
+    "fullName": "Permiso Especial de Permanencia",
+    "code": "PE",
+    "isEnabled": true
+  },
+  {
+    "fullName": "Permiso por Protección Temporal",
+    "code": "PT",
+    "isEnabled": true
+  },
+  {
+    "fullName": "Documento Extranjero",
+    "code": "DE",
+    "isEnabled": true
+  }
+]

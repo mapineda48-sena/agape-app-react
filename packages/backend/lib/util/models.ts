@@ -1,17 +1,12 @@
-import { Sequelize } from "sequelize";
 import path from "path";
+import { Sequelize } from "sequelize";
 
-export const delimiter = "_";
+/**
+ * Consts
+ */
+const delimiter = "_";
+const root = path.resolve("lib/models");
 const ext = path.extname(__filename);
-const root = path.join(__dirname, "../models");
-
-export function toModelName(str: string) {
-  return str
-    .replace(root + "/", "")
-    .replace("/", delimiter)
-    .replace(ext, "");
-}
-
 
 export async function waitAuthenticate(seq: Sequelize): Promise<void> {
   try {
@@ -38,6 +33,18 @@ export async function wait(time: number) {
   return new Promise((res) => {
     setTimeout(res, time);
   });
+}
+
+export function toModelName(str: string) {
+  return str
+    .replace(root, "")
+    .replace(/^[/\\]/, "")
+    .replace(/[/\\]/, delimiter)
+    .replace(ext, "");
+}
+
+export function toPathModel(modelName: string) {
+  return modelName.replace(delimiter, ".");
 }
 
 export function defineGet(target: unknown, key: string, value: unknown) {

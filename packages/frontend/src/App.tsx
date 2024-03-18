@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import Form, { useOnActionSuccess, useEmitter } from "./Form";
 import Input from "./Form/Input";
-import { sayHello } from "backend/rpc";
+import { sayHello } from "backend/service";
 
 function App() {
   return (

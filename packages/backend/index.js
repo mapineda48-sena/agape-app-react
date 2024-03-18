@@ -1,10 +1,10 @@
-const rpc = require("./connect-client-http.js").default;
+const rpc = require("./lib/rpc/connect-client-http.js").default;
 
-exports.client = (async () => {
+exports.service = (async () => {
   const modules = await rpc();
 
   // Crear un contexto con todos los archivos en './someDirectory', incluyendo subdirectorios, que terminan en 'index.js'
-  var requireModule = require.context("./", true, /\index.js$/);
+  var requireModule = require.context("./service", true, /\index.js$/);
 
   // Esto ejecutará la función de require para cada archivo correspondiente al contexto
   requireModule.keys().forEach(function (fileName) {
