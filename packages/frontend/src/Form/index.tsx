@@ -10,15 +10,14 @@ import {
   useState,
 } from "react";
 
-const EVENT_ACTION_SUCCESS = Symbol("FORM_EVENT_ACTION_SUCCESS");
-const EVENT_ACTION_ERROR = Symbol("FORM_EVENT_ACTION_ERROR");
 const EVENT_MERGE_STATE = Symbol("FORM_EVENT_MERGE_STATE");
 const EVENT_SET_STATE = Symbol("FORM_EVENT_SET_STATE");
+const EVENT_SUBMIT = Symbol("FORM_EVENT_SUBMIT");
 
 const Context = createContext<any>({});
 
 export default function Form(props: Props) {
-  const { action, initState: state = {}, ...core } = props;
+  const { initState: state = {}, ...core } = props;
 
   const ref = useRef(useMemo(() => ({ state: {}, emitter: mitt() }), []));
   useMemo(() => (ref.current.state = state as any), [state]);
@@ -39,17 +38,7 @@ export default function Form(props: Props) {
           e.preventDefault();
           e.stopPropagation();
 
-          const {
-            current: { state: payload },
-          } = ref;
-
-          action(payload)
-            .then((res: unknown) => {
-              emitter.emit(EVENT_ACTION_SUCCESS, res);
-            })
-            .catch((error: unknown) => {
-              emitter.emit(EVENT_ACTION_ERROR, error);
-            });
+          emitter.emit(EVENT_SUBMIT, _.cloneDeep(ref.current.state));
         }}
       />
     </Context.Provider>
@@ -88,34 +77,6 @@ export function useInput<T>(key: string, initValue: T) {
   return [state, _setState] as const;
 }
 
-export function useOnActionSuccess<T>() {
-  const ref = useContext(Context);
-
-  const [state, setState] = useState<unknown>();
-
-  useEffect(() => {
-    return ref.current.emitter.on(EVENT_ACTION_SUCCESS, (e: unknown) => {
-      setState(e);
-    });
-  }, [ref]);
-
-  return state as undefined | T;
-}
-
-export function useOnActionError<T = unknown>() {
-  const ref = useContext(Context);
-
-  const [state, setState] = useState<unknown>();
-
-  useEffect(() => {
-    return ref.current.emitter.on(EVENT_ACTION_ERROR, (e: unknown) => {
-      setState(e);
-    });
-  }, [ref]);
-
-  return state as undefined | T;
-}
-
 export function useEmitter(): EmitterProxy {
   const ref = useContext(Context);
 
@@ -129,6 +90,8 @@ export function useEmitter(): EmitterProxy {
       emitter.emit(EVENT_MERGE_STATE, src);
     };
 
+    const onSubmit = (cb: () => void) => emitter.on(EVENT_SUBMIT, cb);
+
     return new Proxy(emitter, {
       get(emitter: Emitter, event) {
         switch (event) {
@@ -136,6 +99,8 @@ export function useEmitter(): EmitterProxy {
             return on;
           case "merge":
             return merge;
+          case "onSubmit":
+            return onSubmit;
           default:
             return (payload: unknown) => emitter.emit(event, payload);
         }
@@ -150,7 +115,6 @@ export function useEmitter(): EmitterProxy {
 
 interface Props extends Core {
   initState?: unknown;
-  action: any;
 }
 
 type Core = Omit<JSX.IntrinsicElements["form"], "action">;

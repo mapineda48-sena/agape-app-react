@@ -1,6 +1,7 @@
 import type * as ORM from "../../orm";
 
 export function create(category: IData): Promise<void>;
+export function findAll(): Promise<IRecord[]>;
 
 export interface IRecord extends ORM.Record {
   fullName: string;
