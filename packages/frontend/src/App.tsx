@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Form, { useEmitter } from "./Form";
 import Input from "./Form/Input";
-import { create, findAll, IRecord } from "backend/service/inventory/category";
+import {
+  createCategory,
+  deleteCategory,
+  findAll,
+  IRecord,
+} from "backend/service/inventory/category";
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 
@@ -14,10 +19,10 @@ export default function Foo() {
           <label htmlFor="inputState" className="form-label">
             Nombre
           </label>
-          <input
-            type="text"
+          <Input.Text
+            name="fullName"
             className="form-control"
-            id="inputState"
+            id="fullName"
             placeholder="1234 Main St"
           />
         </div>
@@ -25,6 +30,7 @@ export default function Foo() {
         <div className="col-md-4 d-flex align-items-center justify-content-end">
           <AddNewCategory />
         </div>
+        <Categories />
       </Form>
     </div>
   );
@@ -35,7 +41,12 @@ function AddNewCategory() {
 
   useEffect(() => {
     return form.onSubmit((payload: any) => {
-      create(payload).then(form.refreshCategories).catch(form.failAddCategory);
+      createCategory(payload.fullName)
+        .then(() => {
+          form.merge({ fullName: "" });
+          form.refreshCategories();
+        })
+        .catch(form.failAddCategory);
     });
   }, [form]);
 
@@ -56,9 +67,7 @@ function Categories() {
 
   useEffect(() => {
     const refreshCategories = () => {
-      findAll()
-        .then(form.setCategories)
-        .catch(form.failLoadCategories);
+      findAll().then(form.setCategories).catch(form.failLoadCategories);
     };
 
     refreshCategories();
@@ -79,7 +88,38 @@ function Categories() {
       </thead>
       <tbody>
         {/* Las filas de la tabla se generarían dinámicamente aquí */}
+        {state.map((category, index) => {
+          return (
+            <tr key={index}>
+              <td>{category.id}</td>
+              <td>{category.fullName}</td>
+              <td>{category.isEnabled ? "Si" : "No"}</td>
+              <td>{category.updatedAt.toString()}</td>
+              <td>
+                <DeleteCategory id={category.id} />
+              </td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
+  );
+}
+
+function DeleteCategory(props: { id: number }) {
+  const form = useEmitter();
+
+  return (
+    <button
+      onClick={() => {
+        deleteCategory(props.id)
+          .then(form.refreshCategories)
+          .catch(form.failDeleteCategory);
+      }}
+      type="button"
+      className="btn btn-danger"
+    >
+      <MdDelete />
+    </button>
   );
 }
