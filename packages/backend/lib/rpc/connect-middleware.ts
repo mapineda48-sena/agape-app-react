@@ -3,12 +3,14 @@ import fs from "fs-extra";
 import _ from "lodash";
 import formidable, { Fields, Files } from "formidable";
 import { Request, Response, NextFunction } from "express";
-import { fieldNameArgs } from "./connect-config";
+import { ApiKey, ApiKeyHeader, fieldNameArgs } from "./connect-config";
 
 const uploadDir = os.tmpdir();
 
 export default function parseFormData(cb: (...args: unknown[]) => unknown) {
   return async (req: Request, res: Response, next: NextFunction) => {
+    if (!isRpcApiKey(req)) return next();
+    
     try {
       const form = formidable({ uploadDir });
 
@@ -72,6 +74,10 @@ export function toFileWeb([input]: formidable.File[] = []) {
   };
 
   return file as File;
+}
+
+export function isRpcApiKey(req: Request) {
+  return req.headers[ApiKeyHeader] === ApiKey
 }
 
 function notImplementedError(): void {

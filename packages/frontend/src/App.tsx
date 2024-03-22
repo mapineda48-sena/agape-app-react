@@ -8,7 +8,6 @@ import {
   IRecord,
 } from "backend/service/inventory/category";
 import { MdDelete } from "react-icons/md";
-import { FaEdit } from "react-icons/fa";
 
 export default function Foo() {
   return (
@@ -74,6 +73,10 @@ function Categories() {
 
     return form.on("refreshCategories", refreshCategories);
   }, [form]);
+
+  if (!state.length) {
+    return <span>Sin resultados</span>;
+  }
 
   return (
     <table className="table">

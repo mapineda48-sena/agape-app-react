@@ -1,13 +1,17 @@
 import express from "express";
 import { glob } from "glob";
 import _ from "lodash";
-import parseFormData from "./connect-middleware";
+import parseFormData, { isRpcApiKey } from "./connect-middleware";
 import path from "path";
 import { rpc as endpoint } from "./connect-config";
 
-const rpc = {};
+const rpc: any = {};
 const router = express.Router();
-router.get(endpoint, (req, res) => res.json(rpc));
+router.get(endpoint, (req, res, next) => {
+  if (!isRpcApiKey(req)) return next();
+
+  res.json(rpc);
+});
 
 export default router;
 
@@ -25,24 +29,30 @@ export default router;
 
     const module = await import(path.resolve(filename));
 
-    if (!("default" in module)) {
+    const exports = Object.entries(module).filter(
+      ([, fn]) => typeof fn === "function"
+    );
+
+    if (!exports.length) {
       return;
     }
 
-    const service = filename.replace(extname, "").replace(/[/\\]/g, "/");
+    const service = filename.replace(/[/\\]/g, "/").replace(extname, "");
+    const webpackModule = service.replace("service/", "./") + ".js";
 
-    const pattern = "/" + service;
+    rpc[webpackModule] = {};
 
-    router.post(pattern, parseFormData(module.default));
+    exports.forEach(([exportName, fn]) => {
+      const pattern = "/" + service + "/" + exportName;
 
-    const propPath = service
-      .replace(/^service[/\\]/, "")
-      .replace(/[/\\]/g, ".");
+      router.post(pattern, parseFormData(fn as any));
 
-    _.set(rpc, propPath, pattern);
+      rpc[webpackModule][exportName] = pattern;
+    });
   });
 
   await Promise.all(imports);
+  console.log(rpc);
 })()
   // pass error to main process
   .catch((error) => {
