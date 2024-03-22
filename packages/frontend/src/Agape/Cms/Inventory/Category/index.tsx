@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Form, { useEmitter } from "./Form";
-import Input from "./Form/Input";
+import Form, { useEmitter } from "Form";
+import Input from "Form/Input";
 import {
   createCategory,
   deleteCategory,

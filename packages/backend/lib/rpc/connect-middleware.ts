@@ -7,21 +7,12 @@ import { ApiKey, ApiKeyHeader, fieldNameArgs } from "./connect-config";
 
 const uploadDir = os.tmpdir();
 
-export default function parseFormData(cb: (...args: unknown[]) => unknown) {
+export default function factoryMiddleware(cb: (...args: unknown[]) => unknown) {
   return async (req: Request, res: Response, next: NextFunction) => {
     if (!isRpcApiKey(req)) return next();
-    
+
     try {
-      const form = formidable({ uploadDir });
-
-      const data: [Fields, Files] = await new Promise((resolve, reject) => {
-        form.parse(req, (err, fields, files) => {
-          if (err) reject(err);
-          else resolve([fields, files]);
-        });
-      });
-
-      const args = parseArgs(data[0], data[1]);
+      const args = await parseFormData(req);
 
       let payload = cb(...args);
 
@@ -34,6 +25,19 @@ export default function parseFormData(cb: (...args: unknown[]) => unknown) {
       next(error);
     }
   };
+}
+
+export async function parseFormData(req: Request) {
+  const form = formidable({ uploadDir });
+
+  const data: [Fields, Files] = await new Promise((resolve, reject) => {
+    form.parse(req, (err, fields, files) => {
+      if (err) reject(err);
+      else resolve([fields, files]);
+    });
+  });
+
+  return parseArgs(data[0], data[1]);
 }
 
 export function parseArgs(fields: Fields, files: Files): unknown[] {
@@ -77,7 +81,7 @@ export function toFileWeb([input]: formidable.File[] = []) {
 }
 
 export function isRpcApiKey(req: Request) {
-  return req.headers[ApiKeyHeader] === ApiKey
+  return req.headers[ApiKeyHeader] === ApiKey;
 }
 
 function notImplementedError(): void {

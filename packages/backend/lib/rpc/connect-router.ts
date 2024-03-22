@@ -4,6 +4,7 @@ import _ from "lodash";
 import parseFormData, { isRpcApiKey } from "./connect-middleware";
 import path from "path";
 import { rpc as endpoint } from "./connect-config";
+import defineAuth from "./connect-middleware-auth";
 
 const rpc: any = {};
 const router = express.Router();
@@ -14,6 +15,11 @@ router.get(endpoint, (req, res, next) => {
 });
 
 export default router;
+
+/**
+ * Define User Auth
+ */
+defineAuth(router, rpc);
 
 /**
  * Load Remote Procedure Call
