@@ -1,6 +1,7 @@
-@import '~bootstrap/dist/css/bootstrap.min.css';
-@import './custom.css';
-@import './fontawesome.css';
-@import './slick-theme.css';
-@import './slick.css';
-@import './templatemo.css';
+@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
+
+@import "./custom.css";
+@import "./fontawesome.css";
+@import "./templatemo.css";
