@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
-import Form, { useEmitter } from "Form";
+import React, { useEffect, useMemo, useState } from "react";
+import Form, { useForm } from "Form";
+import { useEmitter } from "Events";
 import Input from "Form/Input";
 import {
   createCategory,
@@ -36,18 +37,19 @@ export default function Foo() {
 }
 
 function AddNewCategory() {
-  const form = useEmitter();
+  const form = useForm();
+  const emitter = useEmitter();
 
   useEffect(() => {
     return form.onSubmit((payload: any) => {
       createCategory(payload.fullName)
         .then(() => {
           form.merge({ fullName: "" });
-          form.refreshCategories();
+          emitter.refreshCategories();
         })
-        .catch(form.failAddCategory);
+        .catch(emitter.failAddCategory);
     });
-  }, [form]);
+  }, [emitter, form]);
 
   return (
     <button type="submit" className="btn btn-success">
@@ -57,22 +59,21 @@ function AddNewCategory() {
 }
 
 function Categories() {
-  const form = useEmitter();
   const [state, setState] = useState<IRecord[]>([]);
   const [error, setError] = useState<any>(null);
 
-  useEffect(() => form.on("setCategories", setState), [form]);
-  useEffect(() => form.on("failLoadCategories", setError), [form]);
+  const localEvent = useMemo(() => ({ setState, setError }), []);
+  const emitter = useEmitter(localEvent);
 
   useEffect(() => {
     const refreshCategories = () => {
-      findAll().then(form.setCategories).catch(form.failLoadCategories);
+      findAll().then(emitter.setState).catch(emitter.setError);
     };
 
     refreshCategories();
 
-    return form.on("refreshCategories", refreshCategories);
-  }, [form]);
+    return emitter.on("refreshCategories", refreshCategories);
+  }, [emitter]);
 
   if (!state.length) {
     return <span>Sin resultados</span>;
@@ -110,14 +111,14 @@ function Categories() {
 }
 
 function DeleteCategory(props: { id: number }) {
-  const form = useEmitter();
+  const emitter = useEmitter();
 
   return (
     <button
       onClick={() => {
         deleteCategory(props.id)
-          .then(form.refreshCategories)
-          .catch(form.failDeleteCategory);
+          .then(emitter.refreshCategories)
+          .catch(emitter.failDeleteCategory);
       }}
       type="button"
       className="btn btn-danger"

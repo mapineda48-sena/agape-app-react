@@ -13,7 +13,7 @@ const route = Symbol();
 
 const BaseUrlContext = createContext("");
 
-export default function InitRoute(BaseUrl) {
+export default function InitRoute(BaseUrlComponent) {
   const Elements = [];
   const SubRoutes = [];
 
@@ -24,15 +24,15 @@ export default function InitRoute(BaseUrl) {
       </BaseUrlContext.Provider>
     );
 
-    if (!BaseUrl) {
+    if (!BaseUrlComponent) {
       return Element;
     }
 
     return () => (
       <BaseUrlContext.Provider value={baseUrl}>
-        <BaseUrl>
+        <BaseUrlComponent>
           <Element />
-        </BaseUrl>
+        </BaseUrlComponent>
       </BaseUrlContext.Provider>
     );
   }

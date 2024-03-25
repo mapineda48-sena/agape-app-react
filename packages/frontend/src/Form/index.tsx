@@ -1,5 +1,5 @@
+import { useEmitter } from "Events";
 import _ from "lodash";
-import mitt from "mitt";
 import {
   createContext,
   useCallback,
@@ -10,35 +10,107 @@ import {
   useState,
 } from "react";
 
-const EVENT_MERGE_STATE = Symbol("FORM_EVENT_MERGE_STATE");
-const EVENT_SET_STATE = Symbol("FORM_EVENT_SET_STATE");
-const EVENT_SUBMIT = Symbol("FORM_EVENT_SUBMIT");
+const initState = {};
 
-const Context = createContext<any>({});
+const Context = createContext<unknown>(null);
 
 export default function Form(props: Props) {
-  const { initState: state = {}, ...core } = props;
+  const { initState: state = initState, ...core } = props;
 
-  const ref = useRef(useMemo(() => ({ state: {}, emitter: mitt() }), []));
-  useMemo(() => (ref.current.state = state as any), [state]);
+  const emitter = useEmitter();
+  const ref = useRef(state as {});
 
-  useEffect(() => {
-    const { emitter } = ref.current;
+  const form = useMemo(() => {
+    const EVENT_MERGE_STATE = Symbol("FORM_EVENT_MERGE_STATE");
+    const EVENT_SET_STATE = Symbol("FORM_EVENT_SET_STATE");
+    const EVENT_SUBMIT = Symbol("FORM_EVENT_SUBMIT");
 
-    return () => emitter.all.clear();
-  }, []);
+    const submit = (payload: unknown) => emitter.emit(EVENT_SUBMIT, payload);
+    const onSubmit = (cb: () => void) => emitter.on(EVENT_SUBMIT, cb);
 
-  const { emitter } = ref.current;
+    const init = (key: string, value: unknown) => {
+      if (!_.has(ref.current, key)) {
+        _.set(ref.current, key, value);
+
+        return value;
+      }
+
+      _.get(ref.current, key);
+    };
+
+    const get = (key: string) => _.get(ref.current, key);
+
+    const set = (state: {}) => {
+      ref.current = state;
+      emitter.emit(EVENT_SET_STATE);
+    };
+
+    const merge = (state: {}) => {
+      _.merge(ref.current, state);
+      emitter.emit(EVENT_MERGE_STATE, state);
+    };
+
+    const onSet = (key: string, initValue: unknown, set: SetKey) => {
+      return emitter.on(EVENT_SET_STATE, () => {
+        if (!_.has(ref.current, key)) {
+          _.set(ref.current, key, initValue);
+          set(initValue);
+
+          return;
+        }
+
+        const value = _.get(ref.current, key);
+
+        set(value);
+      });
+    };
+
+    const onMerge = (key: string, set: SetKey) => {
+      return emitter.on(EVENT_MERGE_STATE, () => {
+        if (!_.has(ref.current, key)) return;
+
+        const value = _.get(ref.current, key);
+
+        set(value);
+      });
+    };
+
+    const setInput = (key: string, set: SetKey) => {
+      return (state: unknown) => {
+        _.set(ref.current, key, state);
+
+        set(state);
+      };
+    };
+
+    return {
+      submit,
+      get,
+      set,
+      init,
+      merge,
+      onSubmit,
+      onSet,
+      onMerge,
+      setInput,
+    };
+  }, [emitter]);
+
+  useMemo(() => {
+    if (ref.current === state) return;
+
+    form.set(state as {});
+  }, [form, state]);
 
   return (
-    <Context.Provider value={ref}>
+    <Context.Provider value={form}>
       <form
         {...core}
         onSubmit={(e) => {
           e.preventDefault();
           e.stopPropagation();
-
-          emitter.emit(EVENT_SUBMIT, _.cloneDeep(ref.current.state));
+          console.log(ref.current);
+          form.submit(_.cloneDeep(ref.current));
         }}
       />
     </Context.Provider>
@@ -46,67 +118,20 @@ export default function Form(props: Props) {
 }
 
 export function useInput<T>(key: string, initValue: T) {
-  const ref = useContext(Context);
+  const form = useContext(Context) as IForm<{}>;
 
-  const [state, setState] = useState<T>(
-    () => _.get(ref.current.state, key) ?? initValue
-  );
+  const [state, setState] = useState<T>(() => form.init(key, initValue));
 
-  useEffect(() => {
-    return ref.current.emitter.on(EVENT_SET_STATE, () => {
-      setState(_.get(ref.current.state, key) ?? initValue);
-    });
-  }, [initValue, key, ref]);
+  useEffect(() => form.onSet(key, initValue, setState), [form, initValue, key]);
+  useEffect(() => form.onMerge(key, setState), [form, key]);
 
-  useEffect(() => {
-    return ref.current.emitter.on(EVENT_MERGE_STATE, (src: any) => {
-      if (!_.has(src, key)) return;
+  const setInput = useMemo(() => form.setInput(key, setState), [form, key]);
 
-      setState(_.get(src, key));
-    });
-  }, [initValue, key, ref]);
-
-  const _setState = useCallback(
-    (state: T) => {
-      _.set(ref.current.state, key, state);
-      setState(state);
-    },
-    [key, ref]
-  );
-
-  return [state, _setState] as const;
+  return [state, setInput] as const;
 }
 
-export function useEmitter(): EmitterProxy {
-  const ref = useContext(Context);
-
-  return useMemo(() => {
-    const { emitter } = ref.current;
-
-    const on = (event: string, cb: () => void) => emitter.on(event, cb);
-
-    const merge = (src: {}) => {
-      _.merge(ref.current.state, src);
-      emitter.emit(EVENT_MERGE_STATE, src);
-    };
-
-    const onSubmit = (cb: () => void) => emitter.on(EVENT_SUBMIT, cb);
-
-    return new Proxy(emitter, {
-      get(emitter: Emitter, event) {
-        switch (event) {
-          case "on":
-            return on;
-          case "merge":
-            return merge;
-          case "onSubmit":
-            return onSubmit;
-          default:
-            return (payload: unknown) => emitter.emit(event, payload);
-        }
-      },
-    });
-  }, [ref]);
+export function useForm<S = {}>() {
+  return useContext(Context) as IForm<S>;
 }
 
 /**
@@ -119,9 +144,18 @@ interface Props extends Core {
 
 type Core = Omit<JSX.IntrinsicElements["form"], "action">;
 
-type EmitterProxy = {
-  [K: string]: (...args: unknown[]) => void;
-  //on: (event: string, cb: <T>(payload: T) => void) => () => void;
-};
+export interface IForm<S> {
+  submit: (payload: S) => void;
+  set: (state: S) => void;
+  merge: (state: Partial<S>) => void;
 
-type Emitter = ReturnType<typeof mitt>;
+  onSubmit: (cb: (state: S) => void) => () => void;
+
+  get: <T = unknown>(key: string) => T;
+  init: <T = unknown>(key: string, value: T) => T;
+  onSet: <T>(key: string, value: T, set: (value: T) => void) => () => void;
+  onMerge: <T>(key: string, set: (value: T) => void) => () => void;
+  setInput: <T>(key: string, set: (state: T) => void) => (state: T) => void;
+}
+
+type SetKey = (state?: unknown) => void;
