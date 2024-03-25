@@ -59,15 +59,16 @@ function AddNewCategory() {
 }
 
 function Categories() {
-  const [state, setState] = useState<IRecord[]>([]);
+  const [state, setCategories] = useState<IRecord[]>([]);
   const [error, setError] = useState<any>(null);
 
-  const localEvent = useMemo(() => ({ setState, setError }), []);
-  const emitter = useEmitter(localEvent);
+  const emitter = useEmitter();
 
   useEffect(() => {
+    emitter.hook({ setCategories, setError });
+
     const refreshCategories = () => {
-      findAll().then(emitter.setState).catch(emitter.setError);
+      findAll().then(emitter.setCategories).catch(emitter.setError);
     };
 
     refreshCategories();

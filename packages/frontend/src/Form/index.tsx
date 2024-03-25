@@ -109,7 +109,6 @@ export default function Form(props: Props) {
         onSubmit={(e) => {
           e.preventDefault();
           e.stopPropagation();
-          console.log(ref.current);
           form.submit(_.cloneDeep(ref.current));
         }}
       />
