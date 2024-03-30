@@ -1,5 +1,5 @@
 import Router from "Router";
-import ApplicationEvents from "Events";
+import ApplicationEvents from "../ApplicationEvent/index";
 
 const Agape = Router(ApplicationEvents);
 

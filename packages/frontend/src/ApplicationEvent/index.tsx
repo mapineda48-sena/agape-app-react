@@ -1,32 +1,27 @@
 import mitt from "mitt";
 import { createContext, useContext, useEffect, useMemo, useRef } from "react";
 
-const Context = createContext<Ref>({
-  current: null,
-});
+const Context = createContext<Emitter>(null as any);
 
 export default function ApplicationEvent(props: { children: JSX.Element }) {
-  const ref = useRef(useMemo(() => mitt(), []));
+  const emitter = useMemo(mitt, []);
 
-  useEffect(() => ref.current.all.clear(), []);
+  useEffect(() => () => emitter.all.clear(), [emitter]);
 
-  return <Context.Provider value={ref}>{props.children}</Context.Provider>;
+  return <Context.Provider value={emitter}>{props.children}</Context.Provider>;
 }
 
 export function useEmitter(): EmitterProxy {
-  const ref = useContext(Context);
+  const emitter = useContext(Context);
   const hook = useRef<LocalEvent>({});
 
   useEffect(() => {
     const event = hook.current;
-    const emitter = ref.current as Emitter;
 
     return () => Object.values(event).forEach((e) => emitter.off(e));
-  }, [ref]);
+  }, [emitter]);
 
   return useMemo(() => {
-    const emitter = ref.current as Emitter;
-
     const onHook = (handler: HookEvent) => {
       const events = Object.entries(handler).map(
         ([event, fn]) =>
@@ -60,7 +55,7 @@ export function useEmitter(): EmitterProxy {
         },
       }
     );
-  }, [ref]);
+  }, [emitter]);
 }
 
 /**

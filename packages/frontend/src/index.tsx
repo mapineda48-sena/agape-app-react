@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./assets/styles/index.css";
 import { service } from "backend";
+import ApplicationEvent from "ApplicationEvent";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -15,15 +16,19 @@ const AppMode =
 
 (async () => {
   await service;
-  const { default: App } = await import("./Agape");
+  const { default: App } = await import("./Router/Router");
   const { default: reportWebVitals } = await import("./reportWebVitals");
+
+  //const App = () => <span>Hello</span>
 
   /**
    * Boot React App
    */
   root.render(
     <AppMode>
-      <App />
+      <ApplicationEvent>
+        <App />
+      </ApplicationEvent>
     </AppMode>
   );
 
@@ -44,3 +49,5 @@ const AppMode =
     </React.StrictMode>
   );
 });
+
+//import "./Router.v2/pages"

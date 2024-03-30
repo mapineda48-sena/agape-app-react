@@ -1,4 +1,4 @@
-import { useEmitter } from "Events";
+import { useEmitter } from "ApplicationEvent";
 import _ from "lodash";
 import {
   createContext,
