@@ -1,37 +1,33 @@
-import _ from "lodash";
-import _axios from "axios";
-import toFormData from "./connect-client-form";
-import { ApiKey, ApiKeyHeader, rpc as service } from "./connect-config";
-
-export const axios = _axios.create({
-  baseURL:
-    process.env.NODE_ENV === "production" ? "/" : "http://localhost:5000",
-
-  headers: {
-    [ApiKeyHeader]: ApiKey,
-  },
-});
+const baseURL =
+  process.env.NODE_ENV === "production" ? "/" : "http://localhost:5000";
 
 export default async function syncRpc() {
-  const { data: endpoint } = await axios.get(service);
+  const { default: axios } = await import("axios");
+  const { default: toFormData } = await import("./connect-client-form");
+  const { ApiKey, ApiKeyHeader, rpc } = await import("./connect-config");
 
-  return initRpc(endpoint);
+  const service = axios.create({
+    baseURL,
+    headers: {
+      [ApiKeyHeader]: ApiKey,
+    },
+  });
+
+  const { data } = await service.get(rpc);
+
+  return set(data, (moduleName, action) => [
+    moduleName,
+    set(action, (method, endpoint) => [
+      method,
+      (...args) => {
+        return service.post(endpoint, toFormData(args)).then((res) => res.data);
+      },
+    ]),
+  ]);
 }
 
-function initRpc(src) {
-  const rcp = Object.fromEntries(
-    Object.entries(src).map(([methodName, route]) => {
-      if (typeof route === "string") {
-        const method = (...args) => {
-          return axios.post(route, toFormData(args)).then((res) => res.data);
-        };
-
-        return [methodName, method];
-      }
-
-      return [methodName, initRpc(route)];
-    })
+function set(src, cb) {
+  return Object.fromEntries(
+    Object.entries(src).map((entries) => cb(...entries))
   );
-
-  return rcp;
 }

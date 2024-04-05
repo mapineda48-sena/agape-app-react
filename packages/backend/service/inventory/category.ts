@@ -1,5 +1,5 @@
 import db from "../../lib/models";
-import type * as ORM from "../orm";
+import type { ICategory } from "../../lib/models/inventory/category";
 
 export function findAll() {
   return db.inventory.category.findAll();
@@ -13,14 +13,11 @@ export async function createCategory(fullName: string) {
   await db.inventory.category.create({ fullName, isEnabled: true });
 }
 
-/**
- * Types
- */
-export interface IRecord extends ORM.Record {
-  fullName: string;
-  isEnabled: boolean;
+let id = 0;
+
+export function sayHello(person: { fullName: string }) {
+  id++;
+  return Promise.resolve(`Hello ${person.fullName} ${id}`);
 }
 
-export type IModel = ORM.Model<IRecord>;
-
-export type IData = ORM.Model<IRecord, "id">;
+export type { ICategory };

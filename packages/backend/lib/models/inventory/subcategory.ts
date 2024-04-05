@@ -1,14 +1,14 @@
 import { Sequelize, Model, DataTypes, ModelStatic } from "sequelize";
-import * as Integration from "../../../service/inventory/subcategory";
 import { toModelName } from "../../util/models";
 import { ModelName as Category } from "./category";
+import type { IModel, IRecord } from "../type";
 
 export const ModelName = toModelName(__filename);
 
 export function define(seq: Sequelize) {
   const category = seq.models[Category];
 
-  const subcategory = seq.define<Model<Integration.IModel>>(
+  const subcategory = seq.define<IModel<ISubcategory>>(
     ModelName,
     {
       id: {
@@ -40,7 +40,7 @@ export function define(seq: Sequelize) {
     foreignKey: "categoryId",
     as: "subcategories",
   });
-  
+
   subcategory.belongsTo(category, { foreignKey: "categoryId" });
 
   return subcategory;
@@ -49,5 +49,10 @@ export function define(seq: Sequelize) {
 /**
  * Types
  */
-export type IModel = Model<Integration.IRecord, Integration.IData>;
-export type IModelStatic = ModelStatic<IModel>;
+export type IModelStatic = ReturnType<typeof define>;
+
+export interface ISubcategory extends IRecord {
+  fullName: string;
+  isEnabled: boolean;
+  categoryId: number;
+}

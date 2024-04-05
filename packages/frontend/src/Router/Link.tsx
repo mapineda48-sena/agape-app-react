@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { useLocation } from "./Router";
+import { useLocation } from ".";
 
 export default function Link(props: Props) {
   const { href, ...core } = props;
@@ -9,7 +9,6 @@ export default function Link(props: Props) {
     (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
       e.stopPropagation();
       e.preventDefault();
-      console.log("gooo");
       push(href);
     },
     [href, push]

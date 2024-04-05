@@ -1,11 +1,11 @@
-import { Sequelize, Model, DataTypes, ModelStatic } from "sequelize";
+import { Sequelize, DataTypes } from "sequelize";
 import { toModelName } from "../../util/models";
-import type * as Integration from "../../../service/inventory/category";
+import type { IModel, IRecord } from "../type";
 
 export const ModelName = toModelName(__filename);
 
 export function define(seq: Sequelize) {
-  const category = seq.define<Model<Integration.IModel>>(
+  const category = seq.define<IModel<ICategory>>(
     ModelName,
     {
       id: {
@@ -33,5 +33,9 @@ export function define(seq: Sequelize) {
 /**
  * Types
  */
-export type IModel = Model<Integration.IRecord, Integration.IData>;
-export type IModelStatic = ModelStatic<IModel>;
+export type IModelStatic = ReturnType<typeof define>;
+
+export interface ICategory extends IRecord {
+  fullName: string;
+  isEnabled: boolean;
+}

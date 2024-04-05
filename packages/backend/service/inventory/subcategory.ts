@@ -1,11 +1,6 @@
-import type * as ORM from "../orm";
+let id = 0;
 
-export interface IRecord extends ORM.Record {
-  fullName: string;
-  isEnabled: boolean;
-  categoryId: number;
+export function sayHello(person: { fullName: string }) {
+  id++;
+  return Promise.resolve(`Hello ${person.fullName} ${id}`);
 }
-
-export type IModel = ORM.Model<IRecord>;
-
-export type IData = ORM.Model<IRecord, "id">;
