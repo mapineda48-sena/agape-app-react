@@ -57,7 +57,7 @@ function use(pattern, import$) {
   // Agregar la nueva página con su patrón, función de coincidencia y lógica de importación.
   pages.push({
     index,
-    match: match(pattern),
+    match: match(pattern, { sensitive: true }),
 
     async init(params) {
       await this.import();

@@ -2,7 +2,6 @@ import { useEmitter } from "EventEmitter";
 import _ from "lodash";
 import {
   createContext,
-  useCallback,
   useContext,
   useEffect,
   useMemo,
@@ -15,7 +14,7 @@ const initState = {};
 const Context = createContext<unknown>(null);
 
 export default function Form(props: Props) {
-  const { initState: state = initState, ...core } = props;
+  const { initState: state = initState, merge, onSubmit, ...core } = props;
 
   const emitter = useEmitter();
   const ref = useRef(state as {});
@@ -23,10 +22,9 @@ export default function Form(props: Props) {
   const form = useMemo(() => {
     const EVENT_MERGE_STATE = Symbol("FORM_EVENT_MERGE_STATE");
     const EVENT_SET_STATE = Symbol("FORM_EVENT_SET_STATE");
-    const EVENT_SUBMIT = Symbol("FORM_EVENT_SUBMIT");
-
-    const submit = (payload: unknown) => emitter.emit(EVENT_SUBMIT, payload);
-    const onSubmit = (cb: () => void) => emitter.on(EVENT_SUBMIT, cb);
+    const EVENT_THEN = Symbol("FORM_EVENT_THEN");
+    const EVENT_CATCH = Symbol("FORM_EVENT_CATCH");
+    const EVENT_LOADING = Symbol("FORM_EVENT_LOADING");
 
     const init = (key: string, value: unknown) => {
       if (!_.has(ref.current, key)) {
@@ -54,14 +52,14 @@ export default function Form(props: Props) {
       return emitter.on(EVENT_SET_STATE, () => {
         if (!_.has(ref.current, key)) {
           _.set(ref.current, key, initValue);
-          set(initValue);
+          set(initValue as any);
 
           return;
         }
 
         const value = _.get(ref.current, key);
 
-        set(value);
+        set(_.clone(value));
       });
     };
 
@@ -71,28 +69,52 @@ export default function Form(props: Props) {
 
         const value = _.get(ref.current, key);
 
-        set(value);
+        set(_.clone(value));
       });
     };
 
-    const setInput = (key: string, set: SetKey) => {
-      return (state: unknown) => {
-        _.set(ref.current, key, state);
+    const setInput = (key: string, setstate: SetKey) => {
+      return (state: unknown) =>
+        setstate((current) => {
+          try {
+            const next = typeof state === "function" ? state(current) : state;
 
-        set(state);
-      };
+            _.set(ref.current, key, next);
+
+            return _.clone(next);
+          } catch (error) {
+            console.log(error);
+            return current;
+          }
+        });
     };
 
+    const then = (payload: unknown) => emitter.emit(EVENT_THEN, payload);
+    const catch$ = (payload: unknown) => emitter.emit(EVENT_CATCH, payload);
+    const loading = (state: boolean) => emitter.emit(EVENT_LOADING, state);
+
+    const onThen = (cb: (payload: unknown) => void) =>
+      emitter.on(EVENT_THEN, cb);
+    const onCatch = (cb: (payload: unknown) => void) =>
+      emitter.on(EVENT_CATCH, cb);
+    const onLoading = (cb: (payload: boolean) => void) =>
+      emitter.on(EVENT_CATCH, cb);
+
     return {
-      submit,
       get,
       set,
       init,
       merge,
-      onSubmit,
+      setInput,
       onSet,
       onMerge,
-      setInput,
+
+      then,
+      catch: catch$,
+      loading,
+      onThen,
+      onCatch,
+      onLoading,
     };
   }, [emitter]);
 
@@ -109,7 +131,21 @@ export default function Form(props: Props) {
         onSubmit={(e) => {
           e.preventDefault();
           e.stopPropagation();
-          form.submit(_.cloneDeep(ref.current));
+
+          form.loading(true);
+
+          onSubmit(_.cloneDeep(ref.current))
+            .then((res) => {
+              if (merge) {
+                form.merge(res);
+              }
+
+              form.then(res);
+            })
+            .catch(form.catch)
+            .finally(() => {
+              form.loading(false);
+            });
         }}
       />
     </Context.Provider>
@@ -139,22 +175,24 @@ export function useForm<S = {}>() {
 
 interface Props extends Core {
   initState?: unknown;
+  merge?: boolean;
+  onSubmit: (...args: any[]) => Promise<any>;
 }
 
 type Core = Omit<JSX.IntrinsicElements["form"], "action">;
 
 export interface IForm<S> {
-  submit: (payload: S) => void;
   set: (state: S) => void;
   merge: (state: Partial<S>) => void;
-
-  onSubmit: (cb: (state: S) => void) => () => void;
-
   get: <T = unknown>(key: string) => T;
   init: <T = unknown>(key: string, value: T) => T;
   onSet: <T>(key: string, value: T, set: (value: T) => void) => () => void;
   onMerge: <T>(key: string, set: (value: T) => void) => () => void;
   setInput: <T>(key: string, set: (state: T) => void) => (state: T) => void;
+
+  onThen: (cb: (payload: unknown) => void) => void;
+  onCatch: (cb: (payload: unknown) => void) => void;
+  onLoading: (cb: (state: boolean) => void) => void;
 }
 
-type SetKey = (state?: unknown) => void;
+type SetKey = (cb: (state?: unknown) => void) => void;

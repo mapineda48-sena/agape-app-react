@@ -2,23 +2,31 @@ import db from "../../lib/models";
 import { IProduct } from "../../lib/models/inventory/product";
 import Storage from "../../lib/storage";
 
-export async function createProduct(product: NewProduct) {
-  const { images, ...dto } = product;
+export async function createProduct({ images, id, ...dto }: NewProduct) {
+  const folder = id ? id.toString() : "0/" + Date.now().toString();
 
   const imagesTasks = images.map(async (image) => {
     if (typeof image === "string") {
       return image;
     }
 
-    return await Storage.uploadFile(image, image.name);
+    return await Storage.uploadFile(image, `product/${folder}/${image.name}`);
   });
 
-  await db.inventory.product.create({
+  const newProduct = {
     ...dto,
     rating: randomRating(),
     isEnabled: true,
     images: await Promise.all(imagesTasks),
-  });
+  };
+
+  if (!id) {
+    return db.inventory.product.create(newProduct);
+  }
+
+  const current = await db.inventory.product.findOne({ where: { id } });
+
+  return current?.update(newProduct);
 }
 
 export async function getCategories() {

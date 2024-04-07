@@ -71,8 +71,8 @@ export default class Storage {
     return Storage.minio;
   }
 
-  public static async Init(url: string) {
-    const { hostname, username, password, port, protocol } = new URL(url);
+  public static async Init(uri: string) {
+    const { hostname, username, password, port, protocol } = new URL(uri);
 
     const minio = new Client({
       endPoint: hostname,

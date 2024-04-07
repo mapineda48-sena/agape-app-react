@@ -9,3 +9,5 @@ app.use("/product", () => import("Shop/Product"));
 app.use("/login", () => import("Login"));
 
 app.use("/cms", () => import("Cms/Inventory/Category"));
+app.use("/cms/subcategories", () => import("Cms/Inventory/SubCategory"));
+app.use("/cms/product", () => import("Cms/Inventory/Product"));

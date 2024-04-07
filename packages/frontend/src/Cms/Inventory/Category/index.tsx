@@ -9,11 +9,12 @@ import {
   ICategory,
 } from "backend/service/inventory/category";
 import { MdDelete } from "react-icons/md";
+import Submit from "Form/Submit";
 
 export default function Foo() {
   return (
     <div className="container mt-5">
-      <Form className="row g-3">
+      <Form onSubmit={createCategory} className="row g-3">
         <h2>Categoria</h2>
         <div className="col-md-6">
           <label htmlFor="inputState" className="form-label">
@@ -28,7 +29,7 @@ export default function Foo() {
         </div>
         <div className="col-md-2" />
         <div className="col-md-4 d-flex align-items-center justify-content-end">
-          <AddNewCategory />
+          <Submit className="btn btn-success">Agregar</Submit>
         </div>
         <Categories />
       </Form>
@@ -36,45 +37,24 @@ export default function Foo() {
   );
 }
 
-function AddNewCategory() {
+function Categories() {
   const form = useForm();
   const emitter = useEmitter();
-
-  useEffect(() => {
-    return form.onSubmit((payload: any) => {
-      createCategory(payload.fullName)
-        .then(() => {
-          form.merge({ fullName: "" });
-          emitter.refreshCategories();
-        })
-        .catch(emitter.failAddCategory);
-    });
-  }, [emitter, form]);
-
-  return (
-    <button type="submit" className="btn btn-success">
-      Agregar
-    </button>
-  );
-}
-
-function Categories() {
   const [state, setCategories] = useState<ICategory[]>([]);
   const [error, setError] = useState<any>(null);
-
-  const emitter = useEmitter();
 
   useEffect(() => {
     emitter.hook({ setCategories, setError });
 
     const refreshCategories = () => {
+      form.merge({ fullName: "" });
       findAll().then(emitter.setCategories).catch(emitter.setError);
     };
 
     refreshCategories();
 
-    return emitter.on("refreshCategories", refreshCategories);
-  }, [emitter]);
+    return form.onThen(refreshCategories);
+  }, [emitter, form]);
 
   if (!state.length) {
     return <span>Sin resultados</span>;
@@ -119,7 +99,7 @@ function DeleteCategory(props: { id: number }) {
       onClick={() => {
         deleteCategory(props.id)
           .then(emitter.refreshCategories)
-          .catch(emitter.failDeleteCategory);
+          .catch((error) => console.error(error));
       }}
       type="button"
       className="btn btn-danger"
