@@ -6,19 +6,18 @@ import db from "../lib/models";
 import { Sequelize } from "sequelize";
 import cls from "cls-hooked";
 import * as demo from "../lib/demo";
+import Storage from "../lib/storage";
 
 /**
  * PostreSQL
  */
-const seq = new Sequelize("postgresql://postgres:mypassword@127.0.0.1");
+const seq = new Sequelize(
+  process.env.DATABASE_URL ?? "postgresql://postgres:mypassword@127.0.0.1"
+);
 
 // https://sequelize.org/docs/v6/other-topics/transactions/#automatically-pass-transactions-to-all-queries
 const namespace = cls.createNamespace("agape");
 Sequelize.useCLS(namespace);
-
-/**
- * Storage
- */
 
 /**
  * Http Server
@@ -35,6 +34,11 @@ const app = express();
   await demo.resetSchema(seq);
   await db.define(seq);
   await demo.populateSchema();
+
+  //Storage
+  await Storage.Init(
+    process.env.STORAGE_URL ?? "http://minio:minio123@127.0.0.1:9000"
+  );
 
   //App
   app.use(cors({ origin }));
