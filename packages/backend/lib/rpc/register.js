@@ -1,3 +1,8 @@
+const path = require("path");
+const fs = require("fs-extra");
+const { glob } = require("glob");
+
+const placeholder = `
 /**
  * https://webpack.js.org/guides/dependency-management/#requirecontext
  * 
@@ -9,3 +14,24 @@
  * The resources exported by the module are dynamically generated at runtime, utilizing the implementation of 
  * Remote Procedure Call (RPC).
  */
+`;
+
+(async () => {
+  const paths = await glob("service/**/*.ts");
+
+  const js = paths.map((ts) =>
+    path.resolve(ts).replace(".ts", ".js").replace(".d", "")
+  );
+
+  const tasks = js.map(async (file) => {
+    if (await fs.exists(file)) {
+      return;
+    }
+
+    return fs.outputFile(file, placeholder);
+  });
+
+  return Promise.all(tasks);
+})().catch((error) => {
+  throw error;
+});

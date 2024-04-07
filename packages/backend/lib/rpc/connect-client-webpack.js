@@ -1,31 +1,51 @@
-const rpc = require("./connect-client-http.js").default;
+/**
+ * Remote Procedure Call (RPC) Implementation
+ *
+ * This code demonstrates how to dynamically load and execute modules at runtime using Webpack's require.context method, as per the Webpack Dependency Management guide (https://webpack.js.org/guides/dependency-management/#requirecontext).
+ * It implements an RPC system where the module resources are generated and managed dynamically.
+ */
 
-exports.isAuth = false;
+// Create a context for all files in the './service' directory, including subdirectories, that end with '.js'
+var webpackModule = require.context("../../service", true, /\.js$/);
 
-exports.service = (async () => {
-  const modules = await rpc();
+// Asynchronously load and execute each module when the resource is loaded in the browser
+// This will invoke the require function for each file matching the context
+exports.service = (async () => webpackModule.keys().forEach(await service()))();
 
-  // Crear un contexto con todos los archivos en './someDirectory', incluyendo subdirectorios, que terminan en '.js'
-  var requireModule = require.context("../../service", true, /\.js$/);
+// Backend Server Configuration
+// Determines the base URL depending on the environment (production or development)
+const baseURL =
+  process.env.NODE_ENV === "production" ? "/" : "http://localhost:5000";
 
-  // Esto ejecutará la función de require para cada archivo correspondiente al contexto
-  requireModule.keys().forEach(function (moduleName) {
-    // Cargar el módulo
-    var localModule = requireModule(moduleName);
-    var remoteModule = modules[moduleName];
+// Fetches the available resources for the context created with Webpack and defines the function names
+// It creates endpoints for remote procedure calls and returns a function required by the module
+async function service() {
+  const { default: axio$ } = await import("axios");
+  const { default: toForm } = await import("./connect-client-form");
+  const { ApiKey, ApiKeyHeader, rpc } = await import("./connect-config");
 
-    // Puedes realizar operaciones con el módulo cargado aquí...
-    reExport(remoteModule, localModule);
+  const axios = axio$.create({
+    baseURL,
+    headers: {
+      [ApiKeyHeader]: ApiKey,
+    },
   });
-})();
 
-function reExport(src, dest) {
-  Object.entries(src).forEach(([exportName, fn]) => {
-    Object.defineProperty(dest, exportName, {
-      value: fn,
-      enumerable: false,
-      configurable: false,
-      writable: false,
+  const { data: serviceModule } = await axios.get(rpc);
+
+  return (moduleName) => {
+    const module = webpackModule(moduleName);
+
+    Object.entries(serviceModule[moduleName]).map(([exportName, endpoint]) => {
+      const fn = (...args) =>
+        axios.post(endpoint, toForm(args)).then((res) => res.data);
+
+      Object.defineProperty(module, exportName, {
+        value: fn,
+        enumerable: false,
+        configurable: false,
+        writable: false,
+      });
     });
-  });
+  };
 }

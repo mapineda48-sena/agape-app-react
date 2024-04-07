@@ -5,6 +5,7 @@ import parseFormData, { isRpcApiKey } from "./connect-middleware";
 import path from "path";
 import { rpc as endpoint } from "./connect-config";
 import defineAuth from "./connect-middleware-auth";
+import { onErrorMiddleware } from "./connect-middleware-error";
 
 const rpc: any = {};
 const router = express.Router();
@@ -55,6 +56,8 @@ defineAuth(router, rpc);
 
       rpc[webpackModule][exportName] = pattern;
     });
+
+    router.use(onErrorMiddleware);
   });
 
   await Promise.all(imports);

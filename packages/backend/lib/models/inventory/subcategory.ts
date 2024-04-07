@@ -36,9 +36,11 @@ export function define(seq: Sequelize) {
     }
   );
 
+
   category.hasMany(subcategory, {
     foreignKey: "categoryId",
     as: "subcategories",
+    onDelete: "RESTRICT", // Evitar la eliminación si hay subcategorías asociadas
   });
 
   subcategory.belongsTo(category, { foreignKey: "categoryId" });
