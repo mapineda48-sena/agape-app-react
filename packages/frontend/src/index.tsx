@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { service } from "backend";
+import { service } from "backend/lib/rpc/browser-webpack";
 import "./assets/styles/index.css";
 
 const root = document.getElementById("root") as HTMLElement;

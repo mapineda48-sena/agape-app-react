@@ -1,7 +1,7 @@
 export const fieldNameArgs = "[]";
-export const rpc = "/rpc";
+export const rpc = "/";
 
-export const ApiKey = "Web-Remote-Produre-Call";
+export const ApiKey = "RPC";
 export const ApiKeyHeader = "x-api-key";
 
 export const AuthModuluName = "./auth.js";

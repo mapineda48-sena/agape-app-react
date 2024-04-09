@@ -2,32 +2,12 @@ import os from "os";
 import fs from "fs-extra";
 import _ from "lodash";
 import formidable, { Fields, Files } from "formidable";
-import { Request, Response, NextFunction } from "express";
-import { ApiKey, ApiKeyHeader, fieldNameArgs } from "./connect-config";
+import { Request } from "express";
+import { fieldNameArgs } from "../config";
 
 const uploadDir = os.tmpdir();
 
-export default function factoryMiddleware(cb: (...args: unknown[]) => unknown) {
-  return async (req: Request, res: Response, next: NextFunction) => {
-    if (!isRpcApiKey(req)) return next();
-
-    try {
-      const args = await parseFormData(req);
-
-      let payload = cb(...args);
-
-      if (payload instanceof Promise) {
-        payload = await payload;
-      }
-
-      res.json(payload);
-    } catch (error) {
-      next(error);
-    }
-  };
-}
-
-export async function parseFormData(req: Request) {
+export default async function parseFormData(req: Request) {
   const form = formidable({ uploadDir });
 
   const data: [Fields, Files] = await new Promise((resolve, reject) => {
@@ -54,6 +34,7 @@ export function parseArgs(fields: Fields, files: Files): unknown[] {
   return args;
 }
 
+// server interface to simulate api browser  file from formidable file
 export function toFileWeb([input]: formidable.File[] = []) {
   const file: unknown = {
     name: input.originalFilename || "",
@@ -78,10 +59,6 @@ export function toFileWeb([input]: formidable.File[] = []) {
   };
 
   return file as File;
-}
-
-export function isRpcApiKey(req: Request) {
-  return req.headers[ApiKeyHeader] === ApiKey;
 }
 
 function notImplementedError(): void {

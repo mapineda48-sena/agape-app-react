@@ -10,7 +10,10 @@ var webpackModule = require.context("../../service", true, /\.js$/);
 
 // Asynchronously load and execute each module when the resource is loaded in the browser
 // This will invoke the require function for each file matching the context
-exports.service = (async () => webpackModule.keys().forEach(await service()))();
+exports.service = (async () => {
+  webpackModule.keys().forEach(await service());
+  await isAuthenticated();
+})();
 
 // Backend Server Configuration
 // Determines the base URL depending on the environment (production or development)
@@ -21,8 +24,8 @@ const baseURL =
 // It creates endpoints for remote procedure calls and returns a function required by the module
 async function service() {
   const { default: axio$ } = await import("axios");
-  const { default: toForm } = await import("./connect-client-form");
-  const { ApiKey, ApiKeyHeader, rpc } = await import("./connect-config");
+  const { default: toForm } = await import("./form/browser");
+  const { ApiKey, ApiKeyHeader, rpc } = await import("./config");
 
   const axios = axio$.create({
     baseURL,
@@ -31,21 +34,43 @@ async function service() {
     },
   });
 
-  const { data: serviceModule } = await axios.get(rpc);
+  const { data: buffer } = await axios.post(rpc, undefined, {
+    responseType: "blob",
+  });
+
+  const serviceModule = JSON.parse(await buffer.text());
 
   return (moduleName) => {
     const module = webpackModule(moduleName);
 
     Object.entries(serviceModule[moduleName]).map(([exportName, endpoint]) => {
-      const fn = (...args) =>
-        axios.post(endpoint, toForm(args)).then((res) => res.data);
-
-      Object.defineProperty(module, exportName, {
-        value: fn,
-        enumerable: false,
-        configurable: false,
-        writable: false,
+      readOnly(module, exportName, (...args) => {
+        return axios
+          .post(endpoint, toForm(args), { withCredentials: true })
+          .then((res) => res.data);
       });
     });
   };
+}
+
+async function isAuthenticated() {
+  const { AuthModuluName } = await import("./config");
+  const module = webpackModule(AuthModuluName);
+
+  let isAuth = false;
+
+  try {
+    isAuth = await module.isAuthenticated();
+  } catch (error) {}
+
+  readOnly(module, "isAuth", isAuth);
+}
+
+function readOnly(module, key, value) {
+  Object.defineProperty(module, key, {
+    value,
+    enumerable: false,
+    configurable: false,
+    writable: false,
+  });
 }

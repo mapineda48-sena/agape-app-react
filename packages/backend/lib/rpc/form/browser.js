@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { fieldNameArgs } from "./connect-config";
+import { fieldNameArgs } from "../config";
 
 // Converts JavaScript arguments to FormData for HTTP submission.
 // This allows complex objects, including files, to be sent to the server.

@@ -17,21 +17,17 @@ const placeholder = `
 `;
 
 (async () => {
+  const old = await glob("service/**/*.js");
+
+  await Promise.all(old.map(async (file) => fs.remove(file)));
+
   const paths = await glob("service/**/*.ts");
 
   const js = paths.map((ts) =>
     path.resolve(ts).replace(".ts", ".js").replace(".d", "")
   );
 
-  const tasks = js.map(async (file) => {
-    if (await fs.exists(file)) {
-      return;
-    }
-
-    return fs.outputFile(file, placeholder);
-  });
-
-  return Promise.all(tasks);
+  await Promise.all(js.map(async (file) => fs.outputFile(file, placeholder)));
 })().catch((error) => {
   throw error;
 });

@@ -1,2 +1,5 @@
 export function login(username: string, password: string): Promise<void>;
-export function isAuth(): Promise<boolean>;
+export function isAuthenticated(): Promise<boolean>;
+export function logout(): Promise<{ message: string }>;
+
+export const isAuth: boolean;
