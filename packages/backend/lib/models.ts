@@ -5,7 +5,7 @@ import { Sequelize } from "sequelize";
  * Consts
  */
 const delimiter = "_";
-const root = path.resolve("lib/models");
+const root = path.resolve("models");
 const ext = path.extname(__filename);
 
 export async function waitAuthenticate(seq: Sequelize): Promise<void> {
@@ -54,3 +54,21 @@ export function defineGet(target: unknown, key: string, value: unknown) {
     value,
   });
 }
+
+
+
+/**
+ * Types
+ */
+import type { Model } from "sequelize";
+
+export interface IRecord {
+  id: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export type IModel<R extends IRecord> = Model<
+  Omit<R, "createdAt" | "updatedAt">,
+  Omit<R, "createdAt" | "updatedAt" | "id">
+>;

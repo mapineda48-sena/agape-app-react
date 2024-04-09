@@ -1,7 +1,6 @@
-import { Sequelize, Model, DataTypes, ModelStatic } from "sequelize";
-import { toModelName } from "../../util/models";
+import { Sequelize, DataTypes } from "sequelize";
+import { toModelName, IModel, IRecord } from "../../lib/models";
 import { ModelName as Category } from "./category";
-import type { IModel, IRecord } from "../type";
 
 export const ModelName = toModelName(__filename);
 
@@ -35,7 +34,6 @@ export function define(seq: Sequelize) {
       //paranoid: true
     }
   );
-
 
   category.hasMany(subcategory, {
     foreignKey: "categoryId",

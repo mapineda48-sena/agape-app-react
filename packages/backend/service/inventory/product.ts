@@ -1,5 +1,5 @@
-import db from "../../lib/models";
-import { IProduct } from "../../lib/models/inventory/product";
+import db from "../../models";
+import { IProduct } from "../../models/inventory/product";
 import Storage from "../../lib/storage";
 
 export async function createProduct({ images, id, ...dto }: NewProduct) {

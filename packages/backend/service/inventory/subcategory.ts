@@ -1,5 +1,5 @@
-import db from "../../lib/models";
-import type { ISubcategory } from "../../lib/models/inventory/subcategory";
+import db from "../../models";
+import type { ISubcategory } from "../../models/inventory/subcategory";
 
 export function findAll() {
   return db.inventory.subcategory.findAll();

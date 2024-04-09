@@ -1,5 +1,5 @@
 import category from "./category.json";
-import Database from "../models";
+import Database from "../../models";
 
 export default async function populateData() {
   return Promise.all(

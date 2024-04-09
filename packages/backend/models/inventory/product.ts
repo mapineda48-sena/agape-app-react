@@ -1,8 +1,7 @@
 import { Sequelize, DataTypes } from "sequelize";
-import { toModelName } from "../../util/models";
+import { toModelName, IModel, IRecord } from "../../lib/models";
 import { ModelName as Category } from "./category";
 import { ModelName as SubCategory } from "./subcategory";
-import type { IModel, IRecord } from "../type";
 
 export const ModelName = toModelName(__filename);
 

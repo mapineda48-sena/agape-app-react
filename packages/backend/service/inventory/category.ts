@@ -1,5 +1,5 @@
-import db from "../../lib/models";
-import type { ICategory } from "../../lib/models/inventory/category";
+import db from "../../models";
+import type { ICategory } from "../../models/inventory/category";
 
 export function findAll() {
   return db.inventory.category.findAll();

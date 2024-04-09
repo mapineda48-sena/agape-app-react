@@ -1,17 +1,20 @@
 import express from "express";
 import cors from "cors";
 import logger from "morgan";
-import rcp from "../lib/rpc";
-import db from "../lib/models";
+import db from "../models";
 import * as demo from "../lib/demo";
 import Storage from "../lib/storage";
+import rcp from "../lib/rpc";
+import spa from "../lib/spa";
 
 /**
  * Enviroment
  */
 const isDev = process.env.NODE_ENV !== "production";
 const port = process.env.AGAPE_PORT ?? "5000";
-const jwt = isDev ? __filename : process.env.AGAPE_JWT_SECRET ?? process.exit(1);
+const jwt = isDev
+  ? __filename
+  : process.env.AGAPE_JWT_SECRET ?? process.exit(1);
 
 // Infraestructure
 const databaseUri =
@@ -38,11 +41,11 @@ const origin = isDev ? "http://localhost:3000" : undefined;
   const app = express();
 
   app.use(cors({ origin, credentials: true }));
-  app.use(logger("dev"));
+  app.use(logger(isDev ? "dev" : "common"));
 
   //Agape Middlewares
   app.use(await rcp(jwt));
-  app.use(express.static("build"));
+  app.use(spa());
 
   app.listen(parseInt(port), () => console.log(`server at port ${port}`));
 })().catch((error) => {

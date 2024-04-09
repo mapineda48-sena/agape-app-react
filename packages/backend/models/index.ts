@@ -2,7 +2,7 @@ import { Sequelize, Transaction } from "sequelize";
 import cls from "cls-hooked";
 import _ from "lodash";
 import * as inventory from "./inventory";
-import { waitAuthenticate, defineGet, toPathModel } from "../util/models";
+import { waitAuthenticate, defineGet, toPathModel } from "../lib/models";
 
 /**
  * Singleton Database

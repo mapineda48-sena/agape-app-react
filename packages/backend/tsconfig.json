@@ -18,6 +18,6 @@
     "isolatedModules": true,
     "jsx": "react-jsx"
   },
-  "include": ["bin", "service", "lib"],
+  "include": ["bin", "service", "models", "lib"],
   "exclude": ["node_modules", "**/*.js"]
 }
