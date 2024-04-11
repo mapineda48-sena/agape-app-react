@@ -8,7 +8,7 @@ fs.outputJSONSync(
     version,
     private: true,
     scripts: {
-      start: "node bin/index.js",
+      start: "node bin/cluster.js",
     },
     dependencies,
   },

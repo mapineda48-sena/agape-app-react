@@ -1,5 +1,8 @@
 import path from "path";
 import { Sequelize } from "sequelize";
+import ms from "ms";
+
+const unlockTime = ms("15s");
 
 /**
  * Consts
@@ -7,6 +10,31 @@ import { Sequelize } from "sequelize";
 const delimiter = "_";
 const root = path.resolve("models");
 const ext = path.extname(__filename);
+
+export async function sync(sequelize: Sequelize, resetSchema = false) {
+  try {
+    // Crear la schema de bloqueo
+    await sequelize.query('CREATE SCHEMA "lockAgape"');
+
+    console.log(`Worker ${process.pid}: sync database`);
+
+    if (resetSchema) {
+      await sequelize.dropSchema("public", {});
+      await sequelize.createSchema("public", {});
+    }
+
+    // Aquí tu lógica de sincronización o lo que necesites hacer
+    await sequelize.sync();
+
+    const unlock = () =>
+      sequelize.dropSchema("lockAgape", {}).catch(console.error);
+      
+    setTimeout(unlock, unlockTime);
+  } catch (error) {
+    console.log(`Worker ${process.pid}: skip sync database`);
+    //skip error
+  }
+}
 
 export async function waitAuthenticate(seq: Sequelize): Promise<void> {
   try {
@@ -54,8 +82,6 @@ export function defineGet(target: unknown, key: string, value: unknown) {
     value,
   });
 }
-
-
 
 /**
  * Types

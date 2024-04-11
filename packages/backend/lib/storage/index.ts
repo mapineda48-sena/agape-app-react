@@ -85,8 +85,12 @@ export default class Storage {
     const existsBucket = await minio.bucketExists(bucket);
 
     if (!existsBucket) {
-      await minio.makeBucket(bucket, bucketRegion);
-      await minio.setBucketPolicy(bucket, JSON.stringify(policy));
+      try {
+        await minio.makeBucket(bucket, bucketRegion);
+        await minio.setBucketPolicy(bucket, JSON.stringify(policy));
+      } catch (error) {
+        console.log(error)
+      }
     }
 
     this.minio = minio;

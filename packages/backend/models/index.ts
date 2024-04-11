@@ -1,8 +1,8 @@
-import { Sequelize, Transaction } from "sequelize";
+import { QueryTypes, Sequelize, Transaction } from "sequelize";
 import cls from "cls-hooked";
 import _ from "lodash";
 import * as inventory from "./inventory";
-import { waitAuthenticate, defineGet, toPathModel } from "../lib/models";
+import { waitAuthenticate, defineGet, toPathModel, sync } from "../lib/models";
 
 /**
  * Singleton Database
@@ -37,14 +37,9 @@ export async function init(uri: string, resetSchema = false) {
 
   await waitAuthenticate(sequelize);
 
-  //
-  if (resetSchema) {
-    await sequelize.dropSchema("public", {});
-    await sequelize.createSchema("public", {});
-  }
+  await sync(sequelize, resetSchema);
 
   //
-  await sequelize.sync();
 
   Object.entries(sequelize.models).forEach(([modelName, model]) => {
     const path = toPathModel(modelName);
