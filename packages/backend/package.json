@@ -5,14 +5,13 @@
   "private": true,
   "scripts": {
     "start": "ts-node -r ./lib/rpc/register.js bin/index.ts",
-    "cluster":"ts-node ./bin/cluster.ts",
+    "cluster": "ts-node ./bin/cluster.ts",
     "prebuild": "node ./lib/rpc/register.js && cd ../frontend && npm run build",
     "build": "tsc",
     "postbuild": "ts-node postbuild.ts",
     "dist": "run-s prebuild build postbuild"
   },
   "dependencies": {
-    "@types/ms": "^0.7.34",
     "cls-hooked": "^4.2.2",
     "cors": "^2.8.5",
     "express": "^4.18.3",
@@ -31,8 +30,10 @@
     "tslib": "^2.6.2"
   },
   "devDependencies": {
+    "@types/ms": "^0.7.34",
     "@types/cls-hooked": "^4.3.4",
     "@types/cors": "^2.8.17",
+    "@types/debug": "^4.1.12",
     "@types/express": "^4.17.21",
     "@types/formidable": "^3.4.5",
     "@types/fs-extra": "^11.0.4",
@@ -42,8 +43,8 @@
     "@types/morgan": "^1.9.9",
     "@types/node": "^16.18.86",
     "axios": "^1.6.7",
+    "debug": "^4.3.4",
     "npm-run-all": "^4.1.5",
-    "shell-quote": "^1.8.1",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^4.9.5"

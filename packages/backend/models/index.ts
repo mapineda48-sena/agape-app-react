@@ -3,6 +3,7 @@ import cls from "cls-hooked";
 import _ from "lodash";
 import * as inventory from "./inventory";
 import { waitAuthenticate, defineGet, toPathModel, sync } from "../lib/models";
+import debug from "../lib/debug";
 
 /**
  * Singleton Database
@@ -11,6 +12,7 @@ export interface Database {
   readonly inventory: inventory.IModelStatic;
   readonly sequelize: Sequelize;
 
+  readonly isSync: boolean;
   readonly Init: (uri: string, resetSchema?: boolean) => Promise<void>;
   readonly transaction: <T>(autoCallback: AutoCallBack<T>) => Promise<T>;
   readonly withTransaction: <T extends CallBack>(cb: T) => T;
@@ -37,7 +39,7 @@ export async function init(uri: string, resetSchema = false) {
 
   await waitAuthenticate(sequelize);
 
-  await sync(sequelize, resetSchema);
+  defineGet(db, "isSync", await sync(sequelize, resetSchema));
 
   //
 
@@ -56,7 +58,7 @@ export async function init(uri: string, resetSchema = false) {
 
   defineGet(db, "sequelize", sequelize);
 
-  console.log(db);
+  debug.primary(db);
 }
 
 /**

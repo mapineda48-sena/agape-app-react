@@ -1,8 +1,10 @@
+import cluster from "cluster";
 import path from "path";
-import { Sequelize } from "sequelize";
+import { Sequelize, Model } from "sequelize";
 import ms from "ms";
+import debug from "./debug";
 
-const unlockTime = ms("15s");
+const unlockTime = cluster.isPrimary ? 1 : ms("20s");
 
 /**
  * Consts
@@ -16,22 +18,23 @@ export async function sync(sequelize: Sequelize, resetSchema = false) {
     // Crear la schema de bloqueo
     await sequelize.query('CREATE SCHEMA "lockAgape"');
 
-    console.log(`Worker ${process.pid}: sync database`);
+    debug.info("Sync database");
 
     if (resetSchema) {
       await sequelize.dropSchema("public", {});
       await sequelize.createSchema("public", {});
     }
 
-    // Aquí tu lógica de sincronización o lo que necesites hacer
     await sequelize.sync();
 
-    const unlock = () =>
-      sequelize.dropSchema("lockAgape", {}).catch(console.error);
-      
-    setTimeout(unlock, unlockTime);
+    wait(unlockTime)
+      .then(() => sequelize.dropSchema("lockAgape", {}))
+      .catch(debug.primary);
+
+    return true;
   } catch (error) {
-    console.log(`Worker ${process.pid}: skip sync database`);
+    debug.info("Skip sync database");
+    return false;
     //skip error
   }
 }
@@ -51,7 +54,7 @@ export async function waitAuthenticate(seq: Sequelize): Promise<void> {
      * In docker compose maybe database is not ready when try connect
      * try again
      */
-    console.log("the database system is starting up");
+    debug.info("the database system is starting up");
     await wait(500);
     return waitAuthenticate(seq);
   }
@@ -76,7 +79,7 @@ export function toPathModel(modelName: string) {
 }
 
 export function defineGet(target: unknown, key: string, value: unknown) {
-  console.log(`define ${key}`);
+  debug.primary(`db define property ${key}`);
   Object.defineProperty(target, key, {
     configurable: false,
     value,
@@ -86,8 +89,6 @@ export function defineGet(target: unknown, key: string, value: unknown) {
 /**
  * Types
  */
-import type { Model } from "sequelize";
-
 export interface IRecord {
   id: number;
   createdAt: Date;

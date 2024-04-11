@@ -1,5 +1,6 @@
 import fs from "fs-extra";
-import { name, version, dependencies } from "./package.json";
+import { dependencies } from "./package.json";
+import { name, version } from "../../package.json";
 
 fs.outputJSONSync(
   "dist/package.json",

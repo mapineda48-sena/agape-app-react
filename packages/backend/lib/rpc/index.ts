@@ -5,6 +5,7 @@ import { onErrorMiddleware } from "./middleware/error";
 import auth, { Rpc } from "./middleware/auth";
 import path from "path";
 import { rpc as endpoint } from "./config";
+import debug from "../debug";
 
 const extname = path.extname(__filename);
 
@@ -56,7 +57,8 @@ export default async function connectService(secret: string) {
     res.send(buffer);
   });
 
-  console.log(rpc);
+  debug.primary(rpc);
+
   return router;
 }
 
