@@ -33,7 +33,7 @@ export default async function connectService(secret: string) {
     const middlewareModule: Middlewares = [];
 
     if (!serviceModule.startsWith("/service/public")) {
-      middlewareModule.push(authenticate);
+      //middlewareModule.push(authenticate);
     }
 
     exports.forEach(([exportName, fn]) => {

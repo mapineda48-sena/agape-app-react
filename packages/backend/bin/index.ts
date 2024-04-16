@@ -17,7 +17,7 @@ const isDev = process.env.NODE_ENV !== "production";
 const {
   AGAPE_PORT = "5000",
   AGAPE_POSTGRES_URI = "postgresql://postgres:mypassword@127.0.0.1",
-  AGAPE_S3_URI = "http://minio:minio123@127.0.0.1:9000",
+  AGAPE_STORAGE_URI = "http://minio:minio123@127.0.0.1:9000",
   AGAPE_JWT_SECRET = isDev ? __filename : process.exit(1),
 } = process.env;
 
@@ -38,7 +38,7 @@ const origin = isDev
   await demo.populateSchema();
 
   //Storage
-  await Storage.Init(AGAPE_S3_URI);
+  await Storage.Init(AGAPE_STORAGE_URI);
 
   //App
   const app = express();
