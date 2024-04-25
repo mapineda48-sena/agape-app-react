@@ -40,7 +40,7 @@ const {
   // Origin
 
 
-  app.use(origin);
+  app.use(origin(isDev, storageHost));
 
   // Logs
   app.use(logger(isDev ? "dev" : "common"));
