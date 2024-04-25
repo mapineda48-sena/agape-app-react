@@ -12,19 +12,19 @@ Antes de proceder, asegúrate de tener una cuenta activa en Microsoft Azure. Si 
 
 **Uso:** Terraform se utiliza para crear, modificar y versionar infraestructura de forma segura y eficiente.
 
-**Instalación:** El script de PowerShell adjunto automatiza la instalación de Terraform en tu sistema Windows, añadiéndolo al PATH para su fácil acceso desde cualquier terminal.
+**Instalación:** El script de Bash adjunto automatiza la instalación de Terraform en tu sistema Windows, añadiéndolo al PATH para su fácil acceso desde cualquier terminal.
 
 ### kubectl
 
 **Uso:** kubectl es la herramienta de línea de comandos para interactuar con clusters de Kubernetes, permitiendo gestionar las aplicaciones desplegadas, inspeccionar y manejar recursos del cluster, y más.
 
-**Instalación:** Utiliza el script de PowerShell proporcionado para descargar y configurar kubectl automáticamente en tu sistema.
+**Instalación:** Utiliza el script de Bash proporcionado para descargar y configurar kubectl automáticamente en tu sistema.
 
 ### Azure CLI (az-cli)
 
 **Uso:** Azure CLI es una herramienta de línea de comandos proporcionada por Microsoft que permite gestionar recursos de Azure de manera eficiente, facilitando la automatización de tareas a través de scripts.
 
-**Instalación:** Sigue las instrucciones del script de PowerShell incluido para instalar az-cli en tu máquina.
+**Instalación:** Sigue las instrucciones del script de Bash incluido para instalar az-cli en tu máquina.
 
 ## Configuración de Azure CLI
 

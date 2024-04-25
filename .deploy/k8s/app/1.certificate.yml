@@ -8,4 +8,4 @@ spec:
     name: cert-manager-global
     kind: ClusterIssuer
   dnsNames:
-  - ${APP_NAME}.${DOMAIN}
+  - ${APP_NAME}.${GODADDY_DOMAIN}

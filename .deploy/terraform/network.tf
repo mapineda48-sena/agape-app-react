@@ -1,48 +1,63 @@
-# resource "azurerm_resource_group" "example" {
-#   name     = "example-resources"
-#   location = "West Europe"
+# # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/kubernetes_cluster
+# resource "azurerm_kubernetes_cluster" "agape" {
+#   name                              = "agape-aks"
+#   location                          = azurerm_resource_group.agape.location
+#   resource_group_name               = azurerm_resource_group.agape.name
+#   dns_prefix                        = "agape-k8s"
+#   role_based_access_control_enabled = true
+
+#   default_node_pool {
+#     name           = "agentpool"
+#     node_count     = 1
+#     vm_size        = "Standard_D2_v2"
+#     vnet_subnet_id = azurerm_subnet.agape.id
+#   }
+
+#   linux_profile {
+#     admin_username = "ubuntu"
+
+#     ssh_key {
+#       key_data = file("C:\\Users\\win\\.ssh\\id_rsa.pub")
+#     }
+#   }
+
+#   identity {
+#     type = "SystemAssigned"
+#   }
+
+#   tags = {
+#     environment = "Demo"
+#   }
 # }
 
-# resource "azurerm_virtual_network" "example" {
-#   name                = "example-vnet"
-#   address_space       = ["10.7.29.0/29"]
-#   location            = azurerm_resource_group.example.location
-#   resource_group_name = azurerm_resource_group.example.name
+# # # Crear la cuenta de almacenamiento
+# resource "azurerm_storage_account" "agape" {
+#   name                     = random_string.random.result
+#   resource_group_name      = azurerm_resource_group.agape.name
+#   location                 = azurerm_resource_group.agape.location
+#   account_tier             = "Standard"
+#   account_replication_type = "LRS"
 # }
 
-# resource "azurerm_subnet" "internal" {
-#   name                 = "internal"
-#   resource_group_name  = azurerm_resource_group.example.name
-#   virtual_network_name = azurerm_virtual_network.example.name
-#   address_prefixes     = ["10.7.29.0/29"]
-#   service_endpoints    = ["Microsoft.Sql"]
-# }
-
-# resource "azurerm_postgresql_server" "example" {
-#   name                = "postgresql-server-1"
-#   location            = azurerm_resource_group.example.location
-#   resource_group_name = azurerm_resource_group.example.name
-
-#   sku_name = "GP_Gen5_2"
-
-#   storage_mb            = 5120
-#   backup_retention_days = 7
-
-
-#   administrator_login          = "psqladmin"
-#   administrator_login_password = "H@Sh1CoR3!"
-#   version                      = "9.5"
-#   ssl_enforcement_enabled      = true
+# output "storage_uri" {
+#   sensitive = true
+#   value     = azurerm_storage_account.agape.primary_blob_connection_string
 # }
 
 
+# resource "null_resource" "apply_k8s_manifest" {
+#   depends_on = [
+#     azurerm_kubernetes_cluster.agape,
+#   ]
 
+#   provisioner "local-exec" {
+#     when       = create
+#     on_failure = continue
 
+#     command = "PowerShell -NoProfile -ExecutionPolicy Bypass -File C:\\Users\\win\\github.com\\agape-app-react\\.deploy\\k8s\\apply.ps1"
 
-# resource "azurerm_postgresql_virtual_network_rule" "example" {
-#   name                                 = "postgresql-vnet-rule"
-#   resource_group_name                  = azurerm_resource_group.example.name
-#   server_name                          = azurerm_postgresql_server.example.name
-#   subnet_id                            = azurerm_subnet.internal.id
-#   ignore_missing_vnet_service_endpoint = true
+#     environment = {
+#       KUBECONFIG_CONTENTS = azurerm_kubernetes_cluster.agape.kube_config_raw
+#     }
+#   }
 # }

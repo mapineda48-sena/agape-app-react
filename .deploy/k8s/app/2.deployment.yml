@@ -14,11 +14,13 @@ spec:
     spec:
       containers:
         - name: ${APP_NAME}-deployment
-          image: ${DEPLOY_IMAGE}
+          image: mapineda48/agape-app-sena:latest
           env:
-            - name: PGADMIN_DEFAULT_EMAIL
-              value: "admin@mapineda48.com"
-            - name: PGADMIN_DEFAULT_PASSWORD
-              value: "admin"
+            - name: AGAPE_POSTGRES_URI
+              value: ""
+            - name: AGAPE_STORAGE_URI
+              value: ""
+            - name: AGAPE_JWT_SECRET
+              value: "vzlezu7r7xqjo8h06cquap1t"
           ports:
-            - containerPort: 80
+            - containerPort: 5000
