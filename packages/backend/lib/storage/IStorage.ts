@@ -10,7 +10,7 @@ export type ContentFile = ReadStream | PassThrough | Buffer;
  * Interfaz genérica para el manejo de almacenamiento de archivos.
  */
 export interface IStorage {
-  sync(): Promise<void>;
+  sync(): Promise<string>;
 
   /**
    * Sube un archivo de forma pública y retorna la URL donde el archivo está accesible.

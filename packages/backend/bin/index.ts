@@ -1,13 +1,12 @@
 import express from "express";
 import logger from "morgan";
-import cors from "cors";
-import helmet from "helmet";
 import db from "../models";
 import * as demo from "../lib/demo";
 import Storage from "../lib/storage";
 import rcp from "../lib/rpc";
 import spa from "../lib/spa";
 import debug from "../lib/debug";
+import origin from "../lib/origin";
 
 /**
  * Enviroment
@@ -21,11 +20,6 @@ const {
   AGAPE_JWT_SECRET = isDev ? __filename : process.exit(1),
 } = process.env;
 
-//SPA - React Application
-const origin = isDev
-  ? cors({ origin: "http://localhost:3000", credentials: true })
-  : helmet();
-
 /**
  * Boot App
  */
@@ -38,12 +32,17 @@ const origin = isDev
   await demo.populateSchema();
 
   //Storage
-  await Storage.Init(AGAPE_STORAGE_URI);
+  const storageHost = await Storage.Init(AGAPE_STORAGE_URI);
 
   //App
   const app = express();
 
+  // Origin
+
+
   app.use(origin);
+
+  // Logs
   app.use(logger(isDev ? "dev" : "common"));
 
   //Agape Middlewares

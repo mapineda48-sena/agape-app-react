@@ -36,6 +36,8 @@ export class S3Storage implements IStorage {
         console.log(error);
       }
     }
+
+    return "";
   }
 
   public async uploadPublic(

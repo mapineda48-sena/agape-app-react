@@ -30,7 +30,7 @@ export default class Storage {
       ? new AzureBlobStorage(connectionString)
       : new S3Storage(connectionString);
 
-    await this.storage.sync();
+    return this.storage.sync();
   }
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function

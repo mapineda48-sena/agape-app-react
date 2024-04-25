@@ -3,10 +3,14 @@ import { ReadStream } from "fs";
 import { IStorage, ContentFile } from "./IStorage"; // Asumiendo que la interfaz está en IStorage.ts
 
 export class AzureBlobStorage implements IStorage {
+  private hostname: string;
   private publicContainer = "public";
   private containerClient: ContainerClient;
 
   constructor(connectionString: string) {
+    const [, hostname] = connectionString.match(/BlobEndpoint=(https?:\/\/[^;]+)/) ?? [];
+    this.hostname = hostname;
+
     const serviceClient =
       BlobServiceClient.fromConnectionString(connectionString);
     this.containerClient = serviceClient.getContainerClient(this.publicContainer);
@@ -16,6 +20,8 @@ export class AzureBlobStorage implements IStorage {
     await this.containerClient.createIfNotExists({
       access: "container",
     });
+
+    return this.hostname;
   }
 
   public async uploadPublic(
