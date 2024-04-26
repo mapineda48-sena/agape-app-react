@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { service } from "backend/lib/rpc/browser-webpack";
+import { sync } from "backend/service/auth";
 import "./assets/styles/index.css";
 
 const root = document.getElementById("root") as HTMLElement;
@@ -12,7 +12,7 @@ const AppMode =
   process.env.NODE_ENV === "development" ? React.Fragment : React.StrictMode;
 
 (async () => {
-  await service;
+  await sync;
 
   const [App, reportWebVitals] = await Promise.all([
     import("./App").then((m) => m.default),

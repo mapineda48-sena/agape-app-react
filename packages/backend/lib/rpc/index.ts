@@ -2,15 +2,13 @@ import { glob } from "glob";
 import _ from "lodash";
 import onRpc, { Middlewares, isRpcApiKey } from "./middleware";
 import { onErrorMiddleware } from "./middleware/error";
-import auth, { Rpc } from "./middleware/auth";
+import auth from "./middleware/auth";
 import path from "path";
-import { rpc as endpoint } from "./config";
-import debug from "../debug";
 
 const extname = path.extname(__filename);
 
 export default async function connectService(secret: string) {
-  const { router, authenticate, rpc } = auth(secret);
+  const { router, authenticate} = auth(secret);
 
   const paths = await glob("service/**/*" + extname);
 
@@ -26,9 +24,6 @@ export default async function connectService(secret: string) {
     }
 
     const serviceModule = toServiceEndpoint(file);
-    const webpackModule = toServiceWebpack(file);
-
-    const rpcModule: Rpc = (rpc[webpackModule] = {});
 
     const middlewareModule: Middlewares = [];
 
@@ -40,8 +35,6 @@ export default async function connectService(secret: string) {
       const endpoint = path.posix.join(serviceModule, exportName);
 
       router.post(endpoint, ...middlewareModule, onRpc(fn));
-
-      rpcModule[exportName] = endpoint;
     });
   });
 
@@ -49,20 +42,10 @@ export default async function connectService(secret: string) {
 
   router.use(onErrorMiddleware);
 
-  const buffer = Buffer.from(JSON.stringify(rpc));
-
-  router.post(endpoint, (req, res, next) => {
-    if (!isRpcApiKey(req)) return next();
-
-    res.send(buffer);
-  });
-
-  debug.primary(rpc);
-
   return router;
 }
 
-function toServiceEndpoint(file: string) {
+export function toServiceEndpoint(file: string) {
   return path.posix.join("/", file.replace(extname, ""));
 }
 
@@ -78,7 +61,7 @@ async function import$(filename: string) {
   ) as Export[];
 }
 
-function toPosix(path: string) {
+export function toPosix(path: string) {
   return path.replace(/\\/g, "/");
 }
 

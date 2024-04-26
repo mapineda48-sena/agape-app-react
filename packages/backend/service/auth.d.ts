@@ -3,3 +3,4 @@ export function isAuthenticated(): Promise<boolean>;
 export function logout(): Promise<{ message: string }>;
 
 export const isAuth: boolean;
+export const sync: Promise<void>;

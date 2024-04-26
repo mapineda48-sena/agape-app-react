@@ -2,9 +2,41 @@ import { Suspense } from "react";
 import { Action } from "history";
 import history from "history/browser";
 import { match } from "path-to-regexp";
+import foo from "./pages";
 
 // Array para almacenar las páginas y sus configuraciones.
-const pages = [];
+const pages = foo.map(([pattern, import$], index) => {
+  return {
+    index,
+    match: match(pattern, { sensitive: true }),
+
+    async init(params) {
+      await this.import();
+
+      if (!this.getPropsFormServer) {
+        return { index };
+      }
+
+      try {
+        const props = await this.getPropsFormServer(params);
+        return { index, props };
+      } catch (error) {
+        return { index, props: { error } };
+      }
+    },
+
+    async import() {
+      if (this.Component) {
+        return;
+      }
+
+      // Importar el componente y una función opcional para obtener props desde el servidor.
+      const { default: Component, onProps } = await import$();
+      this.Component = Component;
+      this.getPropsFormServer = onProps;
+    },
+  }
+});
 const notFoundIndex = -1;
 
 const initState = {
@@ -50,43 +82,6 @@ function getPage({ location: { state }, action }) {
   return { Page: () => <Page {...props} /> };
 }
 
-// Función para definir una ruta y cómo cargar el componente correspondiente.
-function use(pattern, import$) {
-  const index = pages.length;
-
-  // Agregar la nueva página con su patrón, función de coincidencia y lógica de importación.
-  pages.push({
-    index,
-    match: match(pattern, { sensitive: true }),
-
-    async init(params) {
-      await this.import();
-
-      if (!this.getPropsFormServer) {
-        return { index };
-      }
-
-      try {
-        const props = await this.getPropsFormServer(params);
-        return { index, props };
-      } catch (error) {
-        return { index, props: { error } };
-      }
-    },
-
-    async import() {
-      if (this.Component) {
-        return;
-      }
-
-      // Importar el componente y una función opcional para obtener props desde el servidor.
-      const { default: Component, onProps } = await import$();
-      this.Component = Component;
-      this.getPropsFormServer = onProps;
-    },
-  });
-}
-
 // Función para cambiar a una nueva ruta con historial de navegación push.
 function push(pathname) {
   return find(pathname).then((state) => history.push(pathname, state));
@@ -115,7 +110,6 @@ function find(pathname) {
 
 // Objeto app que expone las funciones para ser utilizadas en la aplicación.
 const app = {
-  use,
   push,
   replace,
   onUpdate,

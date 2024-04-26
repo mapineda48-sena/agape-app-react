@@ -5,14 +5,13 @@ import express, {
   CookieOptions,
 } from "express";
 import parseFormData from "../form/server";
-import { AuthModuluName } from "../config";
 import Jwt from "../../jwt";
 
 const AuthTokenCookie = "auth_token";
 
 const UserAgape = "__user_agape__";
 
-const pattern = {
+export const pattern = {
   login: "/service/auth/login",
   isAuthenticated: "/service/auth/isAuthenticated",
   logout: "/service/auth/logout",
@@ -103,9 +102,7 @@ export default function defineAuth(secret: string) {
     }
   };
 
-  const rpc: Context = { [AuthModuluName]: pattern };
-
-  return { router, authenticate, rpc };
+  return { router, authenticate };
 }
 
 function setUserRequest(req: Request, payload: unknown) {
@@ -132,15 +129,3 @@ export function getCookie(header?: string) {
 
   return token;
 }
-
-/**
- * Types
- */
-
-export type Context = {
-  [Module: string]: Rpc;
-};
-
-export type Rpc = {
-  [ExportName: string]: string;
-};

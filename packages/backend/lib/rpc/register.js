@@ -1,6 +1,7 @@
 const path = require("path");
 const fs = require("fs-extra");
 const { glob } = require("glob");
+const { toPosix, toServiceEndpoint } = require(".");
 
 const placeholder = `
 /**
@@ -14,7 +15,10 @@ const placeholder = `
  * The resources exported by the module are dynamically generated at runtime, utilizing the implementation of 
  * Remote Procedure Call (RPC).
  */
+
 `;
+
+const makeRcp = require.resolve("./client");
 
 (async () => {
   const old = await glob("service/**/*.js");
@@ -23,11 +27,50 @@ const placeholder = `
 
   const paths = await glob("service/**/*.ts");
 
-  const js = paths.map((ts) =>
-    path.resolve(ts).replace(".ts", ".js").replace(".d", "")
-  );
+  await Promise.all(paths.map(async (ts) => {
+    if (ts.includes(".d")) {
+      return;
+    }
 
-  await Promise.all(js.map(async (file) => fs.outputFile(file, placeholder)));
+    const jsData = [placeholder];
+
+    const filename = path.resolve(ts);
+    const dirname = path.dirname(filename);
+    const client = path.relative(dirname, makeRcp);
+
+    jsData.push(`import makeRcp from "${client}"\n`);
+
+    const module = await import(filename);
+    const baseUrl = toServiceEndpoint(toPosix(ts));
+    const js = path.resolve(ts).replace(".ts", ".js");
+
+    Object.entries(module).filter(([, value]) => typeof value === "function").forEach(([fn]) => {
+      const endpoint = baseUrl + "/" + fn;
+
+      jsData.push(`export const ${fn} = makeRcp("${endpoint}");`);
+    })
+
+    return fs.outputFile(js, jsData.join("\n"));
+  }));
+
+  await auth();
+
 })().catch((error) => {
   throw error;
 });
+
+async function auth() {
+  await fs.outputFile("service/auth.js", `
+  import makeRcp from "../lib/rpc/client.js"
+
+  export let isAuth = false;
+
+  export const login = makeRcp("/service/auth/login");
+  export const isAuthenticated = makeRcp("/service/auth/isAuthenticated");
+  export const logout = makeRcp("/service/auth/logout");
+
+  export const sync = isAuthenticated().then(state => {
+      isAuth = state
+  }).catch(error => { })
+  `)
+}

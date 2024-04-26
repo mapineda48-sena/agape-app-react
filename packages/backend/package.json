@@ -6,7 +6,7 @@
   "scripts": {
     "start": "ts-node -r ./lib/rpc/register.js bin/index.ts",
     "cluster": "ts-node ./bin/cluster.ts",
-    "prebuild": "node ./lib/rpc/register.js && cd ../frontend && npm run build",
+    "prebuild": "ts-node ./lib/rpc/register.js && cd ../frontend && npm run build",
     "build": "tsc",
     "postbuild": "ts-node postbuild.ts",
     "dist": "run-s prebuild build postbuild"

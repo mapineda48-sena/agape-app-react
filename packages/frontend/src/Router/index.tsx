@@ -6,7 +6,6 @@ import {
   useState,
 } from "react";
 import router from "./app";
-import "./paths";
 
 const Context = createContext(router.push);
 
