@@ -12,8 +12,9 @@ export default function origin(isDev: boolean, storageHost: string) {
 
     return helmet({
         contentSecurityPolicy: {
+            useDefaults: true,
             directives: {
-                "script-src": [
+                "img-src": [
                     ...helmet.contentSecurityPolicy.getDefaultDirectives()['img-src'], // Conserva las directivas por defecto de 'img-src'
                     "blob:",
                     storageHost, // Agrega tu fuente personalizada
