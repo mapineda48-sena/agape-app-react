@@ -87,9 +87,24 @@ fi
 echo "Desplegando External DNS"
 kubectl kustomize ./external-dns | envsubst | kubectl apply -f - 
 
+
+if [[ -z $POSTGRES_URI ]] || [ -z $STORAGE_URI ]; then
+    echo "Omitir Agape secret"
+    exit
+fi
+
+kubectl create secret generic agape-secret \
+  --from-literal=jwt-key="$(openssl rand -base64 32)" \
+  --from-literal=postgres-uri=$POSTGRES_URI \
+  --from-literal=storage-uri=$STORAGE_URI   
+
+
 echo "Desplegando PgAdmin4"
 kubectl kustomize ./pgadmin4 | envsubst | kubectl apply -f - 
 
-rm "$KUBECONFIG"
+echo "Desplegando AgapeApp"
+kubectl kustomize ./app | envsubst | kubectl apply -f - 
 
 echo "$KUBECONFIG_CONTENTS" > ~/.kube/config
+
+rm "$KUBECONFIG"

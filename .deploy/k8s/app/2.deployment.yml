@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: ${APP_NAME}-deployment
 spec:
-  replicas: 1
+  replicas: 12
   selector:
     matchLabels:
       app: ${APP_NAME}-deployment
@@ -15,12 +15,22 @@ spec:
       containers:
         - name: ${APP_NAME}-deployment
           image: mapineda48/agape-app-sena:latest
+          imagePullPolicy: Always
           env:
             - name: AGAPE_POSTGRES_URI
-              value: ""
+              valueFrom:
+                secretKeyRef:
+                  name: agape-secret
+                  key: postgres-uri
             - name: AGAPE_STORAGE_URI
-              value: ""
+              valueFrom:
+                secretKeyRef:
+                  name: agape-secret
+                  key: storage-uri
             - name: AGAPE_JWT_SECRET
-              value: "vzlezu7r7xqjo8h06cquap1t"
+              valueFrom:
+                secretKeyRef:
+                  name: agape-secret
+                  key: jwt-key
           ports:
             - containerPort: 5000

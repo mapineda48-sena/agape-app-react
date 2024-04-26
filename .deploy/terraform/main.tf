@@ -190,6 +190,8 @@ resource "null_resource" "apply_k8s_manifest" {
 
     environment = {
       KUBECONFIG_CONTENTS = azurerm_kubernetes_cluster.agape.kube_config_raw
+      POSTGRES_URI = "postgresql://${azurerm_postgresql_flexible_server.agape.administrator_login}:${azurerm_postgresql_flexible_server.agape.administrator_password}@${azurerm_postgresql_flexible_server.agape.fqdn}/${azurerm_postgresql_flexible_server_database.agape.name}?sslmode=require"
+      STORAGE_URI = azurerm_storage_account.agape.primary_blob_connection_string
     }
   }
 }
