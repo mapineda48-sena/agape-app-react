@@ -1,6 +1,5 @@
 import fs from "fs-extra";
-import { dependencies as backend } from "./package.json";
-import { dependencies as frontend } from "../frontend/package.json";
+import { dependencies } from "./package.json";
 import { name, version } from "../../package.json";
 
 fs.outputJSONSync(
@@ -10,23 +9,11 @@ fs.outputJSONSync(
     version,
     private: true,
     scripts: {
-      start: "node -r module-alias/register bin/cluster.js",
+      start: "node bin/cluster.js",
     },
-    dependencies: {
-      ...frontend,
-      ...backend,
-      ["module-alias"]: "2.2.3"
-    },
-    "_moduleAliases": {
-      "backend": ".", // Application's root
-    }
+    dependencies,
   },
   { spaces: 2 }
 );
-
-fs.outputFileSync("dist/service/auth.js", "");
-
-fs.copySync("../frontend/dist", "dist/lib/spa", { overwrite: true });
-
 
 fs.copySync("dist", "../../dist", { overwrite: true });

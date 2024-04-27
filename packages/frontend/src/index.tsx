@@ -14,14 +14,9 @@ const root = document.getElementById("root") as HTMLElement;
   } catch (error) {
 
   }
-
-  if (process.env.NODE_ENV === "development") {
-    ReactDOM.createRoot(root).render(
-      <App history={history} />
-    );
-  } else {
-    hydrateRoot(root, <App history={history} />)
-  }
+  ReactDOM.createRoot(root).render(
+    <App history={history} />
+  );
 
   reportWebVitals();
 })().catch((error) => {
