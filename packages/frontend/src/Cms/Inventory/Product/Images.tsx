@@ -59,7 +59,7 @@ export default function Images(props: { path: string }) {
     });
   }, [getCarousel, setState]);
 
-  const Slides = !state.length
+  const Slides = !state?.length
     ? Empty
     : state.map((file, index) => (
         <div
@@ -111,7 +111,7 @@ export default function Images(props: { path: string }) {
           placeholder=""
         />
         <button
-          disabled={!state.length}
+          disabled={!state?.length}
           type="button"
           className="btn btn-primary"
           onClick={remove}

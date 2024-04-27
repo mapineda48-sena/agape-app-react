@@ -25,7 +25,7 @@ const pages = [
     ],
     [
         "/cms",
-        () => import("Cms/Inventory/Category")
+        () => import("Cms/Welcome")
     ],
     [
         "/cms/subcategories",

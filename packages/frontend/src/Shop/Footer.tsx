@@ -1,3 +1,5 @@
+import Link from "Router/Link";
+
 export default function Footer() {
   return (
     <footer className="bg-dark" id="tempaltemo_footer">
@@ -26,6 +28,15 @@ export default function Footer() {
                 >
                   info@company.com
                 </a>
+              </li>
+              <li>
+                <i className="fa fa-user-circle fa-fw" />
+                <Link
+                  className="text-decoration-none"
+                  href="/cms"
+                >
+                  Cms
+                </Link>
               </li>
             </ul>
           </div>

@@ -33,9 +33,6 @@ function createCarousel(el: HTMLDivElement): ICarousel {
   const instance: unknown = new Carousel(el) as ICarousel;
 
   Object.defineProperty(instance, "getCurrentIndex", {
-    writable: false,
-    configurable: false,
-    enumerable: false,
     value: () =>
       Array.from(el.querySelectorAll(".carousel-item")).findIndex((el) =>
         el.classList.contains("active")
