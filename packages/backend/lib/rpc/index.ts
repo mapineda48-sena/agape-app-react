@@ -2,7 +2,7 @@ import { glob } from "glob";
 import _ from "lodash";
 import onRpc, { Middlewares, isRpcApiKey } from "./middleware";
 import { onErrorMiddleware } from "./middleware/error";
-import auth from "./middleware/auth";
+import auth from "./auth/server";
 import path from "path";
 
 const extname = path.extname(__filename);
@@ -28,7 +28,7 @@ export default async function connectService(secret: string) {
     const middlewareModule: Middlewares = [];
 
     if (!serviceModule.startsWith("/service/public")) {
-      //middlewareModule.push(authenticate);
+      middlewareModule.push(authenticate);
     }
 
     exports.forEach(([exportName, fn]) => {

@@ -1,4 +1,4 @@
-export function login(username: string, password: string): Promise<void>;
+export function login(auth: { username: string, password: string }): Promise<void>;
 export function isAuthenticated(): Promise<boolean>;
 export function logout(): Promise<{ message: string }>;
 

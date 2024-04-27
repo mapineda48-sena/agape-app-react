@@ -4,9 +4,9 @@
   "description": "",
   "private": true,
   "scripts": {
-    "start": "ts-node -r ./lib/rpc/register.js bin/index.ts",
-    "cluster": "ts-node ./bin/cluster.ts",
-    "prebuild": "ts-node ./lib/rpc/register.js && cd ../frontend && npm run build",
+    "start": "ts-node -r ./bin/webpack.js bin/index.ts",
+    "cluster": "ts-node bin/cluster.ts",
+    "prebuild": "ts-node bin/webpack.js && cd ../frontend && npm run build",
     "build": "tsc",
     "postbuild": "ts-node postbuild.ts",
     "dist": "run-s prebuild build postbuild"

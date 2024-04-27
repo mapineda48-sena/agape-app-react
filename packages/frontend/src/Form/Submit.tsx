@@ -1,11 +1,13 @@
 import { useForm } from "Form";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export default function Submit(props: Props) {
   const [disabled, setDisabled] = useState(false);
   const form = useForm();
 
-  useEffect(() => form.onLoading(setDisabled), [form]);
+  const toggle = useCallback(() => setDisabled(state => !state), [])
+
+  useEffect(() => form.onLoading(toggle), [form]);
 
   return (
     <button {...props} type="submit" disabled={disabled || props.disabled} />

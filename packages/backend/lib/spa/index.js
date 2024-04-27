@@ -1,10 +1,10 @@
-import express from "express";
-import path from "path";
+const express = require("express");
+const path = require("path");
 
 const build = path.resolve("build");
 const index = path.resolve("build/index.html");
 
-export default function reactAppMiddleware() {
+module.exports = function reactAppMiddleware() {
   const router = express.Router();
 
   router.use(express.static(build));

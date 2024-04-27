@@ -1,7 +1,8 @@
 const path = require("path");
 const fs = require("fs-extra");
 const { glob } = require("glob");
-const { toPosix, toServiceEndpoint } = require(".");
+const { toPosix, toServiceEndpoint } = require("../lib/rpc");
+const makeRcp = require.resolve("../lib/rpc/browser");
 
 const placeholder = `
 /**
@@ -17,8 +18,6 @@ const placeholder = `
  */
 
 `;
-
-const makeRcp = require.resolve("./client");
 
 (async () => {
   const old = await glob("service/**/*.js");
@@ -53,24 +52,7 @@ const makeRcp = require.resolve("./client");
     return fs.outputFile(js, jsData.join("\n"));
   }));
 
-  await auth();
-
+  await fs.outputFile("service/auth.js", 'export * from "../lib/rpc/auth/browser";');
 })().catch((error) => {
   throw error;
 });
-
-async function auth() {
-  await fs.outputFile("service/auth.js", `
-  import makeRcp from "../lib/rpc/client.js"
-
-  export let isAuth = false;
-
-  export const login = makeRcp("/service/auth/login");
-  export const isAuthenticated = makeRcp("/service/auth/isAuthenticated");
-  export const logout = makeRcp("/service/auth/logout");
-
-  export const sync = isAuthenticated().then(state => {
-      isAuth = state
-  }).catch(error => { })
-  `)
-}

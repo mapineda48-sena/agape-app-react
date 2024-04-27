@@ -3,6 +3,7 @@ import { Action } from "history";
 import history from "history/browser";
 import { match } from "path-to-regexp";
 import foo from "./pages";
+import { isAuth } from "backend/service/auth";
 
 // Array para almacenar las páginas y sus configuraciones.
 const pages = foo.map(([pattern, import$], index) => {
@@ -82,13 +83,34 @@ function getPage({ location: { state }, action }) {
   return { Page: () => <Page {...props} /> };
 }
 
+let last = "/cms";
+
+function auth(cb) {
+  return (arg) => cb(arg).then(() => {
+    replace(last)
+  })
+}
+
+function isCMS(pathname) {
+  if (pathname.startsWith("/cms") && !isAuth) {
+    last = pathname;
+    return "/login";
+  }
+
+  return pathname;
+}
+
 // Función para cambiar a una nueva ruta con historial de navegación push.
 function push(pathname) {
+  pathname = isCMS(pathname);
+
   return find(pathname).then((state) => history.push(pathname, state));
 }
 
 // Función para reemplazar la ruta actual en el historial de navegación.
 function replace(pathname) {
+  pathname = isCMS(pathname);
+
   return find(pathname).then((state) => history.replace(pathname, state));
 }
 
@@ -110,6 +132,7 @@ function find(pathname) {
 
 // Objeto app que expone las funciones para ser utilizadas en la aplicación.
 const app = {
+  auth,
   push,
   replace,
   onUpdate,
