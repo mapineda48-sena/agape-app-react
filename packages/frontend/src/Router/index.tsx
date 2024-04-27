@@ -7,7 +7,7 @@ import {
 } from "react";
 import router from "./app";
 
-const Context = createContext(router.push);
+export const Context = createContext(router.push);
 
 const initState = {
   Page: () => <Suspense />,

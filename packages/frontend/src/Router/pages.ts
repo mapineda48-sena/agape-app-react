@@ -21,7 +21,7 @@ const pages = [
     ],
     [
         "/login",
-        () => import("Login")
+        () => import("App/Login")
     ],
     [
         "/cms",
