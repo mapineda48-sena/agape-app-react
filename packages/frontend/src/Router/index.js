@@ -1,6 +1,5 @@
-import { Suspense, useMemo, createContext } from "react";
+import { Suspense, useMemo, createContext, useContext, useState, useEffect } from "react";
 import { Action } from "history";
-import history from "history/browser";
 import { match } from "path-to-regexp";
 import imports from "./pages";
 import { isAuth } from "backend/service/auth";
@@ -13,7 +12,7 @@ const initState = {
 
 export const Context = createContext(null);
 
-export default function Foo() {
+export default function Router({ history }) {
   const app = useMemo(() => {
     // Array para almacenar las páginas y sus configuraciones.  
     const pages = imports.map(([pattern, import$], index) => {
@@ -47,16 +46,6 @@ export default function Foo() {
           this.getPropsFormServer = onProps;
         },
       }
-
-
-
-
-      w
-
-
-
-
-
     });
 
     // Función que se suscribe a los cambios de la navegación y ejecuta un callback con la página actual.
@@ -162,9 +151,14 @@ export default function Foo() {
   useEffect(() => app.onUpdate(setPage), [app]);
 
   return (
-    <Context.Provider value={app.push}>
+    <Context.Provider value={app}>
       <Page />
     </Context.Provider>
   );
 
+}
+
+
+export function useRouter() {
+  return useContext(Context);
 }

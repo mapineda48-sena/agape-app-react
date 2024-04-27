@@ -1,5 +1,6 @@
 import EventEmitter from "EventEmitter";
 import Router from "Router";
+import { BrowserHistory } from "history";
 import React from "react";
 
 /**
@@ -8,11 +9,11 @@ import React from "react";
 const AppMode =
   process.env.NODE_ENV === "development" ? React.Fragment : React.StrictMode;
 
-export default function App() {
+export default function App(props: { history: BrowserHistory }) {
   return (
     <AppMode>
       <EventEmitter>
-        <Router />
+        <Router history={props.history} />
       </EventEmitter>
     </AppMode>
   );

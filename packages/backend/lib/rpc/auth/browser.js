@@ -22,8 +22,13 @@ export const logout = (() => {
     })
 })();
 
-export const isAuthenticated = makeRcp("/service/auth/isAuthenticated");
 
-export const sync = isAuthenticated().then(state => {
-    isAuth = state
-}).catch(error => { })
+export const isAuthenticated = (() => {
+    const isAuthenticated = makeRcp("/service/auth/isAuthenticated");
+
+    return (...args) => isAuthenticated(...args).then(state => {
+        isAuth = state;
+
+        return state;
+    })
+})();

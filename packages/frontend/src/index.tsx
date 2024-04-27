@@ -1,4 +1,5 @@
-import ReactDOM from "react-dom/client";
+import ReactDOM, { hydrateRoot } from "react-dom/client";
+import history from "history/browser";
 import { isAuthenticated } from "backend/service/auth";
 import App from "App";
 import reportWebVitals from "util/reportWebVitals";
@@ -14,9 +15,13 @@ const root = document.getElementById("root") as HTMLElement;
 
   }
 
-  ReactDOM.createRoot(root).render(
-    <App />
-  );
+  if (process.env.NODE_ENV === "development") {
+    ReactDOM.createRoot(root).render(
+      <App history={history} />
+    );
+  } else {
+    hydrateRoot(root, <App history={history} />)
+  }
 
   reportWebVitals();
 })().catch((error) => {

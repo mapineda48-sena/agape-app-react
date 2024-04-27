@@ -6,7 +6,7 @@ const webpackConfig = require("react-scripts/config/webpack.config")(process.env
 
 webpackConfig.target = 'node';
 
-webpackConfig.entry = './src/index.server.ts';
+webpackConfig.entry = './src/index.server.tsx';
 
 webpackConfig.output = {
     path: path.resolve(__dirname, 'dist'),

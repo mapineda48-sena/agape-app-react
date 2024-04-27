@@ -1,17 +1,17 @@
 import { useCallback } from "react";
-import { useLocation } from ".";
+import { useRouter } from ".";
 
 export default function Link(props: Props) {
   const { href, ...core } = props;
-  const push = useLocation();
+  const history = useRouter();
 
   const onClick = useCallback(
     (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
       e.stopPropagation();
       e.preventDefault();
-      push(href);
+      history.push(href);
     },
-    [href, push]
+    [href, history]
   );
 
   // eslint-disable-next-line jsx-a11y/anchor-has-content

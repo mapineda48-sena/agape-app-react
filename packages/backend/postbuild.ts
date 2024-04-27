@@ -24,6 +24,9 @@ fs.outputJSONSync(
   { spaces: 2 }
 );
 
+fs.outputFileSync("dist/service/auth.js", "");
+
 fs.copySync("../frontend/dist", "dist/lib/spa", { overwrite: true });
+
 
 fs.copySync("dist", "../../dist", { overwrite: true });
