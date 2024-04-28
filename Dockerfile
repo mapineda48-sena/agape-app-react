@@ -31,10 +31,6 @@ WORKDIR /home/app
 RUN adduser --disabled-password --home /home/app --gecos '' app \
     && chown -R app /home/app
 
-# Set permissions for everything in /home/app
-RUN find /home/app -type d -exec chmod 755 {} \; && \
-    find /home/app -type f -exec chmod 644 {} \;
-
 USER app
 
 # Copy built files from builder stage

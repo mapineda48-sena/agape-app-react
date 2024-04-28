@@ -1,9 +1,12 @@
 import express from "express";
 import path from "path";
 import fs from "fs";
+import os from "os";
 import { renderToString } from "react-dom/server";
 import pages from './pages';
 import { Server } from './App';
+
+const tmpdir = os.tmpdir();
 
 const build = path.join(__dirname, "build");
 const index = path.join(__dirname, "build.html");
@@ -44,7 +47,7 @@ export default function reactAppMiddleware() {
 
 function renderWithCache(pattern: string, Page: () => JSX.Element) {
     let filename = pattern.endsWith("/") ? pattern + "index" : pattern
-    filename = path.join(__dirname, "." + filename + ".html");
+    filename = path.join(tmpdir, "." + filename + ".html");
 
     if (fs.existsSync(filename)) {
         return filename

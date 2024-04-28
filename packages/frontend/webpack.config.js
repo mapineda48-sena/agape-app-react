@@ -46,7 +46,7 @@ webpackConfig.module.rules = [rule];
 module.exports = webpackConfig;
 
 // Función para mantener las dependencias de node_modules como externas
-const externals = ["express", "path", "react"];
+const externals = ["express", "path", "react", "os"];
 function nodeExternals(context, request, callback) {
     if (externals.includes(request) || request.startsWith("backend") || request.startsWith("react-dom")) {
         return callback(null, 'commonjs ' + request);
