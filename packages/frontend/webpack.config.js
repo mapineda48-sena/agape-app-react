@@ -27,18 +27,21 @@ delete webpackConfig.resolve.alias;
 delete webpackConfig.resolve.plugins;
 delete webpackConfig.plugins;
 
-webpackConfig.module.rules[1].oneOf[0] = {
-    test: /\.(css|scss|sass)$/,
-    use: 'null-loader'
-};
+//console.log(webpackConfig.module.rules);
 
-webpackConfig.module.rules[1].oneOf.splice(1, 1); // css
-webpackConfig.module.rules[1].oneOf.splice(1, 1); // css
-webpackConfig.module.rules[1].oneOf.pop(); // css
-webpackConfig.module.rules[1].oneOf.pop(); // css
-webpackConfig.module.rules[1].oneOf.pop(); // css
-webpackConfig.module.rules[1].oneOf.pop(); // css
-webpackConfig.module.rules[1].oneOf.pop(); // css
+const rule = webpackConfig.module.rules.find(rule => rule.oneOf)
+const [, , loader, loader2] = rule.oneOf;
+
+//console.log(rule);
+
+rule.oneOf = [
+    {
+        test: /\.(css|scss|sass)$/,
+        use: 'null-loader'
+    }, loader, loader2
+];
+
+webpackConfig.module.rules = [rule];
 
 module.exports = webpackConfig;
 
