@@ -1,7 +1,7 @@
 import ReactDOM, { hydrateRoot } from "react-dom/client";
 import history from "history/browser";
 import { isAuthenticated } from "backend/service/auth";
-import App from "App";
+import bootApp from "App";
 import reportWebVitals from "util/reportWebVitals";
 
 import "./assets/styles/index.css";
@@ -14,9 +14,16 @@ const root = document.getElementById("root") as HTMLElement;
   } catch (error) {
 
   }
-  ReactDOM.createRoot(root).render(
-    <App history={history} />
-  );
+
+  const App = await bootApp(history, null);
+
+  if (process.env.NODE_ENV === "development") {
+    ReactDOM.createRoot(root).render(
+      <App />
+    );
+  } else {
+    hydrateRoot(root, <App />)
+  }
 
   reportWebVitals();
 })().catch((error) => {

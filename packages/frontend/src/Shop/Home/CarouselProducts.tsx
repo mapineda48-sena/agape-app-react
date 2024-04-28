@@ -55,12 +55,13 @@ export default function CarouselProducts() {
             aria-label={`Slide ${index + 1}`}
             className={clsx([index === 0 && "active"])}
             aria-current={index === 0}
+            key={index}
           />
         ))}
       </ol>
       <div className="carousel-inner">
         {slides.map((slide, index) => (
-          <div className={clsx(["carousel-item", index === 0 && "active"])}>
+          <div key={index} className={clsx(["carousel-item", index === 0 && "active"])}>
             <div className="container">
               <div className="row p-5">
                 <div className="mx-auto col-md-8 col-lg-6 order-lg-last">

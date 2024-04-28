@@ -1,4 +1,4 @@
-import Link from "Router/Link";
+import Link from "App/Link";
 
 {
   /* <div className="p-2 pb-3">

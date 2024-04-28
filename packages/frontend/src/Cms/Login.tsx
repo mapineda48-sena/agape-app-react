@@ -2,7 +2,7 @@ import Form from 'Form';
 import Submit from 'Form/Submit';
 import Input from 'Form//Input';
 import { login } from 'backend/service/auth';
-import { useRouter } from "Router";
+import { useRouter } from "App";
 
 console.log(login);
 
@@ -10,7 +10,7 @@ export default function Login() {
   const app = useRouter();
 
 
-  return <div style={{ width: window.innerWidth, height: window.innerHeight }} className="d-flex align-items-center py-4 bg-body-tertiary">
+  return <div className="d-flex align-items-center py-4 bg-body-tertiary">
     <div style={{ maxWidth: 300 }} className="form-signin m-auto">
       <Form onSubmit={app.auth(login)} >
         <h1 className="h3 mb-3 fw-normal">Please sign in</h1>

@@ -1,4 +1,4 @@
-import Link from "Router/Link";
+import Link from "App/Link";
 
 
 export default function Menu() {

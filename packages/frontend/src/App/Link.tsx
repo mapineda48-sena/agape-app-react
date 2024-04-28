@@ -1,7 +1,6 @@
 import { useCallback } from "react";
 import { useRouter } from ".";
 import clsx from "clsx";
-import h from "history/browser";
 
 export default function Link(props: Props) {
   const { href, ...core } = props;
@@ -19,7 +18,7 @@ export default function Link(props: Props) {
   // aria-current="page"
 
   // eslint-disable-next-line jsx-a11y/anchor-has-content
-  return <a {...core} className={clsx([props.className, h.location.pathname === href && "active"])} aria-current={h.location.pathname === href ? "page" : false} style={{ cursor: "pointer" }} onClick={onClick} />;
+  return <a {...core} className={clsx([props.className, history.pathname === href && "active"])} aria-current={history.pathname === href ? "page" : false} style={{ cursor: "pointer" }} onClick={onClick} />;
 }
 
 export interface Props extends CoreProps {
