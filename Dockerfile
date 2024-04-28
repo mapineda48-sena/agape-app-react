@@ -26,17 +26,15 @@ FROM node:20-alpine
 # Set environment variable for production
 ENV NODE_ENV 'production'
 
-# Instalar wget y ca-certificates
-RUN apk add --no-cache wget ca-certificates
-
-# Descargar e instalar el cliente MinIO `mc`
-RUN wget https://dl.min.io/client/mc/release/linux-amd64/mc -O /usr/bin/mc \
-    && chmod +x /usr/bin/mc
-
 # Create app directory and set permissions
 WORKDIR /home/app
 RUN adduser --disabled-password --home /home/app --gecos '' app \
     && chown -R app /home/app
+
+# Set permissions for everything in /home/app
+RUN find /home/app -type d -exec chmod 755 {} \; && \
+    find /home/app -type f -exec chmod 644 {} \;
+
 USER app
 
 # Copy built files from builder stage

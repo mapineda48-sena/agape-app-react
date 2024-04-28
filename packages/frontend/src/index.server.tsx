@@ -6,7 +6,7 @@ import pages from './pages';
 import { Server } from './App';
 
 const build = path.join(__dirname, "build");
-const index = path.join(__dirname, "index.html");
+const index = path.join(__dirname, "build.html");
 
 const html = fs.readFileSync(index, "utf8")
 
