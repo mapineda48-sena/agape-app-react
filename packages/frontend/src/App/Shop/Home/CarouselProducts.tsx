@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import clsx from "clsx";
 import parse from "html-react-parser";
-import { Carousel } from "bootstrap";
+import Carousel from "bootstrap/js/dist/carousel";
 
 const slides = [
   {

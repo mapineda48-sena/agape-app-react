@@ -1,4 +1,4 @@
-import Shop from "Shop";
+import Shop from "App/Shop";
 
 export default function Contact() {
   return (

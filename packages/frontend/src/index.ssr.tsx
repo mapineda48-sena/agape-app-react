@@ -3,8 +3,7 @@ import path from "path";
 import fs from "fs";
 import os from "os";
 import { renderToString } from "react-dom/server";
-import pages from './pages';
-import { Server } from './App';
+import { Server, routes as pages } from './App';
 
 const tmpdir = os.tmpdir();
 
@@ -17,9 +16,9 @@ export default function reactAppMiddleware() {
     const router = express.Router();
 
     const tasks = pages.map(async ([pattern, import$]) => {
-        const { default: Page, ...mod } = await import$();
+        const { default: Page, onPropsPage } = await import$();
 
-        if (!(mod as any).onProps) {
+        if (!onPropsPage) {
             const filename = renderWithCache(pattern, Page);
             router.get(pattern, (req, res) => res.sendFile(filename));
 

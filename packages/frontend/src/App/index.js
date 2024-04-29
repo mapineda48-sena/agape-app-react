@@ -2,8 +2,10 @@ import { createContext, useContext, useState, useEffect, Fragment, StrictMode } 
 import { Action } from "history";
 import { match } from "path-to-regexp";
 import { isAuth } from "backend/service/auth";
-import EventEmitter from "EventEmitter";
-import imports from "../pages";
+import EventEmitter from "App/EventEmitter";
+import imports from "./pages";
+
+export const routes = imports;
 
 export const Context = createContext(null);
 
@@ -43,12 +45,12 @@ const pages = imports.map(([pattern, import$], index) => {
         async init(params) {
             await this.import();
 
-            if (!this.getPropsFormServer) {
+            if (!this.onPropsPage) {
                 return { index };
             }
 
             try {
-                const props = await this.getPropsFormServer(params);
+                const props = await this.onPropsPage(params);
                 return { index, props };
             } catch (error) {
                 return { index, props: { error } };
@@ -61,9 +63,9 @@ const pages = imports.map(([pattern, import$], index) => {
             }
 
             // Importar el componente y una función opcional para obtener props desde el servidor.
-            const { default: Component, onProps } = await import$();
+            const { default: Component, onPropsPage } = await import$();
             this.Component = Component;
-            this.getPropsFormServer = onProps;
+            this.onPropsPage = onPropsPage;
         },
     }
 });
@@ -80,9 +82,9 @@ export default async function bootApp(history, initProps = null) {
         }
 
         await page.import();
-        const { Component, getPropsFormServer } = page;
+        const { Component, onPropsPage } = page;
 
-        const props = initProps ?? getPropsFormServer ? await getPropsFormServer() : {};
+        const props = initProps ?? onPropsPage ? await onPropsPage() : {};
 
         initState.Page = () => <Component {...props} />;
         history.replace(history.location.pathname, { index: i, props });
@@ -102,10 +104,6 @@ export default async function bootApp(history, initProps = null) {
             replace(history.location.pathname);
         }
 
-        if (!state) {
-            return initState;
-        }
-
         const { index, props } = state;
 
         if (index === notFoundIndex) {
@@ -115,7 +113,7 @@ export default async function bootApp(history, initProps = null) {
         const { Component: Page } = pages[index];
 
         // Si no hay props, devolver el componente de la página como está.
-        if (!state.props) {
+        if (!props) {
             return { Page };
         }
 

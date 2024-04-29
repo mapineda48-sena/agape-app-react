@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { useEmitter } from "EventEmitter";
+import { useEmitter } from "App/EventEmitter";
 import { Category, getCategories } from "backend/service/inventory/product";
 import { EVENT_SET_SUBCATEGORIES } from "./SubCategory";
-import Select from "Form/Field/Select";
+import Select from "App/Form/Field/Select";
 
 export default function CategorySelect() {
   const emitter = useEmitter();

@@ -1,4 +1,4 @@
-import { products } from "Shop/Products/demo";
+import { products } from "App/Shop/Products/demo";
 import Slider from "react-slick";
 import CardProduct from "./CardProduct";
 

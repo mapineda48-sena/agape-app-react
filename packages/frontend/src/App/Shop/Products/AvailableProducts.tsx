@@ -1,4 +1,4 @@
-import CardProduct from "Shop/Product/CardProduct";
+import CardProduct from "App/Shop/Product/CardProduct";
 import { products } from "./demo";
 
 export default function AvailableProducts() {

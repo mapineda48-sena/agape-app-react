@@ -1,11 +1,11 @@
 import { createProduct } from "backend/service/inventory/product";
-import Form from "Form";
-import Input from "Form/Field/Input";
+import Form from "App/Form";
+import Input from "App/Form/Field/Input";
 import CategorySelect from "./Category";
 import SubCategorySelect from "./SubCategory";
 import Images from "./Images";
-import Submit from "Form/Submit";
-import Cms from "Cms";
+import Submit from "App/Form/Submit";
+import Cms from "App/Cms";
 
 export default function FormNewProduct() {
   return (

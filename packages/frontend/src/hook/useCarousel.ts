@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef } from "react";
-import { Carousel } from "bootstrap";
+import Carousel from "bootstrap/js/dist/carousel";
 
 export default function useCarousel() {
   const ref = useRef<HTMLDivElement>(null);

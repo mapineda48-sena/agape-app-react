@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { useEmitter } from "EventEmitter";
+import { useEmitter } from "App/EventEmitter";
 import { Subcategory } from "backend/service/inventory/product";
-import Select from "Form/Field/Select";
-import { useForm } from "Form";
+import Select from "App/Form/Field/Select";
+import { useForm } from "App/Form";
 
 export const EVENT_SET_SUBCATEGORIES = Symbol("EVENT_SET_SUBCATEGORIES");
 

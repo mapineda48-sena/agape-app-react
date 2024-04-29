@@ -1,6 +1,6 @@
-import Shop from "Shop";
+import Shop from "App/Shop";
 import AvailableProducts from "./AvailableProducts";
-import OurBrands from "Shop/About/OurBrands";
+import OurBrands from "App/Shop/About/OurBrands";
 
 export default function Products() {
   return (

@@ -1,12 +1,11 @@
 process.env.NODE_ENV = 'production';
 
 const path = require('path');
-const webpack = require('webpack');
 const webpackConfig = require("react-scripts/config/webpack.config")(process.env.NODE_ENV);
 
 webpackConfig.target = 'node';
 
-webpackConfig.entry = './src/index.server.tsx';
+webpackConfig.entry = './src/index.ssr.tsx';
 
 webpackConfig.output = {
     path: path.resolve(__dirname, 'dist'),
@@ -27,20 +26,10 @@ delete webpackConfig.resolve.alias;
 delete webpackConfig.resolve.plugins;
 delete webpackConfig.plugins;
 
-//console.log(webpackConfig.module.rules);
-
 const rule = webpackConfig.module.rules.find(rule => rule.oneOf)
 const [, , loader, loader2] = rule.oneOf;
 
-//console.log(rule);
-
-rule.oneOf = [
-    {
-        test: /\.(css|scss|sass)$/,
-        use: 'null-loader'
-    }, loader, loader2
-];
-
+rule.oneOf = [loader, loader2];
 webpackConfig.module.rules = [rule];
 
 module.exports = webpackConfig;
@@ -52,8 +41,12 @@ function nodeExternals(context, request, callback) {
         return callback(null, 'commonjs ' + request);
     }
 
-    if (request === 'bootstrap') {
+    if (request.startsWith('bootstrap')) {
         // Retorna un módulo vacío
+        return callback(null, 'var {}');
+    }
+
+    if (/\.(css|scss|sass)$/.test(request)) {
         return callback(null, 'var {}');
     }
 

@@ -1,5 +1,7 @@
 import { BrowserHistory } from "history";
 
+export const routes: PageRoute[];
+
 export function Server(props: { children: JSX.Element, pathname: string }): JSX.Element;
 
 export default function bootApp(history: BrowserHistory, props: unknown): Promise<() => JSX.Element>;
@@ -13,4 +15,11 @@ interface App {
     replace: (pathname: string) => any;
     onUpdate: (cb: (state: Page) => void) => () => void;
     pathname: string;
+}
+
+type PageRoute = [string, () => Promise<PageModule>];
+
+export interface PageModule {
+    default: () => JSX.Element
+    onPropsPage?: (...args: unknown[]) => Promise<unknown>
 }

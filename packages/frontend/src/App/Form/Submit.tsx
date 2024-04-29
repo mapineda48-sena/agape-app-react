@@ -1,4 +1,4 @@
-import { useForm } from "Form";
+import { useForm } from "App/Form";
 import { useCallback, useEffect, useState } from "react";
 
 export default function Submit(props: Props) {

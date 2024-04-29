@@ -1,4 +1,4 @@
-import Input from "Form/Input";
+import Input from "App/Form/Input";
 import { useMemo } from "react";
 import generateUUID from "util/generateUUID";
 import wrap, { WrapFC } from "util/wrap";

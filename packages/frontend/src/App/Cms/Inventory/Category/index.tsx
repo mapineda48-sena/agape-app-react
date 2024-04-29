@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Form, { useForm } from "Form";
-import { useEmitter } from "EventEmitter";
-import Input from "Form/Input";
+import Form, { useForm } from "App/Form";
+import { useEmitter } from "App/EventEmitter";
+import Input from "App/Form/Input";
 import {
   createCategory,
   deleteCategory,
@@ -9,7 +9,7 @@ import {
   ICategory,
 } from "backend/service/inventory/category";
 import { MdDelete } from "react-icons/md";
-import Submit from "Form/Submit";
+import Submit from "App/Form/Submit";
 
 export default function Foo() {
   return (
