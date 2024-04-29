@@ -33,7 +33,15 @@ export default function Form(props: Props) {
         return value;
       }
 
-      _.get(ref.current, key);
+      const current = _.get(ref.current, key);
+
+      if (current === undefined && value !== undefined) {
+        _.set(ref.current, key, value);
+
+        return value;
+      }
+
+      return current;
     };
 
     const get = (key: string) => _.get(ref.current, key);
