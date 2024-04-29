@@ -104,6 +104,10 @@ export default async function bootApp(history, initProps = null) {
             replace(history.location.pathname);
         }
 
+        if (!state) {
+            return initState;
+        }
+
         const { index, props } = state;
 
         if (index === notFoundIndex) {
