@@ -1,23 +1,26 @@
 import { useEffect, useMemo, useRef } from "react";
 import Carousel from "bootstrap/js/dist/carousel";
 
-export default function useCarousel() {
+export default function useCarousel(options?: Partial<Carousel.Options>) {
   const ref = useRef<HTMLDivElement>(null);
   const carousel = useRef<ICarousel | null>(null);
-
-  const { current } = ref;
+  const opt = useRef(options);
 
   useEffect(() => {
-    if (!current) {
+    const { current: el } = ref;
+
+    if (!el) {
       return;
     }
 
-    const instance = (carousel.current = createCarousel(current));
+    const instance = (carousel.current = createCarousel(el, opt.current));
 
-    return () => {
-      instance.dispose();
-    };
-  }, [current]);
+    setTimeout(() => {
+      instance.cycle();
+    }, 1000);
+
+    return instance.unmount;
+  }, []);
 
   return useMemo(() => {
     return {
@@ -29,8 +32,42 @@ export default function useCarousel() {
   }, []);
 }
 
-function createCarousel(el: HTMLDivElement): ICarousel {
-  const instance: unknown = new Carousel(el) as ICarousel;
+function createCarousel(el: HTMLDivElement, options?: Partial<Carousel.Options>): ICarousel {
+  const instance = new Carousel(el, options);
+
+  let inSlideTransition = false;
+  let isUnMount = false;
+
+  function startSlide() {
+    inSlideTransition = true;
+  }
+
+  function endSlide() {
+    inSlideTransition = false;
+
+    if (isUnMount) {
+      dispose();
+    }
+  }
+
+  function dispose() {
+    el.removeEventListener("slide.bs.carousel", startSlide);
+    el.removeEventListener("slid.bs.carousel", endSlide);
+    instance.dispose();
+  }
+
+  function unmount() {
+    if (!inSlideTransition) {
+      dispose();
+      return;
+    }
+
+    isUnMount = true;
+    instance.pause();
+  }
+
+  el.addEventListener("slide.bs.carousel", startSlide);
+  el.addEventListener("slid.bs.carousel", endSlide);
 
   Object.defineProperty(instance, "getCurrentIndex", {
     writable: true,
@@ -40,9 +77,15 @@ function createCarousel(el: HTMLDivElement): ICarousel {
       ),
   });
 
+  Object.defineProperty(instance, "unmount", {
+    writable: true,
+    value: unmount,
+  });
+
   return instance as ICarousel;
 }
 
 interface ICarousel extends Carousel {
   readonly getCurrentIndex: () => number;
+  readonly unmount: () => void;
 }

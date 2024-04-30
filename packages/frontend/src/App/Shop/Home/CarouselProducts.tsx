@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import clsx from "clsx";
 import parse from "html-react-parser";
-import Carousel from "bootstrap/js/dist/carousel";
+import useCarousel from "hook/useCarousel";
 
 const slides = [
   {
@@ -28,17 +28,7 @@ const slides = [
 ];
 
 export default function CarouselProducts() {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!ref.current) return;
-
-    const current = new Carousel(ref.current, {
-      interval: 1500,
-    });
-
-    return () => current.dispose();
-  }, []);
+  const { ref } = useCarousel()
 
   return (
     <div
@@ -46,6 +36,7 @@ export default function CarouselProducts() {
       id="agape-home-carousel"
       className="carousel slide"
       data-bs-ride="carousel"
+      data-bs-interval="4000"
     >
       <ol className="carousel-indicators">
         {slides.map((_, index) => (
