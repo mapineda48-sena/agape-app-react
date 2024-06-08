@@ -1,4 +1,4 @@
-import Select from "App/Form/Select";
+import Select from "components/Form/Select";
 import { useMemo } from "react";
 import generateUUID from "util/generateUUID";
 import wrap, { WrapFC } from "util/wrap";

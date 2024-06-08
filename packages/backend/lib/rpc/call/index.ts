@@ -1,7 +1,9 @@
 import _ from "lodash";
 import { Request, Response, NextFunction } from "express";
-import { ApiKey, ApiKeyHeader } from "../config";
+import { ApiKey, ApiKeyHeader } from "./config";
 import parseFormData from "../form/server";
+import extractInstances from "../form/extractInstances";
+import { Model } from "sequelize";
 
 export default function factoryMiddleware(cb: (...args: unknown[]) => unknown) {
   return async (req: Request, res: Response, next: NextFunction) => {
@@ -16,7 +18,13 @@ export default function factoryMiddleware(cb: (...args: unknown[]) => unknown) {
         payload = await payload;
       }
 
-      res.json(payload);
+      if (payload instanceof Model) {
+        payload = payload.get();
+      }
+
+      const dates = extractInstances(payload, Date);
+
+      res.json([payload, dates]);
     } catch (error) {
       next(error);
     }

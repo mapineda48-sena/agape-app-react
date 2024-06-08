@@ -1,4 +1,5 @@
 import mitt from "mitt";
+import lodash from "lodash";
 import { createContext, useContext, useEffect, useMemo, useRef } from "react";
 
 const Context = createContext<Emitter>(null as any);
@@ -23,10 +24,11 @@ export function useEmitter(): EmitterProxy {
 
   return useMemo(() => {
     const onHook = (handler: HookEvent) => {
-      const events = Object.entries(handler).map(
-        ([event, fn]) =>
-          [hook.current[event] ?? (hook.current[event] = Symbol()), fn] as const
-      );
+      const { current } = hook;
+
+      const events = Object.entries(handler).map(([event, fn]) => {
+        return [current[event] ?? (current[event] = Symbol()), fn] as const;
+      });
 
       events.forEach(([e, fn]) => emitter.on(e, fn));
     };
@@ -37,6 +39,10 @@ export function useEmitter(): EmitterProxy {
       return () => emitter.off(event, cb);
     };
 
+    const emit = (event: string, payload: unknown) => {
+      emitter.emit(event, lodash.cloneDeep(payload));
+    };
+
     return new Proxy(
       {},
       {
@@ -45,7 +51,7 @@ export function useEmitter(): EmitterProxy {
             case "on":
               return on;
             case "emit":
-              return emitter.emit;
+              return emit;
             case "hook":
               return onHook;
             default:

@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { useEmitter } from "App/EventEmitter";
+import { useEmitter } from "components/EventEmitter";
 import { Subcategory } from "backend/service/inventory/product";
-import Select from "App/Form/Field/Select";
-import { useForm } from "App/Form";
+import Select from "components/Form/Field/Select";
+import { useForm } from "components/Form";
 
 export const EVENT_SET_SUBCATEGORIES = Symbol("EVENT_SET_SUBCATEGORIES");
+export const EVENT_RESET_SUBCATEGORIES = Symbol("EVENT_RESET_SUBCATEGORIES");
 
 export default function SubCategorySelect() {
   const emitter = useEmitter();
@@ -13,6 +14,12 @@ export default function SubCategorySelect() {
 
   useEffect(() => {
     return emitter.on(EVENT_SET_SUBCATEGORIES, (categories: Subcategory[]) => {
+      setCategorties(categories);
+    });
+  }, [emitter, form]);
+
+  useEffect(() => {
+    return emitter.on(EVENT_RESET_SUBCATEGORIES, (categories: Subcategory[]) => {
       form.merge({ subcategoryId: 0 });
       setCategorties(categories);
     });

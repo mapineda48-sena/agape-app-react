@@ -1,52 +1,121 @@
-import { createProduct } from "backend/service/inventory/product";
-import Form from "App/Form";
-import Input from "App/Form/Field/Input";
-import CategorySelect from "./Category";
-import SubCategorySelect from "./SubCategory";
-import Images from "./Images";
-import Submit from "App/Form/Submit";
+import { FaEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
 import Cms from "App/Cms";
+import { AllProduct, getAllProducts } from "backend/service/inventory/product";
+import useModal from "./useProduct";
+import { useEmitter } from "components/EventEmitter";
+import { useEffect, useState } from "react";
+import { IProduct } from "backend/models/inventory/product";
+import useDeleteProduct from "./useDeleteProduct";
+import { EVENT_DELETE, EVENT_UPDATE } from "./event";
+import { Rating } from "App/Shop/Product/CardProduct";
 
-export default function FormNewProduct() {
+export const OnInit = getAllProducts;
+
+export default function Product(props: AllProduct) {
+  //console.log(props);
+
+  const [state, setState] = useState(props.products);
+
+  const showProductModal = useModal();
+  const emitter = useEmitter();
+
+  const deleteProduct = useDeleteProduct();
+
+  useEffect(() => {
+    emitter.on(EVENT_UPDATE, (product: IProduct) => {
+      setState((state) => {
+        const current = state.findIndex((current) => current.id === product.id);
+
+        if (!state[current]) {
+          return [...state, product];
+        }
+
+        const next = [...state];
+        next[current] = product;
+
+        return next;
+      });
+    });
+
+    emitter.on(EVENT_DELETE, (id: number) => {
+      setState((state) => state.filter((i) => i.id !== id));
+    });
+  }, [emitter]);
+
+  const ItemsProducts = !state.length ? (
+    <div>Sin Productos</div>
+  ) : (
+    state.map((product, index) => (
+      <div
+        key={index}
+        className="card"
+        style={{ width: "18rem", flex: "0 1 22%" }}
+      >
+        <img
+          className="card-img-top"
+          src={product?.images[0]}
+          alt={product.fullName}
+        />
+        <div className="card-body">
+          <p className="card-text">{product.fullName}</p>
+          <p className="card-text">{product.price}</p>
+          <Rating value={product.rating} />
+          <div className="btn-group" role="group" aria-label="Basic example">
+            <button
+              onClick={() => showProductModal(product)}
+              type="button"
+              className="btn btn-secondary"
+            >
+              <FaEdit />
+            </button>
+            <button
+              onClick={() => deleteProduct({ id: product.id })}
+              type="button"
+              className="btn btn-danger"
+            >
+              <MdDelete />
+            </button>
+          </div>
+        </div>
+      </div>
+    ))
+  );
+
   return (
     <Cms>
-      <div className="container">
-        <Form onSubmit={createProduct} merge className="row g-3">
-          <h1>Productos</h1>
-          <div className="col-12">
-            <Images path="images" />
+      <div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <div className="btn-group" role="group" aria-label="Basic example">
+            <button
+              onClick={() => showProductModal()}
+              type="button"
+              className="btn btn-primary"
+            >
+              Crear
+            </button>
+            <button type="button" className="btn btn-primary">
+              Buscar
+            </button>
           </div>
-          <div className="col-12">
-            <Input.Text required label="Nombre" name="fullName" />
-          </div>
-          <div className="col-5">
-            <CategorySelect />
-          </div>
-          <div className="col-5">
-            <SubCategorySelect />
-          </div>
-          <div className="col-2">
-            <Input.Float required label="Precio" name="price" />
-          </div>
-          <div className="col-12">
-            <Input.TextArea label="Descripción" name="description" rows={3} />
-          </div>
-          <div className="col-12">
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                id="gridCheck"
-              />
-              <label className="form-check-label" htmlFor="gridCheck">
-                Habilitado
-              </label>
-            </div>
-          </div>
-          <div className="col-12">
-            <Submit className="btn btn-primary">Enviar</Submit>
-          </div>
-        </Form>
+        </div>
+        <div
+          className="container"
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "25px",
+            justifyContent: "flex-start",
+          }}
+        >
+          {ItemsProducts}
+        </div>
       </div>
     </Cms>
   );

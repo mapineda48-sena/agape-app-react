@@ -3,32 +3,39 @@ import fs from "fs-extra";
 import _ from "lodash";
 import formidable, { Fields, Files } from "formidable";
 import { Request } from "express";
-import { fieldNameArgs } from "../config";
+import { ArgsKey } from "./integration";
 
 const uploadDir = os.tmpdir();
 
 export default async function parseFormData(req: Request) {
   const form = formidable({ uploadDir });
 
-  const data: [Fields, Files] = await new Promise((resolve, reject) => {
+  const payload = await new Promise<[Fields, Files]>((resolve, reject) => {
     form.parse(req, (err, fields, files) => {
       if (err) reject(err);
       else resolve([fields, files]);
     });
   });
 
-  return parseArgs(data[0], data[1]);
+  return parseArgs(payload);
 }
 
-export function parseArgs(fields: Fields, files: Files): unknown[] {
-  const json = fields[fieldNameArgs]?.toString();
+export function parseArgs([fields, files]: [Fields, Files]): unknown[] {
+  const [json, datesJson] = fields[ArgsKey] ?? [];
 
   if (!json) {
     throw new Error("unknown form data");
   }
 
+  // Primitive types
   const args: unknown[] = JSON.parse(json);
 
+  // Date type
+  const dates: [string, string] = JSON.parse(datesJson);
+
+  dates.forEach(([path, date]) => _.set(args, path, new Date(date)));
+
+  // File Type
   Object.entries(files).map(([key, file]) => _.set(args, key, toFileWeb(file)));
 
   return args;
@@ -62,5 +69,5 @@ export function toFileWeb([input]: formidable.File[] = []) {
 }
 
 function notImplementedError(): void {
-  throw new Error("not implemented error");
+  throw new Error("not implemented error Date method on server");
 }

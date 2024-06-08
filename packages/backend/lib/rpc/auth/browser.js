@@ -1,9 +1,9 @@
-import makeRcp from "../browser.js"
+import rpc from "../call/browser.js"
 
 export let isAuth = false;
 
 export const login = (() => {
-    const login = makeRcp("/service/auth/login");
+    const login = rpc("/service/auth/login");
 
     return (...args) => login(...args).then(res => {
         isAuth = true;
@@ -13,7 +13,7 @@ export const login = (() => {
 })();
 
 export const logout = (() => {
-    const logout = makeRcp("/service/auth/logout");
+    const logout = rpc("/service/auth/logout");
 
     return (...args) => logout(...args).then(res => {
         isAuth = false;
@@ -24,7 +24,7 @@ export const logout = (() => {
 
 
 export const isAuthenticated = (() => {
-    const isAuthenticated = makeRcp("/service/auth/isAuthenticated");
+    const isAuthenticated = rpc("/service/auth/isAuthenticated");
 
     return (...args) => isAuthenticated(...args).then(state => {
         isAuth = state;

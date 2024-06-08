@@ -1,7 +1,7 @@
 import { glob } from "glob";
 import _ from "lodash";
-import onRpc, { Middlewares, isRpcApiKey } from "./middleware";
-import { onErrorMiddleware } from "./middleware/error";
+import onRpc, { Middlewares } from "./call";
+import { onErrorMiddleware } from "./call/error";
 import auth from "./auth/server";
 import path from "path";
 

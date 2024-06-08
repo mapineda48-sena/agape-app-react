@@ -15,10 +15,6 @@ export default function useCarousel(options?: Partial<Carousel.Options>) {
 
     const instance = (carousel.current = createCarousel(el, opt.current));
 
-    setTimeout(() => {
-      instance.cycle();
-    }, 1000);
-
     return instance.unmount;
   }, []);
 

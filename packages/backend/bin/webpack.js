@@ -2,7 +2,7 @@ const path = require("path");
 const fs = require("fs-extra");
 const { glob } = require("glob");
 const { toPosix, toServiceEndpoint } = require("../lib/rpc");
-const makeRcp = require.resolve("../lib/rpc/browser");
+const makeRcp = require.resolve("../lib/rpc/call/browser");
 
 const placeholder = `
 /**

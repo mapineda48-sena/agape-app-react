@@ -1,5 +1,5 @@
-import { useEmitter } from "App/EventEmitter";
-import _ from "lodash";
+import { useEmitter } from "components/EventEmitter";
+import lodash from "lodash";
 import {
   createContext,
   useContext,
@@ -9,15 +9,13 @@ import {
   useState,
 } from "react";
 
-const initState = {};
-
 const Context = createContext<unknown>(null);
 
 export default function Form(props: Props) {
-  const { initState: state = initState, merge, onSubmit, ...core } = props;
+  const { initState: state, merge, onSubmit, thenEvent, ...core } = props;
 
   const emitter = useEmitter();
-  const ref = useRef(state as {});
+  const ref = useRef({});
 
   const form = useMemo(() => {
     const EVENT_MERGE_STATE = Symbol("FORM_EVENT_MERGE_STATE");
@@ -27,16 +25,16 @@ export default function Form(props: Props) {
     const EVENT_LOADING = Symbol("FORM_EVENT_LOADING");
 
     const init = (key: string, value: unknown) => {
-      if (!_.has(ref.current, key)) {
-        _.set(ref.current, key, value);
+      if (!lodash.has(ref.current, key)) {
+        lodash.set(ref.current, key, value);
 
         return value;
       }
 
-      const current = _.get(ref.current, key);
+      const current = lodash.get(ref.current, key);
 
       if (current === undefined && value !== undefined) {
-        _.set(ref.current, key, value);
+        lodash.set(ref.current, key, value);
 
         return value;
       }
@@ -44,7 +42,7 @@ export default function Form(props: Props) {
       return current;
     };
 
-    const get = (key: string) => _.get(ref.current, key);
+    const get = (key: string) => lodash.get(ref.current, key);
 
     const set = (state: {}) => {
       ref.current = state;
@@ -52,32 +50,32 @@ export default function Form(props: Props) {
     };
 
     const merge = (state: {}) => {
-      _.merge(ref.current, state);
+      lodash.merge(ref.current, state);
       emitter.emit(EVENT_MERGE_STATE, state);
     };
 
     const onSet = (key: string, initValue: unknown, set: SetKey) => {
       return emitter.on(EVENT_SET_STATE, () => {
-        if (!_.has(ref.current, key)) {
-          _.set(ref.current, key, initValue);
+        if (!lodash.has(ref.current, key)) {
+          lodash.set(ref.current, key, initValue);
           set(initValue as any);
 
           return;
         }
 
-        const value = _.get(ref.current, key);
+        const value = lodash.get(ref.current, key);
 
-        set(_.clone(value));
+        set(lodash.clone(value));
       });
     };
 
     const onMerge = (key: string, set: SetKey) => {
       return emitter.on(EVENT_MERGE_STATE, () => {
-        if (!_.has(ref.current, key)) return;
+        if (!lodash.has(ref.current, key)) return;
 
-        const value = _.get(ref.current, key);
+        const value = lodash.get(ref.current, key);
 
-        set(_.clone(value));
+        set(lodash.clone(value));
       });
     };
 
@@ -87,9 +85,9 @@ export default function Form(props: Props) {
           try {
             const next = typeof state === "function" ? state(current) : state;
 
-            _.set(ref.current, key, next);
+            lodash.set(ref.current, key, next);
 
-            return _.clone(next);
+            return lodash.clone(next);
           } catch (error) {
             console.log(error);
             return current;
@@ -127,9 +125,11 @@ export default function Form(props: Props) {
   }, [emitter]);
 
   useMemo(() => {
+    if (!state) return;
+
     if (ref.current === state) return;
 
-    form.set(state as {});
+    form.set(state);
   }, [form, state]);
 
   return (
@@ -142,10 +142,14 @@ export default function Form(props: Props) {
 
           form.loading(true);
 
-          onSubmit(_.cloneDeep(ref.current))
+          onSubmit(lodash.cloneDeep(ref.current))
             .then((res) => {
               if (merge) {
                 form.merge(res);
+              }
+
+              if (thenEvent) {
+                emitter.emit(thenEvent, res);
               }
 
               form.then(res);
@@ -181,10 +185,12 @@ export function useForm<S = {}>() {
  * Types
  */
 
-interface Props extends Core {
-  initState?: unknown;
+interface Props<T extends {} = {}> extends Core {
+  initState?: T;
   merge?: boolean;
   onSubmit: (...args: any[]) => Promise<any>;
+
+  thenEvent?: string | Symbol;
 }
 
 type Core = Omit<JSX.IntrinsicElements["form"], "action">;

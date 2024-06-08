@@ -46,6 +46,20 @@ function randomRating() {
   return Math.floor(Math.random() * 6);
 }
 
+export async function getAllProducts() {
+  return {
+    products: await db.inventory.product.findAll({ raw: true }),
+  };
+}
+
+export function deleteProduct(id: number) {
+  return db.inventory.product.destroy({
+    where: {
+      id,
+    },
+  });
+}
+
 /**
  * Types
  */
@@ -63,4 +77,8 @@ export interface Category {
 export interface Subcategory {
   name: string;
   id: number;
+}
+
+export interface AllProduct {
+  products: IProduct[];
 }

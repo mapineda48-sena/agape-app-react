@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useRef } from "react";
 import Image from "./Image";
 import clsx from "clsx";
-import { useInput } from "App/Form";
-import { InputFiles } from "App/Form/Input/File";
+import { useInput } from "components/Form";
+import { InputFiles } from "components/Form/Input/File";
 import { FaUpload } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import generateUUID from "util/generateUUID";

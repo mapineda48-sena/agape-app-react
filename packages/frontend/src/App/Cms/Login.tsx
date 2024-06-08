@@ -1,6 +1,6 @@
-import Form from 'App/Form';
-import Submit from 'App/Form/Submit';
-import Input from 'App/Form/Input';
+import Form from 'components/Form';
+import Submit from 'components/Form/Submit';
+import Input from 'components/Form/Input';
 import { login } from 'backend/service/auth';
 import { useRouter } from "App";
 

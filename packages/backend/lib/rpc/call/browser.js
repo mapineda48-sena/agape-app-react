@@ -1,6 +1,7 @@
 import axio$ from "axios";
-import toForm from "./form/browser";
-import { ApiKey, ApiKeyHeader, rpc } from "./config";
+import _ from "lodash";
+import toForm from "../form/browser";
+import { ApiKey, ApiKeyHeader } from "./config";
 
 // Backend Server Configuration
 // Determines the base URL depending on the environment (production or development)
@@ -18,6 +19,10 @@ export default function makeRcp(pathname) {
     return (...args) => {
         return axios
             .post(pathname, toForm(args), { withCredentials: true })
-            .then((res) => res.data);
+            .then(({ data: [payload, dates] }) => {
+                dates.forEach(([path, date]) => _.set(payload, path, new Date(date)));
+
+                return payload;
+            });
     }
 }
