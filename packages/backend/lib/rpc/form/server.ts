@@ -71,3 +71,54 @@ export function toFileWeb([input]: formidable.File[] = []) {
 function notImplementedError(): void {
   throw new Error("not implemented error Date method on server");
 }
+
+/**
+ * Recursively finds and returns entries of a specific instance type from the provided object.
+ * It constructs the keys in a way that reflects the structure of the object,
+ * suitable for FormData or other purposes.
+ * @param payload The object from which to extract instances.
+ * @param instanceType The constructor function of the type to extract (e.g., File, Date).
+ * @param baseKey The base key from which to start the path construction, default is an empty string.
+ * @returns An array of tuples, each containing the path to the instance in the object and the instance itself.
+ */
+export function extractInstances<T>(
+  payload: any,
+  instanceType: new (...args: any[]) => T,
+  baseKey?: string
+): Array<[string, T]>;
+export function extractInstances(
+  payload: any,
+  instanceType: any,
+  baseKey: any
+) {
+  const instances = _.transform(
+    payload,
+    (result, value, key: any) => {
+      // For arrays, the key will be the index, so we construct the path appropriately
+      // using dot notation for objects or square brackets for array indices.
+      let currentKey = Array.isArray(payload)
+        ? `${baseKey}[${key}]`
+        : baseKey
+        ? `${baseKey}.${key}`
+        : key;
+
+      // If the value is an plain object or array, recursively process it
+      if (_.isPlainObject(value) || Array.isArray(value)) {
+        result.push(...extractInstances(value, instanceType, currentKey));
+        return;
+      }
+
+      // If the value is an instance of the specified type, add it to the result list
+      if (value instanceof instanceType) {
+        result.push([currentKey, value]);
+      }
+    },
+    [] as any[]
+  );
+
+  // Removes entries from the source object, based on the keys found in the instances list.
+  // This is used to prepare the non-instance part of the object for JSON serialization.
+  instances.forEach(([path]: [any]) => _.unset(payload, path));
+
+  return instances as any;
+}

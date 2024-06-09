@@ -1,4 +1,4 @@
-import Link from "App/Link";
+import Link from "App/Page/Link";
 import { Fragment } from "react";
 
 export default function Menu() {

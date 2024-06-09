@@ -15,7 +15,7 @@
     "importHelpers": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "isolatedModules": true,
+    "isolatedModules": true
   },
   "include": ["bin", "service", "models", "lib"],
   "exclude": ["node_modules", "**/*.js"]

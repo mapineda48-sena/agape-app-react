@@ -1,4 +1,4 @@
-import Link from "App/Link";
+import Link from "App/Page/Link";
 
 {
   /* <div className="p-2 pb-3">

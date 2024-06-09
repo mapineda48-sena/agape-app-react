@@ -1,4 +1,4 @@
-import Link from "App/Link";
+import Link from "App/Page/Link";
 
 export default function Footer() {
   return (

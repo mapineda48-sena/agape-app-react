@@ -2,9 +2,7 @@ import Form from 'components/Form';
 import Submit from 'components/Form/Submit';
 import Input from 'components/Form/Input';
 import { login } from 'backend/service/auth';
-import { useRouter } from "App";
-
-console.log(login);
+import { useRouter } from "App/Page";
 
 export default function Login() {
   const app = useRouter();

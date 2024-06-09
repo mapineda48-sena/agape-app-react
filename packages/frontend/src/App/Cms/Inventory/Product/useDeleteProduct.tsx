@@ -2,15 +2,20 @@ import { useEmitter } from "components/EventEmitter";
 import { withPortalToRoot } from "components/Portals";
 import { deleteProduct } from "backend/service/inventory/product";
 import useModal from "hook/useModal";
-import { EVENT_DELETE } from "./event";
+import { EVENT_CLOSE, EVENT_DELETE } from "./event";
+import { useEffect } from "react";
 
 const useDeleteProduct = withPortalToRoot((props: any) => {
+  const emitter = useEmitter();
+
   const modal = useModal({
     onCreateShow: true,
     onClose: props.remove,
   });
 
-  const emitter = useEmitter();
+  useEffect(() => {
+    return emitter.on(EVENT_CLOSE, props.remove);
+  }, [emitter, props.remove]);
 
   return (
     <div className="modal fade" ref={modal.ref} tabIndex={-1}>

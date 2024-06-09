@@ -34,7 +34,6 @@ function createModal(el: HTMLDivElement, opt: OptionsModal = {}): IModal {
   const instance = new Modal(el, bootstrap);
 
   let inSlideTransition = false;
-  let isUnMount = false;
 
   function startSlide() {
     inSlideTransition = true;
@@ -61,7 +60,6 @@ function createModal(el: HTMLDivElement, opt: OptionsModal = {}): IModal {
       return;
     }
 
-    isUnMount = true;
     instance.hide();
   }
 

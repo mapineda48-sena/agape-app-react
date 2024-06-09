@@ -1,5 +1,7 @@
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import { FaSearch } from "react-icons/fa";
+import { MdAddBox } from "react-icons/md";
 import Cms from "App/Cms";
 import { AllProduct, getAllProducts } from "backend/service/inventory/product";
 import useModal from "./useProduct";
@@ -7,14 +9,12 @@ import { useEmitter } from "components/EventEmitter";
 import { useEffect, useState } from "react";
 import { IProduct } from "backend/models/inventory/product";
 import useDeleteProduct from "./useDeleteProduct";
-import { EVENT_DELETE, EVENT_UPDATE } from "./event";
+import { EVENT_CLOSE, EVENT_DELETE, EVENT_UPDATE } from "./event";
 import { Rating } from "App/Shop/Product/CardProduct";
 
 export const OnInit = getAllProducts;
 
 export default function Product(props: AllProduct) {
-  //console.log(props);
-
   const [state, setState] = useState(props.products);
 
   const showProductModal = useModal();
@@ -22,8 +22,10 @@ export default function Product(props: AllProduct) {
 
   const deleteProduct = useDeleteProduct();
 
+  useEffect(() => () => emitter.emit(EVENT_CLOSE));
+
   useEffect(() => {
-    emitter.on(EVENT_UPDATE, (product: IProduct) => {
+    return emitter.on(EVENT_UPDATE, (product: IProduct) => {
       setState((state) => {
         const current = state.findIndex((current) => current.id === product.id);
 
@@ -37,8 +39,10 @@ export default function Product(props: AllProduct) {
         return next;
       });
     });
+  }, [emitter]);
 
-    emitter.on(EVENT_DELETE, (id: number) => {
+  useEffect(() => {
+    return emitter.on(EVENT_DELETE, (id: number) => {
       setState((state) => state.filter((i) => i.id !== id));
     });
   }, [emitter]);
@@ -52,11 +56,29 @@ export default function Product(props: AllProduct) {
         className="card"
         style={{ width: "18rem", flex: "0 1 22%" }}
       >
-        <img
-          className="card-img-top"
-          src={product?.images[0]}
-          alt={product.fullName}
-        />
+        {!product.images.length ? (
+          <svg
+            className="bd-placeholder-img bd-placeholder-img-lg d-block w-100"
+            xmlns="http://www.w3.org/2000/svg"
+            role="img"
+            aria-label="Placeholder: First slide"
+            preserveAspectRatio="xMidYMid slice"
+            focusable="false"
+          >
+            <title>Placeholder</title>
+            <rect width="100%" height="100%" fill="#777" />
+            <text x="50%" y="50%" fill="#555" dy=".3em">
+              Producto sin Imagen
+            </text>
+          </svg>
+        ) : (
+          <img
+            className="card-img-top"
+            src={product?.images[0]}
+            alt={product.fullName}
+          />
+        )}
+
         <div className="card-body">
           <p className="card-text">{product.fullName}</p>
           <p className="card-text">{product.price}</p>
@@ -87,27 +109,32 @@ export default function Product(props: AllProduct) {
       <div>
         <div
           style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
+            position: "fixed",
+            bottom: "1em",
+            right: "1em",
           }}
         >
-          <div className="btn-group" role="group" aria-label="Basic example">
+          <div
+            className="btn-group-vertical"
+            role="group"
+            aria-label="Vertical button group"
+          >
             <button
               onClick={() => showProductModal()}
               type="button"
               className="btn btn-primary"
             >
-              Crear
+              <MdAddBox />
             </button>
             <button type="button" className="btn btn-primary">
-              Buscar
+              <FaSearch />
             </button>
           </div>
         </div>
         <div
           className="container"
           style={{
+            marginTop: "1.5em",
             display: "flex",
             flexWrap: "wrap",
             gap: "25px",

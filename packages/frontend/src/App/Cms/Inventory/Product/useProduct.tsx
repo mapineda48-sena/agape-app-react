@@ -3,7 +3,7 @@ import useModal from "hook/useModal";
 import FormNewProduct from "./Form";
 import { useEmitter } from "components/EventEmitter";
 import { useEffect } from "react";
-import { EVENT_UPDATE } from "./event";
+import { EVENT_CLOSE, EVENT_UPDATE } from "./event";
 
 const useModalPortal = withPortalToRoot(({ remove, style, ...props }: any) => {
   const emitter = useEmitter();
@@ -14,10 +14,14 @@ const useModalPortal = withPortalToRoot(({ remove, style, ...props }: any) => {
   });
 
   useEffect(() => {
-    emitter.on(EVENT_UPDATE, () => {
-      modal.current?.hide();
-    });
+    return emitter.on(EVENT_UPDATE, () => 
+      modal.current?.hide()
+    );
   }, [emitter, modal]);
+
+  useEffect(() => {
+    return emitter.on(EVENT_CLOSE, remove);
+  }, [emitter, remove]);
 
   return (
     <div className="modal fade" ref={modal.ref} tabIndex={-1}>

@@ -9,7 +9,6 @@ import { EVENT_UPDATE } from "../event";
 import { IProduct } from "backend/models/inventory/product";
 
 export default function FormNewProduct(props: { product?: IProduct }) {
-  console.log(props.product);
   return (
     <div className="container">
       <Form

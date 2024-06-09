@@ -45,6 +45,8 @@ export function PortalFactory(props: PortalFactoryProps) {
 
   const [state, setState] = React.useState<State>([]);
 
+  console.log(state);
+
   useEffect(
     () => setPush((el) => setState((state) => [...state, el])),
     [setPush]

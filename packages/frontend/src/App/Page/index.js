@@ -8,10 +8,10 @@ import {
 } from "react";
 import { Action } from "history";
 import { match } from "path-to-regexp";
-import { isAuth } from "backend/service/auth";
+import { isAuthenticated } from "backend/service/auth";
 import EventEmitter from "components/EventEmitter";
 import imports from "./pages";
-import PortalProvider from "../components/Portals";
+import PortalProvider from "../../components/Portals";
 
 export const routes = imports;
 
@@ -77,6 +77,11 @@ const pages = imports.map(([pattern, import$], index) => {
 });
 
 export default async function bootApp(history, initProps = null) {
+  let isAuth;
+  try {
+    isAuth = await isAuthenticated();
+  } catch (error) {}
+
   const initState = {};
 
   for (let i = 0; i < pages.length; i++) {
@@ -90,7 +95,7 @@ export default async function bootApp(history, initProps = null) {
     await page.import();
     const { Component, OnInit } = page;
 
-    const props = initProps ?? OnInit ? await OnInit() : {};
+    const props = initProps ?? (OnInit ? await OnInit() : {});
 
     initState.Page = () => <Component {...props} />;
     history.replace(history.location.pathname, { index: i, props });
@@ -189,23 +194,27 @@ export default async function bootApp(history, initProps = null) {
     },
   };
 
-  return () => {
+  const PageManager = () => {
     const [{ Page }, setPage] = useState(initState);
 
     useEffect(() => app.onUpdate(setPage), []);
 
     return (
-      <AppMode>
-        <Context.Provider value={app}>
-          <EventEmitter>
-            <PortalProvider>
-              <Page />
-            </PortalProvider>
-          </EventEmitter>
-        </Context.Provider>
-      </AppMode>
+      <Context.Provider value={app}>
+        <Page />
+      </Context.Provider>
     );
   };
+
+  return () => (
+    <AppMode>
+      <EventEmitter>
+        <PortalProvider>
+          <PageManager />
+        </PortalProvider>
+      </EventEmitter>
+    </AppMode>
+  );
 }
 
 export function useRouter() {

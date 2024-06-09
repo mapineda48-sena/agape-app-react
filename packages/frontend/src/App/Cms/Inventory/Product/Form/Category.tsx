@@ -46,12 +46,6 @@ export default function CategorySelect() {
           (category) => category.id === categoryId
         ) ?? { subcategories: [] };
 
-        console.log({
-          categoryId,
-          subcategories,
-          categories,
-        });
-
         emitter.emit(EVENT_RESET_SUBCATEGORIES, subcategories ?? []);
       }}
     >
