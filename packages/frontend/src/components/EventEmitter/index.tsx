@@ -18,16 +18,16 @@ export function useEmitter(): EmitterProxy {
 
   useEffect(() => {
     const event = hook.current;
-
     return () => Object.values(event).forEach((e) => emitter.off(e));
   }, [emitter]);
 
   return useMemo(() => {
     const onHook = (handler: HookEvent) => {
-      const { current } = hook;
-
       const events = Object.entries(handler).map(([event, fn]) => {
-        return [current[event] ?? (current[event] = Symbol()), fn] as const;
+        return [
+          hook.current[event] ?? (hook.current[event] = Symbol()),
+          fn,
+        ] as const;
       });
 
       events.forEach(([e, fn]) => emitter.on(e, fn));
@@ -55,8 +55,9 @@ export function useEmitter(): EmitterProxy {
             case "hook":
               return onHook;
             default:
-              return (payload: unknown) =>
+              return (payload: unknown) => {
                 emitter.emit(hook.current[event] ?? event, payload);
+              };
           }
         },
       }

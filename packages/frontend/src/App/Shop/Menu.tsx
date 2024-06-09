@@ -69,7 +69,7 @@ export default function Menu() {
             className="navbar-brand text-success logo h1 align-self-center"
             href="index.html"
           >
-            Zay
+            Agape
           </a>
           <button
             className="navbar-toggler border-0"
@@ -90,22 +90,22 @@ export default function Menu() {
               <ul className="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                 <li className="nav-item">
                   <Link className="nav-link" href="/">
-                    Home
+                    Inicio
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" href="/about">
-                    About
+                    ¿Quienes somos?
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" href="/products">
-                    Shop
+                    Productos
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" href="/contact">
-                    Contact
+                    Contacto
                   </Link>
                 </li>
               </ul>

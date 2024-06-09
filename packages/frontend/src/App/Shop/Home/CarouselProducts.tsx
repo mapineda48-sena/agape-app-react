@@ -1,34 +1,10 @@
-import { useEffect, useRef } from "react";
 import clsx from "clsx";
 import parse from "html-react-parser";
 import useCarousel from "hook/useCarousel";
+import { ICarouselProduct } from "backend/service/public";
 
-const slides = [
-  {
-    title: "<b>Zay</b> eCommerce",
-    subtitle: "Tiny and Perfect eCommerce Template",
-    content:
-      "Zay Shop is an eCommerce HTML5 CSS template with latest version of Bootstrap 5 (beta 1). This template is 100% free provided by TemplateMo website. Image credits go to Freepik Stories, Unsplash and Icons 8. ",
-    image: "./assets/img/banner_img_01.jpg",
-  },
-  {
-    title: "Proident occaecat",
-    subtitle: "Aliquip ex ea commodo consequat",
-    content:
-      "You are permitted to use this Zay CSS template for your commercial websites. You are not permitted to re-distribute the template ZIP file in any kind of template collection websites.",
-    image: "./assets/img/banner_img_02.jpg",
-  },
-  {
-    title: "Repr in voluptate",
-    subtitle: "Ullamco laboris nisi ut",
-    content:
-      "We bring you 100% free CSS templates for your websites. If you wish to support TemplateMo, please make a small contribution via PayPal or tell your friends about our website. Thank you.",
-    image: "./assets/img/banner_img_03.jpg",
-  },
-];
-
-export default function CarouselProducts() {
-  const { ref } = useCarousel()
+export default function CarouselProducts({ slides }: IProps) {
+  const { ref } = useCarousel();
 
   return (
     <div
@@ -52,7 +28,10 @@ export default function CarouselProducts() {
       </ol>
       <div className="carousel-inner">
         {slides.map((slide, index) => (
-          <div key={index} className={clsx(["carousel-item", index === 0 && "active"])}>
+          <div
+            key={index}
+            className={clsx(["carousel-item", index === 0 && "active"])}
+          >
             <div className="container">
               <div className="row p-5">
                 <div className="mx-auto col-md-8 col-lg-6 order-lg-last">
@@ -88,4 +67,11 @@ export default function CarouselProducts() {
       </a>
     </div>
   );
+}
+
+/**
+ * Types
+ */
+interface IProps {
+  slides: ICarouselProduct[];
 }
