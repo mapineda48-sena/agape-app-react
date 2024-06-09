@@ -22,9 +22,9 @@ const Empty = [
       preserveAspectRatio="xMidYMid slice"
       focusable="false"
     >
-      <title>Placeholder</title>
+      <title>Producto sin imagen</title>
       <rect width="100%" height="100%" fill="#777" />
-      <text x="50%" y="50%" fill="#555" dy=".3em">
+      <text x="50%" y="50%" fill="#555" dy=".3em" textAnchor="middle">
         Producto sin Imagen
       </text>
     </svg>
@@ -64,14 +64,17 @@ export default function Images(props: { path: string }) {
     : state.map((file, index) => (
         <div
           key={index}
-          style={{ height: 500 }}
+          style={{
+            height: 400,
+            width: "100%",
+          }}
           className={clsx(["carousel-item", index === 0 && "active"])}
         >
           <Image
             style={{
               width: "100%",
               height: "100%",
-              objectFit: "cover",
+              objectFit: "scale-down",
             }}
             src={file}
             className="img-fluid"

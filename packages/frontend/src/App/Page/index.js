@@ -82,7 +82,7 @@ export default async function bootApp(history, initProps = null) {
     isAuth = await isAuthenticated();
   } catch (error) {}
 
-  const initState = {};
+  const initState = { Page: () => <div>Not Found</div> };
 
   for (let i = 0; i < pages.length; i++) {
     const page = pages[i];

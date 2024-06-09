@@ -67,7 +67,7 @@ export default function Product(props: AllProduct) {
           >
             <title>Placeholder</title>
             <rect width="100%" height="100%" fill="#777" />
-            <text x="50%" y="50%" fill="#555" dy=".3em">
+            <text x="50%" y="50%" fill="#555" dy=".3em" text-anchor="middle">
               Producto sin Imagen
             </text>
           </svg>
