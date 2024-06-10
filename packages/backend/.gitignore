@@ -1,3 +1,4 @@
 dist
+.data
 **/*.dev.*
 service/**/*.js

@@ -1,0 +1,1298 @@
+{
+  "Útiles Escolares": [
+    {
+      "SubCategory": "Lápices y bolígrafos",
+      "Products": [
+        {
+          "fullName": "Lápiz Grafito Premium",
+          "description": "Lápices de grafito de alta calidad, perfectos para dibujo técnico y artístico. Cuerpo hexagonal y mina resistente a la rotura.",
+          "price": 2500,
+          "slogan": "Precisión insuperable para artistas y técnicos"
+        },
+        {
+          "fullName": "Bolígrafo Gel Negro",
+          "description": "Bolígrafo con tinta de gel negro, fluidez superior y secado rápido. Ideal para notas limpias y escritura continua.",
+          "price": 1200,
+          "slogan": "Fluidez y rapidez en cada palabra"
+        },
+        {
+          "fullName": "Set de Lápices de Colores",
+          "description": "Conjunto de 24 lápices de colores vivos, madera de calidad y mina suave para fácil aplicación. Apto para artistas de todas las edades.",
+          "price": 10000,
+          "slogan": "Colorea tu mundo con creatividad ilimitada"
+        },
+        {
+          "fullName": "Marcadores Permanentes",
+          "description": "Pack de 10 marcadores permanentes multicolores, punta fina, perfectos para etiquetar, decorar o ilustrar en diferentes superficies.",
+          "price": 8000,
+          "slogan": "Deja tu marca permanente en cualquier lugar"
+        },
+        {
+          "fullName": "Estuche de Bolígrafos de Tinta Líquida",
+          "description": "Estuche con 5 bolígrafos de tinta líquida de colores variados, ideales para resaltar textos o para uso en arte gráfico.",
+          "price": 15000,
+          "slogan": "Detalles vibrantes en cada trazo"
+        }
+      ]
+    },
+    {
+      "SubCategory": "Cuadernos y libretas",
+      "Products": [
+        {
+          "fullName": "Cuaderno Profesional A4",
+          "description": "Cuaderno de tapa dura A4, 200 páginas rayadas, papel de 80 g/m². Ideal para notas en reuniones o clase.",
+          "price": 8000,
+          "slogan": "Tus ideas organizadas y protegidas"
+        },
+        {
+          "fullName": "Libreta de Dibujo",
+          "description": "Libreta de papel grueso, tamaño carta, especial para dibujo con grafito, carboncillo o tinta.",
+          "price": 9000,
+          "slogan": "Captura tus visiones artísticas"
+        },
+        {
+          "fullName": "Planificador Mensual",
+          "description": "Planificador mensual con vistas amplias, stickers temáticos y bolsillos para documentos.",
+          "price": 12000,
+          "slogan": "Planifica tu éxito día a día"
+        },
+        {
+          "fullName": "Cuaderno de Bocetos",
+          "description": "Cuaderno para bocetos, papel de grano fino, resistente a la erosión de goma de borrar y raspaduras.",
+          "price": 7000,
+          "slogan": "Da vida a tus bocetos"
+        },
+        {
+          "fullName": "Cuaderno de Notas Espiral",
+          "description": "Cuaderno espiral A5, tapa flexible y 100 hojas cuadriculadas. Perfecto para estudiantes y profesionales.",
+          "price": 6000,
+          "slogan": "Flexibilidad y durabilidad en tus notas"
+        }
+      ]
+    },
+    {
+      "SubCategory": "Sacapuntas y gomas de borrar",
+      "Products": [
+        {
+          "fullName": "Sacapuntas de Precisión",
+          "description": "Sacapuntas metálico de doble agujero, para lápices estándar y gruesos. Afilado preciso y duradero.",
+          "price": 3000,
+          "slogan": "Afila tu mente y tus lápices"
+        },
+        {
+          "fullName": "Goma de Borrar Suave",
+          "description": "Goma de borrar sin látex, suave y no abrasiva, ideal para borrar sobre papel de arte sin dañarlo.",
+          "price": 2000,
+          "slogan": "Borra con cuidado, preserva tu arte"
+        },
+        {
+          "fullName": "Set de Sacapuntas y Goma",
+          "description": "Combo de sacapuntas ergonómico y goma de borrar suave, ideal para estudiantes de todas las edades.",
+          "price": 4000,
+          "slogan": "Doble función, doble eficiencia"
+        },
+        {
+          "fullName": "Sacapuntas Eléctrico",
+          "description": "Sacapuntas eléctrico rápido y eficiente, adecuado para uso intensivo en oficinas o escuelas.",
+          "price": 15000,
+          "slogan": "Afilado rápido para ideas rápidas"
+        },
+        {
+          "fullName": "Goma de Borrar de Vinilo",
+          "description": "Goma de borrar de vinilo de alta calidad, perfecta para limpiar sin dejar residuos.",
+          "price": 2500,
+          "slogan": "Limpieza impecable en tu escritura"
+        }
+      ]
+    },
+    {
+      "SubCategory": "Reglas y compases",
+      "Products": [
+        {
+          "fullName": "Regla de Aluminio 30 cm",
+          "description": "Regla de aluminio de 30 cm, resistente y precisa para uso profesional y educativo.",
+          "price": 5000,
+          "slogan": "Mediciones precisas, resultados perfectos"
+        },
+        {
+          "fullName": "Compás de Precisión",
+          "description": "Compás de acero inoxidable con ajuste fino, ideal para dibujantes y ingenieros.",
+          "price": 12000,
+          "slogan": "La precisión que necesitas en cada círculo"
+        },
+        {
+          "fullName": "Set de Geometría",
+          "description": "Set completo de herramientas de geometría incluyendo reglas, transportador y compás.",
+          "price": 8000,
+          "slogan": "Todo lo necesario para la geometría perfecta"
+        },
+        {
+          "fullName": "Regla T",
+          "description": "Regla en forma de T para diseño técnico y arquitectónico, ofrece líneas precisas y estables.",
+          "price": 10000,
+          "slogan": "Guía tu trazo con precisión"
+        },
+        {
+          "fullName": "Escuadra Ajustable",
+          "description": "Escuadra de ángulos ajustables para trabajos de diseño y carpintería.",
+          "price": 11000,
+          "slogan": "Ajusta tus ángulos a la perfección"
+        }
+      ]
+    },
+    {
+      "SubCategory": "Colores",
+      "Products": [
+        {
+          "fullName": "Caja de Crayones de Cera",
+          "description": "Caja de 24 crayones de cera, colores vivos y textura suave, perfecta para niños y escuelas.",
+          "price": 5000,
+          "slogan": "Colorea tu mundo con imaginación"
+        },
+        {
+          "fullName": "Lápices de Colores Profesionales",
+          "description": "Set de 48 lápices de colores, calidad profesional, para artistas serios y aficionados.",
+          "price": 25000,
+          "slogan": "Expresa tu arte con cada color"
+        },
+        {
+          "fullName": "Marcadores de Tiza Líquida",
+          "description": "Marcadores de tiza líquida, ideal para pizarras negras y ventanas, colores brillantes y fáciles de borrar.",
+          "price": 12000,
+          "slogan": "Dibuja y borra con facilidad"
+        },
+        {
+          "fullName": "Estuche de Acuarelas",
+          "description": "Estuche de acuarelas con 12 colores diferentes, pincel incluido, compacto y portátil.",
+          "price": 10000,
+          "slogan": "Despierta tu lado acuático"
+        },
+        {
+          "fullName": "Rotuladores Permanentes",
+          "description": "Paquete de rotuladores permanentes, colores surtidos, punta fina para detalles precisos.",
+          "price": 8000,
+          "slogan": "Marca tu mundo con permanencia"
+        }
+      ]
+    },
+    {
+      "SubCategory": "Correctores y cintas correctoras",
+      "Products": [
+        {
+          "fullName": "Corrector Líquido",
+          "description": "Botella de corrector líquido de secado rápido, cobertura total para errores de tinta.",
+          "price": 4000,
+          "slogan": "Corrige tus errores con confianza"
+        },
+        {
+          "fullName": "Cinta Correctora",
+          "description": "Cinta correctora no tóxica, aplicación fácil y limpia, perfecta para documentos importantes.",
+          "price": 6000,
+          "slogan": "Correcciones instantáneas, resultados limpios"
+        },
+        {
+          "fullName": "Corrector en Pluma",
+          "description": "Corrector en formato de pluma, preciso y cómodo, ideal para estudiantes y profesionales.",
+          "price": 5000,
+          "slogan": "Precisión en cada corrección"
+        },
+        {
+          "fullName": "Corrector de Cinta Doble",
+          "description": "Corrector de cinta doble cara, permite correcciones en ambos lados del papel.",
+          "price": 7000,
+          "slogan": "Doble lado, doble eficacia"
+        },
+        {
+          "fullName": "Set de Correctores Múltiples",
+          "description": "Set de correctores incluyendo líquido, cinta y pluma, para cualquier tipo de corrección necesaria.",
+          "price": 10000,
+          "slogan": "Todo tipo de correcciones a tu alcance"
+        }
+      ]
+    },
+    {
+      "SubCategory": "Pegamentos y adhesivos",
+      "Products": [
+        {
+          "fullName": "Pegamento en Barra",
+          "description": "Pegamento en barra no tóxico, ideal para papel y cartón, seguro para uso escolar.",
+          "price": 3000,
+          "slogan": "Adhesión fuerte, aplicación limpia"
+        },
+        {
+          "fullName": "Adhesivo Instantáneo",
+          "description": "Adhesivo instantáneo, secado rápido y unión fuerte para reparaciones rápidas y duraderas.",
+          "price": 5000,
+          "slogan": "Repara y une con velocidad y firmeza"
+        },
+        {
+          "fullName": "Pegamento Líquido Multiuso",
+          "description": "Pegamento líquido multiuso, adecuado para una variedad de superficies desde papel hasta plástico.",
+          "price": 8000,
+          "slogan": "Versatilidad en cada gota"
+        },
+        {
+          "fullName": "Pegamento en Spray",
+          "description": "Pegamento en spray, aplicación uniforme y rápida, ideal para grandes áreas o materiales delicados.",
+          "price": 12000,
+          "slogan": "Cubre más, con menos esfuerzo"
+        },
+        {
+          "fullName": "Cinta Adhesiva de Doble Cara",
+          "description": "Cinta adhesiva de doble cara, fuerte y duradera, para montajes y manualidades que requieren una fijación segura.",
+          "price": 7000,
+          "slogan": "Doble adhesión para trabajos exigentes"
+        }
+      ]
+    }
+  ],
+  "Artículos de Oficina": [
+    {
+      "SubCategory": "Papeleria",
+      "Products": [
+        {
+          "fullName": "Bloc de Notas Ecológico",
+          "description": "Bloc de notas tamaño A5, hojas recicladas y tapa dura. Ideal para anotaciones rápidas en la oficina o en clase.",
+          "price": 5000,
+          "slogan": "Escribe para un planeta más verde"
+        },
+        {
+          "fullName": "Porta documentos de Cuero",
+          "description": "Carpeta de cuero sintético elegante para la organización de documentos importantes. Tamaño carta, con varios compartimentos.",
+          "price": 15000,
+          "slogan": "Organiza con estilo y eficiencia"
+        },
+        {
+          "fullName": "Calculadora Científica Avanzada",
+          "description": "Calculadora científica con funciones avanzadas para estudiantes de ingeniería y ciencias. Pantalla LCD grande y duradera.",
+          "price": 20000,
+          "slogan": "Precisión y funcionalidad en tus cálculos"
+        },
+        {
+          "fullName": "Organizador de Escritorio Modular",
+          "description": "Organizador de escritorio en madera, con compartimentos ajustables para todo tipo de material de oficina.",
+          "price": 8000,
+          "slogan": "Mantén tu espacio siempre organizado"
+        },
+        {
+          "fullName": "Sujeta libros Metálico",
+          "description": "Par de sujeta libros de metal resistente, diseño moderno y compacto, ideal para cualquier estantería.",
+          "price": 12000,
+          "slogan": "Soporte firme para tus libros favoritos"
+        }
+      ]
+    },
+    {
+      "SubCategory": "Carpetas y archivadores",
+      "Products": [
+        {
+          "fullName": "Carpeta con Anillas",
+          "description": "Carpeta robusta con 3 anillas, capacidad para 500 hojas, ideal para la organización de documentos.",
+          "price": 15000,
+          "slogan": "Mantén tus documentos seguros y organizados"
+        },
+        {
+          "fullName": "Archivador de Palanca",
+          "description": "Archivador de palanca de alta resistencia, formato A4, con cierre metálico y etiqueta lateral.",
+          "price": 20000,
+          "slogan": "Archivo eficiente, acceso rápido"
+        },
+        {
+          "fullName": "Carpeta Acordeón",
+          "description": "Carpeta tipo acordeón con separadores internos, capacidad extensible, material resistente al agua.",
+          "price": 18000,
+          "slogan": "Expande tu capacidad de almacenamiento"
+        },
+        {
+          "fullName": "Caja de Archivo Muerto",
+          "description": "Caja de cartón resistente para archivo muerto, apilable, con espacio para etiquetas.",
+          "price": 12000,
+          "slogan": "Almacenamiento seguro para documentos importantes"
+        },
+        {
+          "fullName": "Funda de Plástico Transparente",
+          "description": "Fundas de plástico transparente A4, paquete de 50, para proteger documentos importantes.",
+          "price": 8000,
+          "slogan": "Protección y claridad en tus archivos"
+        }
+      ]
+    },
+    {
+      "SubCategory": "Clips y sujetapapeles",
+      "Products": [
+        {
+          "fullName": "Caja de Clips Metálicos",
+          "description": "Caja con 100 clips metálicos, 32 mm, resistente al óxido, para organizar papeles sin dañarlos.",
+          "price": 5000,
+          "slogan": "Organiza sin dañar tus documentos"
+        },
+        {
+          "fullName": "Sujetapapeles Magnéticos",
+          "description": "Set de 10 sujetapapeles magnéticos, colores variados, fuerte sujeción para hojas y notas.",
+          "price": 7000,
+          "slogan": "Sujeción segura, acceso fácil"
+        },
+        {
+          "fullName": "Clips de Colores Grandes",
+          "description": "Paquete de 50 clips grandes de colores para una organización visual y divertida.",
+          "price": 4000,
+          "slogan": "Añade color a tu organización diaria"
+        },
+        {
+          "fullName": "Organizador de Clips",
+          "description": "Organizador de escritorio con separadores para clips, alfileres y otros pequeños útiles.",
+          "price": 9000,
+          "slogan": "Todo en su lugar, siempre a mano"
+        },
+        {
+          "fullName": "Clip con Identificador",
+          "description": "Clips con etiqueta para fácil identificación de documentos, paquete de 30.",
+          "price": 6000,
+          "slogan": "Identifica y organiza con eficiencia"
+        }
+      ]
+    },
+    {
+      "SubCategory": "Resaltadores",
+      "Products": [
+        {
+          "fullName": "Resaltador Fluorescente",
+          "description": "Pack de 5 resaltadores fluorescentes, no tóxicos, secado rápido, para estudios y revisiones.",
+          "price": 10000,
+          "slogan": "Destaca lo importante con brillo"
+        },
+        {
+          "fullName": "Resaltador de Gel",
+          "description": "Resaltador de gel, suave y no traspasa el papel, colores pastel, pack de 6.",
+          "price": 12000,
+          "slogan": "Suavidad que no daña tus hojas"
+        },
+        {
+          "fullName": "Mini Resaltadores",
+          "description": "Mini resaltadores portátiles, ideales para llevar en la mochila o en la agenda, pack de 8.",
+          "price": 8000,
+          "slogan": "Pequeños pero poderosos"
+        },
+        {
+          "fullName": "Resaltador de Doble Punta",
+          "description": "Resaltador con doble punta, una fina y otra gruesa, para precisión y cobertura, pack de 4.",
+          "price": 11000,
+          "slogan": "Doble función, resalta con precisión"
+        },
+        {
+          "fullName": "Resaltador Ecológico",
+          "description": "Resaltadores hechos de material reciclado, tinta a base de agua, pack de 5.",
+          "price": 9000,
+          "slogan": "Eco-amigable y eficiente"
+        }
+      ]
+    },
+    {
+      "SubCategory": "Etiquetas y rotuladores",
+      "Products": [
+        {
+          "fullName": "Etiquetas Adhesivas Universales",
+          "description": "Hoja de etiquetas adhesivas universales, aptas para impresoras y escritura manual, 100 unidades.",
+          "price": 7000,
+          "slogan": "Etiqueta y organiza con facilidad"
+        },
+        {
+          "fullName": "Rotulador Permanente Negro",
+          "description": "Rotulador permanente de tinta negra, punta fina, resistente al agua y al desgaste.",
+          "price": 5000,
+          "slogan": "Marca permanente en todas tus superficies"
+        },
+        {
+          "fullName": "Etiquetas de Color para Archivos",
+          "description": "Etiquetas de color autoadhesivas para facilitar la clasificación y el archivo, pack de 60.",
+          "price": 8000,
+          "slogan": "Clasifica con colores, encuentra rápido"
+        },
+        {
+          "fullName": "Rotulador Borrable",
+          "description": "Rotulador borrable para pizarras blancas y superficies no porosas, tinta fácil de limpiar.",
+          "price": 6000,
+          "slogan": "Escribe, borra, repite"
+        },
+        {
+          "fullName": "Etiquetas de Nombre Adhesivas",
+          "description": "Etiquetas de nombre adhesivas, ideales para reuniones, eventos y escuela, pack de 50.",
+          "price": 4000,
+          "slogan": "Presenta a todos con estilo"
+        }
+      ]
+    },
+    {
+      "SubCategory": "Calculadoras",
+      "Products": [
+        {
+          "fullName": "Calculadora de Escritorio Solar",
+          "description": "Calculadora de escritorio solar, grandes teclas y display claro, ideal para oficina o hogar.",
+          "price": 14000,
+          "slogan": "Energía solar, cálculos eficientes"
+        },
+        {
+          "fullName": "Calculadora Científica Avanzada",
+          "description": "Calculadora científica con 240 funciones, incluyendo estadística y trigonometría, para estudiantes.",
+          "price": 25000,
+          "slogan": "Para los cálculos más complejos"
+        },
+        {
+          "fullName": "Calculadora Gráfica",
+          "description": "Calculadora gráfica con capacidad para graficar y analizar funciones, ideal para ingeniería y matemáticas.",
+          "price": 35000,
+          "slogan": "Visualiza y calcula con precisión"
+        },
+        {
+          "fullName": "Calculadora de Bolsillo",
+          "description": "Calculadora de bolsillo compacta, solar, con protección de tapa, perfecta para viajes.",
+          "price": 7000,
+          "slogan": "Pequeña en tamaño, grande en funcionalidad"
+        },
+        {
+          "fullName": "Calculadora Financiera",
+          "description": "Calculadora financiera diseñada para profesionales de las finanzas, con funciones específicas de negocio.",
+          "price": 30000,
+          "slogan": "Tus finanzas, calculadas a la perfección"
+        }
+      ]
+    },
+    {
+      "SubCategory": "Artículos de organización",
+      "Products": [
+        {
+          "fullName": "Cajón Organizador de Escritorio",
+          "description": "Cajón organizador para escritorio, múltiples compartimentos, ideal para material de oficina.",
+          "price": 20000,
+          "slogan": "Organiza tu espacio, aclara tu mente"
+        },
+        {
+          "fullName": "Estantería Modular",
+          "description": "Estantería modular ajustable, fácil de montar, ideal para oficinas y estudios en casa.",
+          "price": 25000,
+          "slogan": "Flexibilidad para tu espacio de trabajo"
+        },
+        {
+          "fullName": "Caja de Almacenamiento Decorativa",
+          "description": "Caja de almacenamiento con diseño decorativo, resistente y con tapa, para documentos y objetos pequeños.",
+          "price": 15000,
+          "slogan": "Estilo y función en un solo producto"
+        },
+        {
+          "fullName": "Organizador de Cables",
+          "description": "Organizador de cables autoadhesivo, mantiene los cables ordenados y accesibles en tu espacio de trabajo.",
+          "price": 8000,
+          "slogan": "Di adiós al desorden de cables"
+        },
+        {
+          "fullName": "Bandeja de Documentos Apilable",
+          "description": "Bandeja de documentos apilable, transparente, para organizar papeles y documentos importantes.",
+          "price": 12000,
+          "slogan": "Apila, organiza, accede fácilmente"
+        }
+      ]
+    }
+  ],
+  "Materiales de Arte": [
+    {
+      "SubCategory": "Papeleria",
+      "Products": [
+        {
+          "fullName": "Set de Pinceles para Acuarela",
+          "description": "Set de 10 pinceles de diferentes tamaños para acuarela. Mangos ergonómicos y cerdas que no pierden su forma.",
+          "price": 15000,
+          "slogan": "Libera tu arte con cada pincelada"
+        },
+        {
+          "fullName": "Brocha para Oleo Grande",
+          "description": "Brocha grande diseñada para pintura al óleo. Cerdas naturales que garantizan una aplicación suave y uniforme.",
+          "price": 18000,
+          "slogan": "Expresión máxima en grandes lienzos"
+        },
+        {
+          "fullName": "Pincel de Detalle Fino",
+          "description": "Pincel de punta extra fina para detalles minuciosos en miniaturas o modelos. Mango cómodo y control preciso.",
+          "price": 7000,
+          "slogan": "Detalles que hacen la diferencia"
+        },
+        {
+          "fullName": "Kit de Brochas para Diferentes Texturas",
+          "description": "Kit de brochas especializadas para crear texturas únicas en murales y lienzos grandes. Incluye 5 tipos.",
+          "price": 20000,
+          "slogan": "Texturiza tus creaciones con maestría"
+        },
+        {
+          "fullName": "Set de Pinceles de Ventilador",
+          "description": "Set de pinceles de forma de ventilador para efectos especiales en pintura, especialmente útiles para difuminar y mezclar.",
+          "price": 12000,
+          "slogan": "Suavidad y profundidad en cada trazo"
+        }
+      ]
+    },
+    {
+      "SubCategory": "Pinceles y brochas",
+      "Products": [
+        {
+          "fullName": "Set de Pinceles para Acuarela",
+          "description": "Set de 10 pinceles de diferentes tamaños para acuarela. Mangos ergonómicos y cerdas que no pierden su forma.",
+          "price": 15000,
+          "slogan": "Libera tu arte con cada pincelada"
+        },
+        {
+          "fullName": "Brocha para Oleo Grande",
+          "description": "Brocha grande diseñada para pintura al óleo. Cerdas naturales que garantizan una aplicación suave y uniforme.",
+          "price": 18000,
+          "slogan": "Expresión máxima en grandes lienzos"
+        },
+        {
+          "fullName": "Pincel de Detalle Fino",
+          "description": "Pincel de punta extra fina para detalles minuciosos en miniaturas o modelos. Mango cómodo y control preciso.",
+          "price": 7000,
+          "slogan": "Detalles que hacen la diferencia"
+        },
+        {
+          "fullName": "Kit de Brochas para Diferentes Texturas",
+          "description": "Kit de brochas especializadas para crear texturas únicas en murales y lienzos grandes. Incluye 5 tipos.",
+          "price": 20000,
+          "slogan": "Texturiza tus creaciones con maestría"
+        },
+        {
+          "fullName": "Set de Pinceles de Ventilador",
+          "description": "Set de pinceles de forma de ventilador para efectos especiales en pintura, especialmente útiles para difuminar y mezclar.",
+          "price": 12000,
+          "slogan": "Suavidad y profundidad en cada trazo"
+        }
+      ]
+    },
+    {
+      "SubCategory": "Pinturas",
+      "Products": [
+        {
+          "fullName": "Set de Acuarelas Profesionales",
+          "description": "Set de 24 colores de acuarelas en pastillas, alta pigmentación y resistencia a la luz.",
+          "price": 25000,
+          "slogan": "Colores que dan vida a tus acuarelas"
+        },
+        {
+          "fullName": "Tubos de Óleo Premium",
+          "description": "Caja de 12 tubos de pintura al óleo, colores ricos y consistencia cremosa, para artistas serios.",
+          "price": 35000,
+          "slogan": "Óleo de calidad para obras maestras"
+        },
+        {
+          "fullName": "Pinturas Acrílicas",
+          "description": "Set de 20 pinturas acrílicas, secado rápido y permanente, adecuado para principiantes y profesionales.",
+          "price": 18000,
+          "slogan": "Versatilidad y color en cada pincelada"
+        },
+        {
+          "fullName": "Pintura Textil",
+          "description": "Botellas de pintura textil, ideal para camisetas y telas, colores brillantes y lavables.",
+          "price": 12000,
+          "slogan": "Expresa tu estilo en cada tela"
+        },
+        {
+          "fullName": "Set de Temperas",
+          "description": "Set de temperas escolares, 10 colores, fáciles de usar y lavar, ideales para niños y proyectos educativos.",
+          "price": 8000,
+          "slogan": "Creatividad y diversión sin límites"
+        }
+      ]
+    },
+    {
+      "SubCategory": "Tela y lienzos",
+      "Products": [
+        {
+          "fullName": "Lienzos de Algodón",
+          "description": "Set de 5 lienzos de algodón pre-estirados, listos para usar, 30x40 cm.",
+          "price": 20000,
+          "slogan": "Tu lienzo en blanco para crear arte"
+        },
+        {
+          "fullName": "Rollo de Tela para Pintura",
+          "description": "Rollo de tela de algodón crudo, 1.5 metros de ancho, se puede cortar al tamaño deseado.",
+          "price": 25000,
+          "slogan": "Prepara tu propia tela, libera tu creatividad"
+        },
+        {
+          "fullName": "Telas para Bordado",
+          "description": "Paquete de telas para bordado con diferentes tramas y colores, 30x30 cm cada una.",
+          "price": 15000,
+          "slogan": "Borda tus sueños en estas telas"
+        },
+        {
+          "fullName": "Kit de Lienzos Variados",
+          "description": "Kit que incluye lienzos de diferentes tamaños y texturas, ideal para experimentar con técnicas.",
+          "price": 30000,
+          "slogan": "Explora tu arte en múltiples superficies"
+        },
+        {
+          "fullName": "Tela de Lino para Óleo",
+          "description": "Tela de lino de alta calidad, preparada para pintura al óleo, 50x70 cm.",
+          "price": 35000,
+          "slogan": "Calidad superior para tus obras en óleo"
+        }
+      ]
+    },
+    {
+      "SubCategory": "Paletas y espátulas",
+      "Products": [
+        {
+          "fullName": "Paleta de Madera para Pintura",
+          "description": "Paleta de madera tradicional, ergonómica, con espacio para mezclar amplias cantidades de color.",
+          "price": 5000,
+          "slogan": "Mezcla tus colores en la herramienta clásica"
+        },
+        {
+          "fullName": "Set de Espátulas de Pintor",
+          "description": "Set de 5 espátulas de pintor, diferentes formas para mezclar y aplicar pinturas.",
+          "price": 9000,
+          "slogan": "Esculpe tu pintura con precisión"
+        },
+        {
+          "fullName": "Paleta de Plástico Resistente",
+          "description": "Paleta de plástico con 10 pocillos, ligera y fácil de limpiar, ideal para acuarelas y acrílicos.",
+          "price": 4000,
+          "slogan": "Ligera y práctica para tus sesiones de pintura"
+        },
+        {
+          "fullName": "Paleta de Vidrio Templado",
+          "description": "Paleta de vidrio templado, superficie lisa y resistente, perfecta para mezclar óleos y acrílicos.",
+          "price": 12000,
+          "slogan": "La pureza del vidrio mejora tus mezclas"
+        },
+        {
+          "fullName": "Kit de Paletas y Espátulas",
+          "description": "Kit que incluye paleta de madera y set de 3 espátulas metálicas, todo lo necesario para comenzar.",
+          "price": 16000,
+          "slogan": "Todo en uno para el artista emergente"
+        }
+      ]
+    },
+    {
+      "SubCategory": "Papel especializado",
+      "Products": [
+        {
+          "fullName": "Papel de Acuarela de Grano Fino",
+          "description": "Bloc de papel de acuarela, grano fino, 300 g/m², resistente al agua y a la deformación.",
+          "price": 10000,
+          "slogan": "La base perfecta para tus acuarelas"
+        },
+        {
+          "fullName": "Papel para Dibujo Carbón",
+          "description": "Bloc de papel especializado para dibujo con carbón, textura gruesa que atrapa el pigmento.",
+          "price": 8000,
+          "slogan": "Captura la intensidad de tu carbón"
+        },
+        {
+          "fullName": "Papel de Transferencia",
+          "description": "Hojas de papel de transferencia para trazar y transferir diseños, compatible con todo tipo de lápices.",
+          "price": 6000,
+          "slogan": "Transfiere tus ideas con claridad"
+        },
+        {
+          "fullName": "Papel Canson para Tinta",
+          "description": "Papel Canson de alta calidad, diseñado para inks y plumillas, no traspasa, blanco puro.",
+          "price": 12000,
+          "slogan": "Expresa tus líneas con máxima definición"
+        },
+        {
+          "fullName": "Papel Metalizado",
+          "description": "Hojas de papel metalizado, ideal para proyectos de scrapbooking y decoraciones festivas.",
+          "price": 9000,
+          "slogan": "Añade un toque brillante a tus creaciones"
+        }
+      ]
+    }
+  ],
+  "Tecnología y Accesorios": [
+    {
+      "SubCategory": "Memorias USB",
+      "Products": [
+        {
+          "fullName": "Memoria USB 32GB",
+          "description": "Memoria USB de 32GB, diseño compacto, USB 3.0 para una transferencia rápida de datos.",
+          "price": 25000,
+          "slogan": "Guarda y transfiere tus archivos con velocidad"
+        },
+        {
+          "fullName": "Memoria USB con Seguridad",
+          "description": "Memoria USB de 16GB con cifrado de datos y contraseña, protege tu información personal.",
+          "price": 30000,
+          "slogan": "Seguridad avanzada para tus datos importantes"
+        },
+        {
+          "fullName": "Memoria USB Doble Interfaz",
+          "description": "Memoria USB de 64GB con doble interfaz, USB-C y USB-A, compatible con múltiples dispositivos.",
+          "price": 35000,
+          "slogan": "Flexibilidad y capacidad en un solo dispositivo"
+        },
+        {
+          "fullName": "Set de Memorias USB",
+          "description": "Set de 4 memorias USB de 8GB cada una, colores variados, ideal para organización por proyectos.",
+          "price": 20000,
+          "slogan": "Organiza y almacena tus proyectos eficientemente"
+        },
+        {
+          "fullName": "Memoria USB para Smartphone",
+          "description": "Memoria USB de 128GB con conector micro-USB, extiende fácilmente el almacenamiento de tu smartphone.",
+          "price": 40000,
+          "slogan": "Amplía el espacio de tu móvil al instante"
+        }
+      ]
+    },
+    {
+      "SubCategory": "Cartuchos y tóners para impresoras",
+      "Products": [
+        {
+          "fullName": "Cartucho de Tinta Negra",
+          "description": "Cartucho de tinta negra, compatible con modelos HP populares, impresiones nítidas y duraderas.",
+          "price": 45000,
+          "slogan": "Calidad y rendimiento en cada página"
+        },
+        {
+          "fullName": "Tóner de Alto Rendimiento",
+          "description": "Tóner para impresora láser, rendimiento de hasta 2000 páginas, ideal para oficinas.",
+          "price": 70000,
+          "slogan": "Maximiza la productividad de tu oficina"
+        },
+        {
+          "fullName": "Cartucho de Tinta de Color",
+          "description": "Cartucho de tinta tricolor, vívidos y brillantes para impresiones fotográficas y documentos.",
+          "price": 50000,
+          "slogan": "Colorea tus impresiones con calidad superior"
+        },
+        {
+          "fullName": "Kit de Recarga de Tinta",
+          "description": "Kit de recarga de tinta para cartuchos, económico y fácil de usar, incluye instrucciones.",
+          "price": 25000,
+          "slogan": "Economiza recargando tus propios cartuchos"
+        },
+        {
+          "fullName": "Tóner Compatible Universal",
+          "description": "Tóner compatible con diversas marcas y modelos, excelente calidad de impresión, económico.",
+          "price": 55000,
+          "slogan": "Calidad confiable, precio accesible"
+        }
+      ]
+    },
+    {
+      "SubCategory": "Cables y adaptadores",
+      "Products": [
+        {
+          "fullName": "Cable HDMI de Alta Velocidad",
+          "description": "Cable HDMI 4K, 2 metros, soporte de alta definición y Ethernet, ideal para home theater.",
+          "price": 12000,
+          "slogan": "Experiencia visual y sonora de alta definición"
+        },
+        {
+          "fullName": "Adaptador USB-C a USB-A",
+          "description": "Adaptador de USB-C a USB-A, permite conectar dispositivos USB tradicionales a puertos USB-C.",
+          "price": 7000,
+          "slogan": "Conectividad universal en dispositivos modernos"
+        },
+        {
+          "fullName": "Cable de Carga Rápida",
+          "description": "Cable de carga rápida USB-C, compatible con dispositivos Android y Apple, 1 metro.",
+          "price": 9000,
+          "slogan": "Carga tus dispositivos rápidamente y con seguridad"
+        },
+        {
+          "fullName": "Cable de Audio Auxiliar",
+          "description": "Cable auxiliar de audio de 3.5 mm, 1.5 metros, conecta dispositivos de audio con claridad y sin pérdidas.",
+          "price": 6000,
+          "slogan": "Sonido claro y sin interferencias"
+        },
+        {
+          "fullName": "Adaptador de Corriente Universal",
+          "description": "Adaptador de corriente universal, compatible con voltajes de 100-240V, ideal para viajeros.",
+          "price": 15000,
+          "slogan": "Energía segura para tus dispositivos en todo el mundo"
+        }
+      ]
+    },
+    {
+      "SubCategory": "Protectores y fundas para dispositivos",
+      "Products": [
+        {
+          "fullName": "Funda para Smartphone",
+          "description": "Funda resistente para smartphone, absorción de impactos, con soporte para ver videos.",
+          "price": 10000,
+          "slogan": "Protección robusta y funcional para tu móvil"
+        },
+        {
+          "fullName": "Protector de Pantalla de Vidrio",
+          "description": "Protector de pantalla de vidrio templado, resistente a rayones y golpes, para iPhone.",
+          "price": 8000,
+          "slogan": "Defensa cristalina contra daños diarios"
+        },
+        {
+          "fullName": "Funda para Laptop de Neopreno",
+          "description": "Funda de neopreno suave para laptops de hasta 15 pulgadas, protección contra golpes y rasguños.",
+          "price": 12000,
+          "slogan": "Suave por dentro, resistente por fuera"
+        },
+        {
+          "fullName": "Estuche Rígido para Cámara",
+          "description": "Estuche rígido para cámaras DSLR, protección contra impactos, resistente al agua.",
+          "price": 20000,
+          "slogan": "Seguridad extrema para tu equipo fotográfico"
+        },
+        {
+          "fullName": "Funda Impermeable para Tablet",
+          "description": "Funda impermeable para tablet, permite uso bajo la lluvia o en la playa, pantalla táctil funcional.",
+          "price": 14000,
+          "slogan": "Usa tu tablet en cualquier entorno sin preocupaciones"
+        }
+      ]
+    },
+    {
+      "SubCategory": "Audífonos y bocinas",
+      "Products": [
+        {
+          "fullName": "Audífonos Inalámbricos",
+          "description": "Audífonos inalámbricos con Bluetooth, cancelación de ruido, hasta 12 horas de reproducción.",
+          "price": 30000,
+          "slogan": "Libertad de movimiento con sonido de calidad"
+        },
+        {
+          "fullName": "Bocina Bluetooth Portátil",
+          "description": "Bocina portátil con Bluetooth, resistente al agua, ideal para actividades al aire libre.",
+          "price": 25000,
+          "slogan": "Música en cualquier lugar, en cualquier momento"
+        },
+        {
+          "fullName": "Audífonos para Gaming",
+          "description": "Audífonos para gaming con micrófono, sonido envolvente 7.1, cómodos para largas sesiones.",
+          "price": 35000,
+          "slogan": "Sumérgete en el juego con audio envolvente"
+        },
+        {
+          "fullName": "Bocina Inteligente con Asistente",
+          "description": "Bocina inteligente con asistente de voz integrado, controla tu hogar inteligente con comandos de voz.",
+          "price": 40000,
+          "slogan": "Controla tu hogar con solo hablar"
+        },
+        {
+          "fullName": "Audífonos de Estudio Profesionales",
+          "description": "Audífonos de estudio con calidad de sonido profesional, cómodos y con aislamiento acústico.",
+          "price": 45000,
+          "slogan": "Para los verdaderos aficionados al sonido puro"
+        }
+      ]
+    }
+  ],
+  "Regalos y Papelería Fina": [
+    {
+      "SubCategory": "Tarjetas de felicitación",
+      "Products": [
+        {
+          "fullName": "Tarjeta de Felicitación Floral",
+          "description": "Tarjeta de felicitación con diseño floral, ideal para cumpleaños y aniversarios, incluye sobre.",
+          "price": 8000,
+          "slogan": "Envía tus deseos con elegancia y estilo"
+        },
+        {
+          "fullName": "Set de Tarjetas Navideñas",
+          "description": "Set de 10 tarjetas navideñas con diferentes diseños festivos, sobres incluidos.",
+          "price": 12000,
+          "slogan": "Espíritu navideño en cada palabra"
+        },
+        {
+          "fullName": "Tarjeta de Agradecimiento",
+          "description": "Pack de 20 tarjetas de agradecimiento, diseño minimalista, perfectas para gestos de gratitud.",
+          "price": 10000,
+          "slogan": "Muestra tu aprecio con clase"
+        },
+        {
+          "fullName": "Tarjeta para Día Especial",
+          "description": "Tarjeta multipropósito para bodas, graduaciones y más, diseño clásico, papel premium.",
+          "price": 9000,
+          "slogan": "Perfecta para cualquier celebración"
+        },
+        {
+          "fullName": "Tarjeta de Cumpleaños con Música",
+          "description": "Tarjeta de cumpleaños musical, al abrir se reproduce una melodía alegre, diseño colorido.",
+          "price": 11000,
+          "slogan": "Añade un toque musical a su día especial"
+        }
+      ]
+    },
+    {
+      "SubCategory": "Papel de regalo",
+      "Products": [
+        {
+          "fullName": "Papel de Regalo Metálico",
+          "description": "Rollo de papel de regalo metálico, 10m, ideal para ocasiones especiales y festivas.",
+          "price": 7000,
+          "slogan": "Brillo que destaca tus regalos"
+        },
+        {
+          "fullName": "Papel de Regalo Infantil",
+          "description": "Papel de regalo con estampados infantiles, rollo de 5m, perfecto para regalos de cumpleaños.",
+          "price": 5000,
+          "slogan": "Diversión y fantasía para los más pequeños"
+        },
+        {
+          "fullName": "Papel Kraft Natural",
+          "description": "Rollo de papel kraft natural, 15m, versátil y ecológico para cualquier tipo de regalo.",
+          "price": 6000,
+          "slogan": "Elegancia natural para tus presentes"
+        },
+        {
+          "fullName": "Set de Papel de Regalo Vintage",
+          "description": "Set de 4 rollos de papel de regalo con diseños vintage, cada rollo de 3m.",
+          "price": 10000,
+          "slogan": "Añade un toque nostálgico a tus regalos"
+        },
+        {
+          "fullName": "Papel de Regalo Floral",
+          "description": "Rollo de papel de regalo con estampado floral, 10m, ideal para regalos primaverales y románticos.",
+          "price": 8000,
+          "slogan": "Flores que envuelven tus detalles"
+        }
+      ]
+    },
+    {
+      "SubCategory": "Moños y cintas",
+      "Products": [
+        {
+          "fullName": "Cinta Satín Roja",
+          "description": "Rollo de cinta de satín rojo, 20m, perfecta para decoraciones y regalos festivos.",
+          "price": 9000,
+          "slogan": "Agrega un toque de elegancia y festividad"
+        },
+        {
+          "fullName": "Moño Pre-hecho Dorado",
+          "description": "Moño pre-hecho dorado, fácil de aplicar, ideal para regalos rápidos y elegantes.",
+          "price": 6000,
+          "slogan": "Brillo instantáneo para tus regalos"
+        },
+        {
+          "fullName": "Cinta Adhesiva Decorativa",
+          "description": "Set de 5 cintas adhesivas decorativas, diversos patrones, cada rollo de 10m.",
+          "price": 7000,
+          "slogan": "Decora con estilo y creatividad"
+        },
+        {
+          "fullName": "Pack de Moños Variados",
+          "description": "Pack de 10 moños variados en colores y tamaños, autoadhesivos, perfectos para cualquier ocasión.",
+          "price": 8000,
+          "slogan": "Versatilidad y color en cada regalo"
+        },
+        {
+          "fullName": "Cinta de Organza Transparente",
+          "description": "Rollo de cinta de organza transparente, 15m, suave y delicada, perfecta para decoración delicada.",
+          "price": 10000,
+          "slogan": "Suavidad y transparencia para decorar"
+        }
+      ]
+    },
+    {
+      "SubCategory": "Agendas y planners",
+      "Products": [
+        {
+          "fullName": "Agenda Ejecutiva de Cuero",
+          "description": "Agenda ejecutiva de cuero, diseño sofisticado, incluye calendario y notas, A5.",
+          "price": 25000,
+          "slogan": "Organiza tu día con estilo y eficiencia"
+        },
+        {
+          "fullName": "Planner Semanal Magnético",
+          "description": "Planner semanal magnético para nevera, ideal para familias ocupadas, incluye marcador borrable.",
+          "price": 15000,
+          "slogan": "Mantén a toda la familia organizada"
+        },
+        {
+          "fullName": "Agenda Personalizada",
+          "description": "Agenda personalizable con tu nombre, diseño elegante, papel de calidad, perfecta como regalo.",
+          "price": 22000,
+          "slogan": "Haz que cada día cuente con un toque personal"
+        },
+        {
+          "fullName": "Planner de Productividad",
+          "description": "Planner diseñado para maximizar la productividad, incluye guías y tips de organización.",
+          "price": 20000,
+          "slogan": "Planea tu éxito día a día"
+        },
+        {
+          "fullName": "Agenda de Viaje",
+          "description": "Agenda especial para viajeros, incluye mapas y listas de verificación, compacta y resistente.",
+          "price": 18000,
+          "slogan": "Explora el mundo bien organizado"
+        }
+      ]
+    },
+    {
+      "SubCategory": "Bolígrafos de lujo",
+      "Products": [
+        {
+          "fullName": "Bolígrafo de Oro 18K",
+          "description": "Bolígrafo con acabado en oro de 18K, mecanismo suave, presentación en estuche de lujo.",
+          "price": 45000,
+          "slogan": "Escribe con la elegancia del oro"
+        },
+        {
+          "fullName": "Set de Bolígrafos Ejecutivos",
+          "description": "Set de 3 bolígrafos ejecutivos, diseño elegante y moderno, tinta de alta calidad.",
+          "price": 35000,
+          "slogan": "Distinción y funcionalidad en cada firma"
+        },
+        {
+          "fullName": "Bolígrafo con Estuche de Cuero",
+          "description": "Bolígrafo fino con estuche de cuero, ideal para regalos corporativos o personales.",
+          "price": 30000,
+          "slogan": "Estilo y protección para tu escritura"
+        },
+        {
+          "fullName": "Bolígrafo Táctil con USB",
+          "description": "Bolígrafo de lujo con punta táctil y memoria USB integrada, multifuncional.",
+          "price": 40000,
+          "slogan": "Tecnología y elegancia en tus manos"
+        },
+        {
+          "fullName": "Bolígrafo de Plata Esterlina",
+          "description": "Bolígrafo fabricado en plata esterlina, diseño clásico, grabado personalizable.",
+          "price": 50000,
+          "slogan": "Tradición y prestigio en tu escritorio"
+        }
+      ]
+    }
+  ],
+  "Productos de Empaque": [
+    {
+      "SubCategory": "Sobres de diferentes tamaños",
+      "Products": [
+        {
+          "fullName": "Sobres de Manila",
+          "description": "Paquete de 50 sobres de manila, tamaño carta, ideales para documentos importantes.",
+          "price": 12000,
+          "slogan": "Confidencialidad y protección para tus envíos"
+        },
+        {
+          "fullName": "Sobres Acolchados",
+          "description": "Sobres acolchados con burbujas, tamaño A4, paquete de 20, perfectos para objetos frágiles.",
+          "price": 15000,
+          "slogan": "Seguridad y suavidad para tus artículos delicados"
+        },
+        {
+          "fullName": "Sobres de Ventana Transparente",
+          "description": "Paquete de 100 sobres con ventana transparente, tamaño comercial, facilita la visualización de la dirección.",
+          "price": 10000,
+          "slogan": "Eficiencia y claridad en cada envío"
+        },
+        {
+          "fullName": "Sobres de Colores Variados",
+          "description": "Sobres en colores variados, paquete de 50, tamaño invitación, ideal para eventos y celebraciones.",
+          "price": 9000,
+          "slogan": "Añade un toque de color a tus mensajes"
+        }
+      ]
+    },
+    {
+      "SubCategory": "Cajas",
+      "Products": [
+        {
+          "fullName": "Cajas de Cartón para Envío",
+          "description": "Cajas de cartón corrugado, resistentes, varios tamaños disponibles, ideales para envíos de e-commerce.",
+          "price": 20000,
+          "slogan": "Protege tus productos en cada envío"
+        },
+        {
+          "fullName": "Cajas Organizadoras de Plástico",
+          "description": "Cajas organizadoras de plástico transparente, apilables, para almacenamiento doméstico o de oficina.",
+          "price": 18000,
+          "slogan": "Ordena y visualiza tus pertenencias con facilidad"
+        },
+        {
+          "fullName": "Cajas Decorativas para Regalo",
+          "description": "Cajas decorativas con diseños elegantes, varios tamaños, perfectas para presentaciones de regalo.",
+          "price": 16000,
+          "slogan": "Presenta tus regalos con estilo y elegancia"
+        },
+        {
+          "fullName": "Cajas para Archivo Muerto",
+          "description": "Cajas robustas para archivo muerto, con etiquetas para identificación, capacidad para documentos tamaño carta y oficio.",
+          "price": 14000,
+          "slogan": "Archiva y protege tus documentos importantes"
+        }
+      ]
+    },
+    {
+      "SubCategory": "Cintas adhesivas",
+      "Products": [
+        {
+          "fullName": "Cinta Adhesiva Transparente",
+          "description": "Rollo de cinta adhesiva transparente, 48mm x 100m, ideal para uso general y oficina.",
+          "price": 7000,
+          "slogan": "Fuerza y claridad para tus necesidades de pegado"
+        },
+        {
+          "fullName": "Cinta de Embalaje Reforzada",
+          "description": "Cinta de embalaje reforzada con fibras, alta resistencia, 50mm x 50m, para cajas pesadas.",
+          "price": 9000,
+          "slogan": "Máxima seguridad para tus paquetes más pesados"
+        },
+        {
+          "fullName": "Cinta Doble Cara",
+          "description": "Rollo de cinta doble cara, 25mm x 20m, perfecta para montajes y trabajos de arte.",
+          "price": 8000,
+          "slogan": "Versatilidad y firmeza en doble medida"
+        },
+        {
+          "fullName": "Cinta de Masking para Pintura",
+          "description": "Cinta de masking de calidad profesional, 30mm x 50m, ideal para trabajos de pintura y decoración.",
+          "price": 6000,
+          "slogan": "Protección y precisión para líneas perfectas"
+        }
+      ]
+    },
+    {
+      "SubCategory": "Material de relleno",
+      "Products": [
+        {
+          "fullName": "Espuma de Polietileno en Rollo",
+          "description": "Rollo de espuma de polietileno, 1m x 50m, ligera y flexible, protege contra golpes y rayaduras.",
+          "price": 25000,
+          "slogan": "Suavidad y protección para tus envíos"
+        },
+        {
+          "fullName": "Peanuts de Embalaje Biodegradables",
+          "description": "Peanuts de embalaje biodegradables, bolsa de 500g, amortigua y protege durante el transporte.",
+          "price": 12000,
+          "slogan": "Protección ecológica para tus paquetes"
+        },
+        {
+          "fullName": "Papel de Relleno Kraft",
+          "description": "Papel de relleno kraft, rollo de 50cm x 100m, ideal para rellenar espacios en cajas y proteger productos.",
+          "price": 10000,
+          "slogan": "Relleno natural y resistente para envíos seguros"
+        },
+        {
+          "fullName": "Burbuja de Aire para Embalaje",
+          "description": "Rollo de burbuja de aire para embalaje, 0.5m x 100m, ofrece amortiguación y protección ligera.",
+          "price": 15000,
+          "slogan": "Cuida tus envíos con burbujas de seguridad"
+        }
+      ]
+    }
+  ],
+  "Libros y Revistas": [
+    {
+      "SubCategory": "Novedades",
+      "Products": [
+        {
+          "fullName": "Lámpara LED con Clip para Libros",
+          "description": "Lámpara LED portátil con clip para libros, recargable, ilumina tus lecturas sin cansar la vista.",
+          "price": 20000,
+          "slogan": "Ilumina cada página de tu aventura nocturna"
+        },
+        {
+          "fullName": "Marcadores de Libros Magnéticos",
+          "description": "Set de 5 marcadores magnéticos con diseños novedosos, se adhieren firmemente a la página.",
+          "price": 10000,
+          "slogan": "Nunca pierdas tu página con estilo"
+        },
+        {
+          "fullName": "Calendario de Mesa Interactivo",
+          "description": "Calendario de mesa 2024 con realidad aumentada, interactúa con tu smartphone para contenido extra.",
+          "price": 15000,
+          "slogan": "Planea tu año con un toque tecnológico"
+        },
+        {
+          "fullName": "Estación Meteorológica de Escritorio",
+          "description": "Estación meteorológica digital para escritorio, muestra tiempo, temperatura y humedad.",
+          "price": 25000,
+          "slogan": "Mantente al tanto del clima desde tu escritorio"
+        }
+      ]
+    },
+    {
+      "SubCategory": "Literatura general",
+      "Products": [
+        {
+          "fullName": "Colección de Clásicos de la Literatura",
+          "description": "Set de libros clásicos de la literatura mundial, encuadernación de lujo, incluye 10 títulos esenciales.",
+          "price": 45000,
+          "slogan": "Revive las obras maestras que dieron forma al mundo"
+        },
+        {
+          "fullName": "Novela Contemporánea Premiada",
+          "description": "Última ganadora del premio Booker, exploración profunda de temas modernos y universales.",
+          "price": 30000,
+          "slogan": "Sumérgete en la historia que capturó el mundo"
+        },
+        {
+          "fullName": "Libro de Poesía Moderna",
+          "description": "Colección de poesía moderna por poetas emergentes y establecidos, tapa blanda, 300 páginas.",
+          "price": 20000,
+          "slogan": "Descubre la voz de una nueva generación de poetas"
+        },
+        {
+          "fullName": "Antología de Cuentos Cortos",
+          "description": "Antología internacional de cuentos cortos, diversos géneros y autores, ideal para lectura ligera.",
+          "price": 25000,
+          "slogan": "Viaja a través de múltiples mundos en pocas páginas"
+        }
+      ]
+    },
+    {
+      "SubCategory": "Material educativo",
+      "Products": [
+        {
+          "fullName": "Kit de Ciencias para Niños",
+          "description": "Kit de ciencias educativo para niños, incluye microscopio, lentes y muestras para experimentar.",
+          "price": 35000,
+          "slogan": "Explora el fascinante mundo de la ciencia"
+        },
+        {
+          "fullName": "Mapa Mundial Interactivo",
+          "description": "Mapa mundial interactivo con puntos táctiles, aprende geografía jugando, incluye detalles de cada país.",
+          "price": 30000,
+          "slogan": "Viaja por el mundo sin salir de tu habitación"
+        },
+        {
+          "fullName": "Conjunto de Matemáticas Manipulativas",
+          "description": "Set de matemáticas con piezas manipulativas para aprender conceptos básicos de forma divertida.",
+          "price": 25000,
+          "slogan": "Aprende matemáticas con manos en la masa"
+        },
+        {
+          "fullName": "Atlas Histórico Ilustrado",
+          "description": "Atlas histórico con ilustraciones detalladas, cubre eventos mundiales desde la prehistoria hasta la actualidad.",
+          "price": 40000,
+          "slogan": "Visualiza la historia como nunca antes"
+        }
+      ]
+    },
+    {
+      "SubCategory": "Revistas especializadas",
+      "Products": [
+        {
+          "fullName": "Suscripción Anual a Revista de Tecnología",
+          "description": "Suscripción anual a la revista líder en tecnología, cobertura de los últimos avances e innovaciones.",
+          "price": 50000,
+          "slogan": "Mantente al día con el futuro tecnológico"
+        },
+        {
+          "fullName": "Revista de Fotografía Profesional",
+          "description": "Revista mensual de fotografía, consejos de profesionales, reseñas de equipo, y galerías impresionantes.",
+          "price": 45000,
+          "slogan": "Inspírate con cada disparo de cámara"
+        },
+        {
+          "fullName": "Edición Especial de Revista de Arquitectura",
+          "description": "Edición especial sobre arquitectura sostenible, proyectos innovadores y entrevistas con arquitectos renombrados.",
+          "price": 55000,
+          "slogan": "Explora las construcciones que están cambiando el mundo"
+        },
+        {
+          "fullName": "Revista de Salud y Bienestar",
+          "description": "Revista bimensual sobre salud y bienestar, con enfoque en nutrición, ejercicio y salud mental.",
+          "price": 40000,
+          "slogan": "Cuida de tu cuerpo y mente con consejos expertos"
+        }
+      ]
+    }
+  ]
+}

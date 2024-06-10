@@ -6,6 +6,9 @@ import { ModelName as SubCategory } from "./subcategory";
 export const ModelName = toModelName(__filename);
 
 export function define(seq: Sequelize) {
+  const category = seq.models[Category];
+  const subcategory = seq.models[SubCategory];
+
   const product = seq.define<IModel<IProduct>>(
     ModelName,
     {
@@ -15,15 +18,18 @@ export function define(seq: Sequelize) {
         primaryKey: true,
       },
       fullName: {
-        type: DataTypes.STRING(50),
+        type: DataTypes.STRING(80),
         allowNull: false,
+      },
+      slogan: {
+        type: DataTypes.STRING(80),
+        allowNull: false,
+      },
+      description: {
+        type: DataTypes.STRING(500),
       },
       isEnabled: {
         type: DataTypes.BOOLEAN,
-        allowNull: false,
-      },
-      images: {
-        type: DataTypes.JSONB,
         allowNull: false,
       },
       rating: {
@@ -34,24 +40,31 @@ export function define(seq: Sequelize) {
         type: DataTypes.DECIMAL(10, 2), // 10 dígitos en total, 2 de ellos después del punto decimal
         allowNull: false,
       },
+      categoryId: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: category, // Esto es el nombre de la tabla 'Categories'
+          key: "id",
+        },
+        onDelete: "RESTRICT",
+      },
+      subcategoryId: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: subcategory, // Esto es el nombre de la tabla 'SubCategories'
+          key: "id",
+        },
+        onDelete: "RESTRICT",
+      },
+      images: {
+        type: DataTypes.JSONB,
+        allowNull: false,
+      },
     },
     {
       //paranoid: true
     }
   );
-
-  const category = seq.models[Category];
-  const subcategory = seq.models[SubCategory];
-
-  category.hasOne(product, {
-    foreignKey: "categoryId",
-    onDelete: 'RESTRICT',
-  });
-
-  subcategory.hasOne(product, {
-    foreignKey: "subcategoryId",
-    onDelete: 'RESTRICT',
-  });
 
   product.belongsTo(category, { foreignKey: "categoryId" });
   product.belongsTo(subcategory, { foreignKey: "subcategoryId" });
@@ -66,9 +79,14 @@ export type IModelStatic = ReturnType<typeof define>;
 
 export interface IProduct extends IRecord {
   fullName: string;
+  description: string;
+  slogan: string;
   isEnabled: boolean;
 
   images: string[];
   rating: number;
   price: number;
+
+  categoryId: number;
+  subcategoryId: number;
 }

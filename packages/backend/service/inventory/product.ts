@@ -1,6 +1,7 @@
 import db from "../../models";
 import { IProduct } from "../../models/inventory/product";
 import Storage from "../../lib/storage";
+import { randomRating } from "../../lib/demo/initInventory";
 
 export async function createProduct({ images, id, ...dto }: NewProduct) {
   const folder = id ? id.toString() : "0/" + Date.now().toString();
@@ -15,13 +16,16 @@ export async function createProduct({ images, id, ...dto }: NewProduct) {
 
   const newProduct = {
     ...dto,
-    rating: randomRating(),
     isEnabled: true,
     images: await Promise.all(imagesTasks),
   };
 
   if (!id) {
-    return db.inventory.product.create(newProduct);
+    return db.inventory.product.create({
+      ...newProduct,
+      rating: randomRating(),
+      slogan: "Producto sin slogan",
+    });
   }
 
   const current = await db.inventory.product.findOne({ where: { id } });
@@ -40,10 +44,6 @@ export async function getCategories() {
   });
 
   return categories as Category[];
-}
-
-function randomRating() {
-  return Math.floor(Math.random() * 6);
 }
 
 export async function getAllProducts() {

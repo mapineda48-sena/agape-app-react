@@ -1,25 +1,57 @@
-import category from "./category.json";
+import fs from "fs-extra";
+import path from "path";
+import products from "./data/products.json";
 import Database from "../../models";
 
 export default async function populateData() {
+  const getImages = await tryGetDemoImages();
   return Promise.all(
-    Object.entries(category).map(async ([category, subcategories]) => {
-      const record = await Database.inventory.category.create({
+    Object.entries(products).map(async ([category, subcategories]) => {
+      const category$ = await Database.inventory.category.create({
         fullName: category,
         isEnabled: true,
       });
 
-      const categoryId = record.getDataValue("id");
-
       for (let index = 0; index < subcategories.length; index++) {
-        const subcategory = subcategories[index];
+        const subcategory = subcategories[index].SubCategory;
 
-        await Database.inventory.subcategory.create({
+        const subcategory$ = await Database.inventory.subcategory.create({
           fullName: subcategory,
           isEnabled: true,
-          categoryId,
+          categoryId: category$.getDataValue("id"),
         });
+
+        await Promise.all(
+          subcategories[index].Products.map((product) =>
+            Database.inventory.product.create({
+              fullName: product.fullName,
+              slogan: product.slogan,
+              description: product.description,
+              isEnabled: true,
+              images: getImages(category, subcategory, product.fullName),
+              price: product.price,
+              rating: randomRating(),
+
+              categoryId: category$.getDataValue("id"),
+              subcategoryId: subcategory$.getDataValue("id"),
+            })
+          )
+        );
       }
     })
   );
+}
+
+export function randomRating() {
+  return Math.floor(Math.random() * 6);
+}
+
+export async function tryGetDemoImages() {
+  try {
+    const storage = await fs.readJSON(path.resolve(".data/storage.json"));
+    return (category: string, subcategory: string, product: string) =>
+      storage[category][subcategory][product];
+  } catch (e) {
+    return () => [];
+  }
 }
