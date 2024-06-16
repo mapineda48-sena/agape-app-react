@@ -6,21 +6,21 @@ import reportWebVitals from "util/reportWebVitals";
 import "./assets/styles/index.css";
 import { root, tryGetProps } from "root";
 
-(async () => {
-  const App = await bootApp(history, tryGetProps());
+bootApp(history, tryGetProps())
+  .then((App) => {
+    render(<App />);
+    reportWebVitals();
+  })
+  .catch((error) => {
+    console.error(error);
+    root.remove();
+    document.body.append("Something Wrong...");
+  });
 
+function render(App: JSX.Element) {
   if (process.env.NODE_ENV === "development") {
-    ReactDOM.createRoot(root).render(<App />);
+    ReactDOM.createRoot(root).render(App);
   } else {
-    hydrateRoot(root, <App />);
+    hydrateRoot(root, App);
   }
-
-  reportWebVitals();
-})().catch((error) => {
-  /**
-   * Error Boot React App
-   */
-  console.error(error);
-  root.remove();
-  document.body.append("Something Wrong...");
-});
+}

@@ -31,7 +31,7 @@ const minioClient = new Client({
           res[c][s][p] = [];
           return files.map(async (file) => {
             const web = await toFileWeb(file);
-            res[c][s][p].push(await uploadFile(web, `${c}/${s}/${p}`));
+            res[c][s][p].push(await uploadFileS3(web, `${c}/${s}/${p}`));
           });
         });
       });
@@ -45,9 +45,8 @@ const minioClient = new Client({
   await fs.outputJSON(path.resolve(".data/storage.json"), res);
 })().catch(console.error);
 
-let foo;
 
-async function uploadFile(file, dirname = "") {
+async function uploadFileS3(file, dirname = "") {
   const arrayBuffer = await file.arrayBuffer();
   const buffer = Buffer.from(arrayBuffer);
   const objectName = publicPath + dirname + file.name;
@@ -59,11 +58,6 @@ async function uploadFile(file, dirname = "") {
   const url = new URL(
     await minioClient.presignedGetObject(bucket, objectName, expiry)
   );
-
-  //   if (!foo) {
-  //     console.log(url);
-  //     foo = true;
-  //   }
 
   return url.origin + url.pathname;
 }

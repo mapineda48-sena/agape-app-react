@@ -7,12 +7,12 @@ export default function Footer() {
         <div className="row">
           <div className="col-md-4 pt-5">
             <h2 className="h2 text-success border-bottom pb-3 border-light logo">
-              Zay Shop
+              Agape
             </h2>
             <ul className="list-unstyled text-light footer-link-list">
               <li>
                 <i className="fas fa-map-marker-alt fa-fw" />
-                123 Consectetur at ligula 10660
+                Av 5c # 4 - 06 San Nicolas
               </li>
               <li>
                 <i className="fa fa-phone fa-fw" />
@@ -26,7 +26,7 @@ export default function Footer() {
                   className="text-decoration-none"
                   href="mailto:info@company.com"
                 >
-                  info@company.com
+                  info@agape.com
                 </a>
               </li>
               <li>
@@ -42,7 +42,7 @@ export default function Footer() {
           </div>
           <div className="col-md-4 pt-5">
             <h2 className="h2 text-light border-bottom pb-3 border-light">
-              Products
+              Productos
             </h2>
             <ul className="list-unstyled text-light footer-link-list">
               <li>
@@ -84,32 +84,22 @@ export default function Footer() {
           </div>
           <div className="col-md-4 pt-5">
             <h2 className="h2 text-light border-bottom pb-3 border-light">
-              Further Info
+              Mas Información
             </h2>
             <ul className="list-unstyled text-light footer-link-list">
               <li>
                 <a className="text-decoration-none" href="#">
-                  Home
+                  Inicio
                 </a>
               </li>
               <li>
                 <a className="text-decoration-none" href="#">
-                  About Us
+                  ¿Quienes Somos?
                 </a>
               </li>
               <li>
                 <a className="text-decoration-none" href="#">
-                  Shop Locations
-                </a>
-              </li>
-              <li>
-                <a className="text-decoration-none" href="#">
-                  FAQs
-                </a>
-              </li>
-              <li>
-                <a className="text-decoration-none" href="#">
-                  Contact
+                  Contacto
                 </a>
               </li>
             </ul>
@@ -175,7 +165,7 @@ export default function Footer() {
                 placeholder="Email address"
               />
               <div className="input-group-text btn-success text-light">
-                Subscribe
+                Subscribete
               </div>
             </div>
           </div>
@@ -186,7 +176,7 @@ export default function Footer() {
           <div className="row pt-2">
             <div className="col-12">
               <p className="text-left text-light">
-                Copyright © 2021 Company Name | Designed by{" "}
+                Copyright © 2024 Agape | Designed by{" "}
                 <a
                   href="https://templatemo.com"
                   target="_blank"
