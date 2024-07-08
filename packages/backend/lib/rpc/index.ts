@@ -1,14 +1,13 @@
 import { glob } from "glob";
 import _ from "lodash";
-import onRpc, { Middlewares } from "./call";
-import { onErrorMiddleware } from "./call/error";
+import rpc, { onErrorMiddleware } from "./call";
 import auth from "./auth/server";
 import path from "path";
 
 const extname = path.extname(__filename);
 
 export default async function connectService(secret: string) {
-  const { router, authenticate} = auth(secret);
+  const { router, authenticate } = auth(secret);
 
   const paths = await glob("service/**/*" + extname);
 
@@ -25,16 +24,16 @@ export default async function connectService(secret: string) {
 
     const serviceModule = toServiceEndpoint(file);
 
-    const middlewareModule: Middlewares = [];
-
-    if (!serviceModule.startsWith("/service/public")) {
-      middlewareModule.push(authenticate);
-    }
+    const isPublic = serviceModule.startsWith("/service/public");
 
     exports.forEach(([exportName, fn]) => {
       const endpoint = path.posix.join(serviceModule, exportName);
 
-      router.post(endpoint, ...middlewareModule, onRpc(fn));
+      if (!isPublic) {
+        router.post(endpoint, authenticate);
+      }
+
+      router.post(endpoint, rpc(fn));
     });
   });
 
@@ -47,10 +46,6 @@ export default async function connectService(secret: string) {
 
 export function toServiceEndpoint(file: string) {
   return path.posix.join("/", file.replace(extname, ""));
-}
-
-function toServiceWebpack(file: string) {
-  return file.replace(/^service/, ".").replace(extname, ".js");
 }
 
 async function import$(filename: string) {

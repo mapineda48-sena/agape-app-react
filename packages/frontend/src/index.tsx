@@ -1,6 +1,6 @@
 import ReactDOM, { hydrateRoot } from "react-dom/client";
 import history from "history/browser";
-import bootApp from "App";
+import bootApp from "app";
 import reportWebVitals from "util/reportWebVitals";
 
 import "./assets/styles/index.css";

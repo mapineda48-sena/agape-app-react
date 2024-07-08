@@ -48,7 +48,10 @@ export async function getCategories() {
 
 export async function getAllProducts() {
   return {
-    products: await db.inventory.product.findAll({ raw: true }),
+    products: await db.inventory.product.findAll({
+      raw: true,
+      order: [["updatedAt", "DESC"]],
+    }),
   };
 }
 

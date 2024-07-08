@@ -6,10 +6,10 @@ import express, {
 } from "express";
 import parseFormData from "../form/server";
 import Jwt from "../../jwt";
+import webSession, { initSession } from "../../session";
+import { Unauthorized } from "../call/error/app";
 
 const AuthTokenCookie = "auth_token";
-
-const UserAgape = "__user_agape__";
 
 export const pattern = {
   login: "/service/auth/login",
@@ -30,14 +30,13 @@ export default function defineAuth(secret: string) {
   };
 
   router.post(pattern.login, async (req, res) => {
-    const [{ username, password }] = (await parseFormData(req)) as [{ username: string, password: string }];
+    const [{ username, password }] = (await parseFormData(req)) as Access;
 
     const isAdmin = username === "admin";
     const isPassword = password === "admin";
 
     if (!isAdmin || !isPassword) {
-      res.status(401).send("Acceso denegado");
-      return;
+      throw new Unauthorized("Acceso denegado");
     }
 
     // Aquí deberías validar las credenciales del usuario
@@ -46,7 +45,7 @@ export default function defineAuth(secret: string) {
     const token = await jwt.generateToken({ id: user.id });
 
     res.cookie(AuthTokenCookie, token, cookieOptions); // Establecer la cookie
-    res.status(200).json(success({ message: "Login exitoso" }));
+    res.status(200).json(success(user));
   });
 
   router.post(pattern.isAuthenticated, async (req, res) => {
@@ -67,11 +66,11 @@ export default function defineAuth(secret: string) {
 
       res.cookie(AuthTokenCookie, token, cookieOptions); // Establecer la cookie
 
-      res.json(success(true));
+      res.json(success(payload));
     } catch (error) {
       res.clearCookie(AuthTokenCookie);
 
-      res.status(401).json(false);
+      res.status(401).json(null);
     }
   });
 
@@ -93,31 +92,15 @@ export default function defineAuth(secret: string) {
     }
 
     try {
-      const verified = await jwt.verifyToken(token);
-      setUserRequest(req, verified);
-
-      next();
+      const verified: any = await jwt.verifyToken(token);
+      initSession(verified, next);
+      
     } catch (error) {
       res.status(401).send("Acceso denegado");
     }
   };
 
   return { router, authenticate };
-}
-
-function setUserRequest(req: Request, payload: unknown) {
-  Object.defineProperty(req, UserAgape, {
-    value: payload,
-    writable: false,
-    configurable: false,
-    enumerable: false,
-  });
-}
-
-export function getUserRequest(req: Request) {
-  if (UserAgape in req) {
-    return req[UserAgape];
-  }
 }
 
 export function getCookie(header?: string) {
@@ -130,7 +113,13 @@ export function getCookie(header?: string) {
   return token;
 }
 
-
 function success(payload: unknown) {
-  return [payload, []]
+  return [payload, []];
 }
+
+export const user = webSession;
+
+/**
+ * Types
+ */
+type Access = [{ username: string; password: string }];

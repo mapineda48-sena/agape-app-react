@@ -68,10 +68,11 @@ export async function wait(time: number) {
 
 export function toModelName(str: string) {
   return str
-    .replace(root, "")
-    .replace(/^[/\\]/, "")
-    .replace(/[/\\]/, delimiter)
-    .replace(ext, "");
+    .replace(root, "")            // Elimina la raíz del path, si está presente.
+    .replace(/^[/\\]/, "")        // Elimina cualquier slash al inicio del string.
+    .replace(/[/\\]/g, delimiter) // Reemplaza todos los slashes con el delimitador.
+    .replace(ext, "")           // Elimina la extensión del archivo, si está presente.
+    .replace(/_index$/, "");      // Elimina 'index' al final del string.
 }
 
 export function toPathModel(modelName: string) {

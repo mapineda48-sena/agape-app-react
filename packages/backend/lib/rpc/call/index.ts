@@ -5,6 +5,8 @@ import parseFormData from "../form/server";
 import { extractInstances } from "../form/server";
 import { Model } from "sequelize";
 
+export { onErrorMiddleware } from "./error/server";
+
 export default function factoryMiddleware(cb: (...args: unknown[]) => unknown) {
   return async (req: Request, res: Response, next: NextFunction) => {
     if (!isRpcApiKey(req)) return next();
@@ -34,9 +36,3 @@ export default function factoryMiddleware(cb: (...args: unknown[]) => unknown) {
 export function isRpcApiKey(req: Request) {
   return req.headers[ApiKeyHeader] === ApiKey;
 }
-
-export type Middlewares = ((
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => void)[];

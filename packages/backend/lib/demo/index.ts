@@ -1,6 +1,7 @@
 import db from "../../models";
 import debug from "../debug";
 import populateInventory from "./initInventory";
+import populateCustomers from "./customers";
 
 export async function populateSchema() {
   if (!db.isSync) {
@@ -8,6 +9,7 @@ export async function populateSchema() {
     return;
   }
 
-  debug.info("populate schema demo ")
+  debug.info("populate schema demo ");
   await populateInventory();
+  await populateCustomers();
 }

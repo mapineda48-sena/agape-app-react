@@ -2,6 +2,7 @@ import { QueryTypes, Sequelize, Transaction } from "sequelize";
 import cls from "cls-hooked";
 import _ from "lodash";
 import * as inventory from "./inventory";
+import * as customer from "./customer";
 import { waitAuthenticate, defineGet, toPathModel, sync } from "../lib/models";
 import debug from "../lib/debug";
 
@@ -9,6 +10,7 @@ import debug from "../lib/debug";
  * Singleton Database
  */
 export interface Database {
+  readonly customer: customer.IModelStatic;
   readonly inventory: inventory.IModelStatic;
   readonly sequelize: Sequelize;
 
@@ -35,6 +37,7 @@ export async function init(uri: string, resetSchema = false) {
   Sequelize.useCLS(namespace);
 
   //
+  customer.define(sequelize);
   inventory.define(sequelize);
 
   await waitAuthenticate(sequelize);

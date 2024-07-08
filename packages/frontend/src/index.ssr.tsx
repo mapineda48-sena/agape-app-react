@@ -3,7 +3,7 @@ import path from "path";
 import fs from "fs";
 import os from "os";
 import { renderToString } from "react-dom/server";
-import { Server, routes as pages } from "./App/Page";
+import { Server, routes as pages } from "./app";
 import { Fragment } from "react/jsx-runtime";
 
 const tmpdir = os.tmpdir();

@@ -1,0 +1,143 @@
+[
+  {
+    "fullName": "Ana Torres",
+    "email": "ana.torres@example.com",
+    "phone": "312-555-0173",
+    "address": "1234 Maple Ave, Citytown, CA 90123",
+    "isEnabled": true
+  },
+  {
+    "fullName": "Carlos Gómez",
+    "email": "carlos.gomez@example.com",
+    "phone": "312-555-0825",
+    "address": "9876 Oak St, Towncity, FL 32401",
+    "isEnabled": true
+  },
+  {
+    "fullName": "Elena Ruiz",
+    "email": "elena.ruiz@example.com",
+    "phone": "312-555-0731",
+    "address": "4567 Pine Rd, Villagetown, NY 13021",
+    "isEnabled": false
+  },
+  {
+    "fullName": "Marco Antonio Solís",
+    "email": "marco.solis@example.com",
+    "phone": "312-555-0664",
+    "address": "7890 Spruce Dr, Cityplace, TX 75001",
+    "isEnabled": true
+  },
+  {
+    "fullName": "Sofía Castro",
+    "email": "sofia.castro@example.com",
+    "phone": "312-555-0999",
+    "address": "1230 Elm Lane, Smalltown, WA 98101",
+    "isEnabled": true
+  },
+  {
+    "fullName": "Julia Ramos",
+    "email": "julia.ramos@example.com",
+    "phone": "312-555-0234",
+    "address": "2356 Cedar Ave, New City, IL 60007",
+    "isEnabled": true
+  },
+  {
+    "fullName": "David Miller",
+    "email": "david.miller@example.com",
+    "phone": "312-555-0456",
+    "address": "8765 Birch Blvd, Old Town, AZ 85001",
+    "isEnabled": false
+  },
+  {
+    "fullName": "Luisa Fernanda W",
+    "email": "luisa.fernanda@example.com",
+    "phone": "312-555-0789",
+    "address": "5678 Maple Court, Lakeside, VA 22031",
+    "isEnabled": true
+  },
+  {
+    "fullName": "José Ortega",
+    "email": "jose.ortega@example.com",
+    "phone": "312-555-0987",
+    "address": "4321 Pine Street, Rivertown, MN 55001",
+    "isEnabled": true
+  },
+  {
+    "fullName": "Monica Belluci",
+    "email": "monica.belluci@example.com",
+    "phone": "312-555-0111",
+    "address": "1923 Oak Road, Coastcity, OR 97035",
+    "isEnabled": true
+  },
+
+  {
+    "fullName": "Andrea Juarez",
+    "email": "andrea.juarez@example.com",
+    "phone": "312-555-1234",
+    "address": "6582 Willow Lane, Brighttown, MI 48009",
+    "isEnabled": true
+  },
+  {
+    "fullName": "Manuel Herrera",
+    "email": "manuel.herrera@example.com",
+    "phone": "312-555-5678",
+    "address": "3344 Cedar Path, Stonetown, GA 30297",
+    "isEnabled": false
+  },
+  {
+    "fullName": "Teresa Mendoza",
+    "email": "teresa.mendoza@example.com",
+    "phone": "312-555-9101",
+    "address": "7812 Elm Street, Sunnyville, SC 29910",
+    "isEnabled": true
+  },
+  {
+    "fullName": "Oscar Wilde",
+    "email": "oscar.wilde@example.com",
+    "phone": "312-555-1122",
+    "address": "9036 Maple Drive, Nightcity, CO 80014",
+    "isEnabled": true
+  },
+  {
+    "fullName": "Lucia Marín",
+    "email": "lucia.marin@example.com",
+    "phone": "312-555-1314",
+    "address": "5567 Spruce Way, Lakeview, NV 89815",
+    "isEnabled": true
+  },
+  {
+    "fullName": "Miguel Ángel",
+    "email": "miguel.angel@example.com",
+    "phone": "312-555-1516",
+    "address": "3219 Birch Road, Cliffside, MD 20630",
+    "isEnabled": true
+  },
+  {
+    "fullName": "Carolina Soto",
+    "email": "carolina.soto@example.com",
+    "phone": "312-555-1718",
+    "address": "8701 Pine Valley, Riverbend, LA 70129",
+    "isEnabled": false
+  },
+  {
+    "fullName": "Pablo Escobar",
+    "email": "pablo.escobar@example.com",
+    "phone": "312-555-1920",
+    "address": "6458 Oak Lane, Mountainview, UT 84047",
+    "isEnabled": true
+  },
+  {
+    "fullName": "Amelia Earhart",
+    "email": "amelia.earhart@example.com",
+    "phone": "312-555-2122",
+    "address": "4327 Cedar Street, Coastline, ME 04017",
+    "isEnabled": true
+  },
+  {
+    "fullName": "Ricardo Milos",
+    "email": "ricardo.milos@example.com",
+    "phone": "312-555-2324",
+    "address": "3892 Birch Blvd, Highridge, KS 66213",
+    "isEnabled": true
+  }
+]

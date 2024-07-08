@@ -1,14 +1,14 @@
 import { useInput } from "..";
 
 export default function InputText(props: Props) {
-  const { name, password, ...core } = props;
+  const { name, password, email, ...core } = props;
 
   const [state, setState] = useInput(name, "");
 
   return (
     <input
       {...core}
-      type={password ? "password" : "text"}
+      type={password ? "password" : email ? "email" : "text"}
       value={state}
       onChange={({ currentTarget }) => setState(currentTarget.value)}
     />
@@ -17,7 +17,8 @@ export default function InputText(props: Props) {
 
 interface Props extends Core {
   name: string;
-  password?: boolean
+  password?: boolean;
+  email?: boolean;
 }
 
 type Core = Omit<

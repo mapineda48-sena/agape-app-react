@@ -15,16 +15,17 @@ fs.outputJSONSync(
     dependencies: {
       ...frontend,
       ...backend,
-      ["module-alias"]: "2.2.3"
+      ["module-alias"]: "2.2.3",
+      // https://www.npmjs.com/package/source-map-support
     },
-    "_moduleAliases": {
-      "backend": ".", // Application's root
-    }
+    _moduleAliases: {
+      backend: ".", // Application's root
+    },
   },
   { spaces: 2 }
 );
 
-fs.outputFileSync("dist/service/auth.js", "");
+fs.outputFileSync("dist/service/auth.js", 'module.exports = require("../lib/rpc/auth/server");');
 
 fs.copySync("../frontend/dist", "dist/lib/spa", { overwrite: true });
 
